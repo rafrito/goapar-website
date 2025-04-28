@@ -18,7 +18,7 @@ export function Homepage() {
             <ColorModeButton />
             <Avatar.Root>
                 <Avatar.Fallback name="Segun Adebayo" />
-                <Avatar.Image src="https://bit.ly/sage-adebayo" />
+                <Avatar.Image src="https://conteudo.imguol.com.br/c/esporte/c8/2025/04/27/neymar-compareceu-a-vila-belmiro-para-acompanhar-santos-x-bragantino-jogo-do-brasileirao-1745801642717_v2_300x300.jpg.webp" />
             </Avatar.Root>
             <Stack gap="4">
                 <Text fontWeight="medium">Expanded: {value.join(", ")}</Text>
