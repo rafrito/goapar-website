@@ -4,16 +4,11 @@ import { createSystem, defaultConfig, defineConfig } from "@chakra-ui/react"
 
 
 const config = defineConfig({
-    globalCss: {
-        "html, body": {
-            margin: '0',
-            padding: '0',
-            bgColor:'white'
-        },
-    },
+    
     theme: {
         tokens: {
             colors: {
+                fullBlack:{value:"#000000"},
                 black: { value: "#1A202C" }, // Preto padrão Chakra (quase preto)
                 white: { value: "#FFFFFF" },
                 brand: { // Sua cor de destaque
@@ -40,7 +35,16 @@ const config = defineConfig({
                 bodyBg: {
                     // Valor literal 'white' para base
                     // String de referência '{colors.path.to.token}' para _dark
-                    value: { base: "white", _dark: "{colors.gray.800}" }
+                    value: { base: "white", _dark: "black" }
+                },
+                preHeaderBg:{
+                    value: { base: "black", _dark: "white" }
+                },
+                invertedColor:{
+                    value: { base: "white", _dark: "black" }
+                },
+                spinnerColor:{
+                    value: { base: "black", _dark: "white" }
                 },
                 // Cor principal do texto no corpo
                 textPrimary: {
@@ -53,7 +57,7 @@ const config = defineConfig({
                 // Cor de fundo do cabeçalho (Exemplo)
                 headerBg: {
                     // Pode usar um literal ou referenciar outro token
-                    value: { base: "white", _dark: "{colors.gray.800}" }
+                    value: { base: "white", _dark: "black" }
                 },
                 // Cor do texto no cabeçalho (Exemplo)
                 headerText: {
@@ -72,10 +76,48 @@ const config = defineConfig({
                 // Cor de fundo para elementos como cards
                 cardBg: {
                     value: { base: "{colors.gray.50}", _dark: "{colors.gray.700}" }
+                },
+                buttonBg: {
+                    value: { base: "white", _dark: "black" }
+                },
+                buttonDarkBg: {
+                    value: { base: "black", _dark: "white" }
+                },
+                buttonBgHover: {
+                    value: { base: "black", _dark: "light" }
+                },
+                buttonDarkBgHover: {
+                    value: { base: "light", _dark: "black" }
+                },
+                buttonColor: {
+                    value: { base: "black", _dark: "white" }
+                },
+                buttonDarkColor: {
+                    value: { base: "white", _dark: "black" }
+                },
+                buttonColorHover: {
+                    value: { base: "white", _dark: "black" }
+                },
+                buttonDarkColorHover: {
+                    value: { base: "black", _dark: "white" }
+                },
+                brandBg: {
+                    value: { base: "#F5F4F4", _dark: "#040404" }
+                },
+                borderColor:{
+                    value: { base: "#00000022", _dark: "#FFFFFF22" }
                 }
                 // ... adicione outros tokens semânticos ...
             }
-        }
+        },
+        
+    },
+    globalCss: {
+        "html, body": {
+            margin: '0',
+            padding: '0',
+            bgColor:'{colors.bodyBg}'
+        },
     },
 })
 

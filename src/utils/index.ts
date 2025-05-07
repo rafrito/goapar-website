@@ -36,7 +36,7 @@ const whatsappLink = (path?: string) => {
 
 const instagramLink = (path?: string) => {
 
-    return `${email}`
+    return `${instagram}`
 }
 
 const mailLink = (path?: string) => {
