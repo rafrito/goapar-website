@@ -17,7 +17,7 @@ export function CustomButton({ text = 'Shop Now', bgColor = 'buttonBg', color = 
     }
 
     return (
-        <Button {...restProps} size={'sm'} maxW={116} bgColor={bgColor} color={color} rounded={'l1'} _hover={{ bgColor: bgColorHover, color: colorHover, transition: '300ms' }}>
+        <Button {...restProps} bgColor={bgColor} color={color} rounded={restProps.rounded?? 'l1'} _hover={{ bgColor: bgColorHover, color: colorHover, transition: '300ms' }}>
             {text}
         </Button>
     )

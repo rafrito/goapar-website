@@ -2,6 +2,7 @@ import { Flex, Heading } from "@chakra-ui/react";
 import { ProductTypes } from "./Section/ProductTypes";
 import { CustomText } from "./ui/CustomText";
 import { MainProductsList } from "./Section/MainProductsList";
+import { HomepageProductsList } from "./Section/HomepageProductsList";
 
 
 export function Section() {
@@ -18,7 +19,7 @@ export function Section() {
                 <CustomText text={subTitle} fontWeight={'semibold'} fontSize={'md'}/>
             </Flex>
             <ProductTypes start={0} end={3} height={532} />
-            <MainProductsList start={0} end={5}/>
+            <HomepageProductsList start={0} end={5}/>
             <ProductTypes start={3} end={5} height={719}/>
         </Flex>
     )

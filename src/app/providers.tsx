@@ -4,6 +4,7 @@ import system from "@/theme"
 import { ChakraProvider, defaultSystem } from "@chakra-ui/react"
 import { ThemeProvider } from "next-themes"
 import { ColorModeProvider } from "./components/ui/color-mode"
+import { CartDrawerProvider } from "./components/ui/cart-drawer-provider"
 
 
 export default function RootLayout(props: { children: React.ReactNode }) {
@@ -11,7 +12,9 @@ export default function RootLayout(props: { children: React.ReactNode }) {
     <ChakraProvider value={system}>
       <ColorModeProvider>
         <ThemeProvider attribute="class" disableTransitionOnChange>
+          <CartDrawerProvider>
           {props.children}
+          </CartDrawerProvider>
         </ThemeProvider>
       </ColorModeProvider>
     </ChakraProvider>
