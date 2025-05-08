@@ -25,7 +25,6 @@ export function ProductTypes({start, end, height}:ProductTypesProps) {
             try {
                 const response = await axios.get('/api/get-productTypes')
                 const data: ProductType[] = await response.data;
-                console.log(data)
                 setProductTypes(data);
             } catch (error) {
                 console.error("Failed to fetch product types:", error);

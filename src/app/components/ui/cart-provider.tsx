@@ -1,6 +1,7 @@
 // src/contexts/CartContext.tsx
 'use client'; // Context providers com estado geralmente precisam ser Client Components
 
+import { addToCart, createCart, getCart, removeFromCart, updateCartQuantity } from '@/lib/shopify';
 import React, {
   createContext,
   useContext,
@@ -10,14 +11,14 @@ import React, {
   ReactNode,
 } from 'react';
 // Importe as funções que farão as chamadas à API Storefront
-import {
-  createCart,
-  getCart,
-  addToCart,
-  removeFromCart,
-  updateCartQuantity,
-  createCheckoutUrl, // Você criará estas funções em shopify.ts (próximo passo)
-} from '@/lib/shopify'; // Ajuste o caminho para onde você criará seu helper shopify
+// import {
+//   createCart,
+//   getCart,
+//   addToCart,
+//   removeFromCart,
+//   updateCartQuantity,
+//   createCheckoutUrl, // Você criará estas funções em shopify.ts (próximo passo)
+// } from '@app/lib/shopify'; // Ajuste o caminho para onde você criará seu helper shopify
 
 // --- Interfaces (Baseadas na Shopify Storefront API Cart) ---
 // Adapte estas interfaces conforme a resposta exata da sua API

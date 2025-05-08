@@ -19,8 +19,6 @@ export const metadata: Metadata = {
   description: "A maior loja tech do país",
 };
 
-
-
 export default function RootLayout({
   children,
 }: Readonly<{
