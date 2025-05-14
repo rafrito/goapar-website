@@ -3,32 +3,19 @@ import { SimpleGrid, Flex, SimpleGridProps, useDisclosure } from "@chakra-ui/rea
 import { CustomText } from "../ui/CustomText";
 import { useState } from "react";
 import { ProductDetailModal } from "./ProductDetailModal";
-
-// Define or import your Products type
-// interface ProductColor {
-//     hex: string;
-//     name: string;
-// }
-// interface Products {
-//     id: string | number;
-//     name: string;
-//     image: string;
-//     price: number | string;
-//     colors: ProductColor[];
-// }
-
+import { ShopifyProduct } from "@/types";
 interface ProductsListProps {
     start: number;
     end: number;
     columnsPerPage: SimpleGridProps["columns"];
-    products: Products[]; // Ensure Products type is defined/imported
+    products: ShopifyProduct[]; // Ensure ShopifyProduct type is defined/imported
 }
 
 export function ProductsList({ start, end, columnsPerPage, products }: ProductsListProps) {
     const { open, onOpen, onClose } = useDisclosure();
-    const [selectedProduct, setSelectedProduct] = useState<Products | null>(null);
+    const [selectedProduct, setSelectedProduct] = useState<ShopifyProduct | null>(null);
 
-    const handleProductClick = (product: Products) => {
+    const handleProductClick = (product: ShopifyProduct) => {
         setSelectedProduct(product);
         onOpen();
     };
@@ -46,7 +33,7 @@ export function ProductsList({ start, end, columnsPerPage, products }: ProductsL
                                 alignItems={'end'}
                                 justifyContent={'end'}
                                 gap={4}
-                                bgImage={`url(${prod.image})`}
+                                bgImage={`url(${prod.featuredImage?.url})`}
                                 bgSize={'cover'}
                                 bgPos={'center'}
                                 borderRadius={8}
@@ -60,8 +47,8 @@ export function ProductsList({ start, end, columnsPerPage, products }: ProductsL
                                 {/* Removed on-card color display and plus/caret icons */}
                             </Flex>
                             <Flex flexDir={'column'} alignItems={'start'} justifyContent={'start'} gap={1} py={2} w='100%'>
-                                <CustomText text={prod.name} fontSize={'md'} fontWeight={'semibold'} />
-                                <CustomText text={`R$ ${prod.price}`} fontSize={'md'} fontWeight={'semibold'} />
+                                <CustomText text={prod.title} fontSize={'md'} fontWeight={'semibold'} />
+                                <CustomText text={`R$ ${prod.priceRange.minVariantPrice.amount}`} fontSize={'md'} fontWeight={'semibold'} />
                             </Flex>
                         </Flex>
                     );

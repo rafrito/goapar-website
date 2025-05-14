@@ -11,19 +11,22 @@ import {
   HStack, // Se for usar para algo como botões lado a lado no footer
   AspectRatio,
   Circle,
+  Text,
   // Outros componentes Chakra que você pode precisar para estilizar
 } from '@chakra-ui/react';
-import React from 'react'; // Importe React
+import React, { useMemo, useState } from 'react'; // Importe React
 import { CustomText } from '../ui/CustomText';
 import { CustomButton } from '../ui/CustomButton';
 import { CartDrawer } from './CarDrawer';
 import { useCartDrawer } from '../ui/cart-drawer-provider';
+import { ShopifyProduct } from '@/types';
+import { COLOR_NAME_TO_HEX_MAP, SIZE_NAME_MAP } from '@/utils/productUtils';
 
 
 interface StaticProductDialogProps {
   isOpen: boolean;
   onClose: () => void;
-  product: Products; // Produto a ser exibido
+  product: ShopifyProduct; // Produto a ser exibido
 }
 
 export function ProductDetailModal({
@@ -36,9 +39,53 @@ export function ProductDetailModal({
   }
   const { open: openCart, onOpen: onOpenCart, onClose: onCloseCart, onToggle } = useCartDrawer(); // Pega do contexto!
 
-  // Dados fictícios para as opções de cores e tamanhos (apenas para layout)
-  const mockColors = [{ hex: '#000000', name: 'Preto' }, { hex: '#FFFFFF', name: 'Branco' }, { hex: '#FF5F5E', name: 'Vermelho' }];
-  const mockSizes = [{ name: 'P', available: true }, { name: 'M', available: true }, { name: 'G', available: false }];
+  const [selectedColor, setSelectedColor] = useState<{ name: string; hex: string } | null>(null); // Estado para a cor selecionada
+
+  const availableColors = useMemo(() => {
+    if (!product || !product.variants || !product.variants.nodes) {
+      return []; // Retorna vazio se não houver produto ou variantes
+    }
+
+    const colorValues = new Set<string>(); // Usar um Set para garantir valores únicos de NOMES de cor
+
+    product.variants.nodes.forEach(variantNode => {
+      const colorOption = variantNode.selectedOptions.find(
+        option => option.name.trim().toUpperCase() === 'COR' // Case-insensitive
+      );
+      if (colorOption && colorOption.value) {
+        colorValues.add(colorOption.value); // Adiciona o NOME da cor ao Set
+      }
+    });
+
+    return Array.from(colorValues).map(colorName => {
+      const normalizedColorName = colorName.trim().toUpperCase();
+      return {
+        name: colorName, // Nome original para exibição, se desejar
+        hex: COLOR_NAME_TO_HEX_MAP[normalizedColorName] || '#CCCCCC', // Fallback para cinza
+      };
+    });
+  }, [product]); // Recalcula apenas se o 'product' mudar
+
+
+  const [selectedSize, setSelectedSize] = useState<{ name: string; available: boolean } | null>(null); // Estado para o tamanho selecionado
+  // Você faria uma lógica similar para 'availableSizes'
+  const availableSizes = useMemo(() => {
+    if (!product || !product.variants || !product.variants.nodes) {
+      return [];
+    }
+    const sizeValues = new Set<string>();
+    product.variants.nodes.forEach(variantNode => {
+      const sizeOption = variantNode.selectedOptions.find(
+        option => option.name.trim().toUpperCase() === 'TAMANHO'
+      );
+      if (sizeOption && sizeOption.value) {
+        sizeValues.add(sizeOption.value);
+      }
+    });
+    // Para tamanhos, geralmente o nome é suficiente.
+    // Se precisar de mais dados por tamanho, crie uma interface SizeOption
+    return Array.from(sizeValues).map(sizeName => ({ name: SIZE_NAME_MAP[sizeName], available: true /* Lógica de disponibilidade real aqui */ }));
+  }, [product]);
 
   return (
     <Dialog.Root size={'xl'} open={isOpen} onOpenChange={(openState) => !openState.open && onClose()} modal={true}>
@@ -57,8 +104,8 @@ export function ProductDetailModal({
                 <Flex flex={1} justifyContent="center" alignItems="center" >
                   <AspectRatio ratio={1} w="100%">
                     <Image
-                      src={product.image}
-                      alt={product.description}
+                      src={product.featuredImage?.url}
+                      alt={product.title}
                       objectFit="cover"
                     />
                   </AspectRatio>
@@ -67,28 +114,40 @@ export function ProductDetailModal({
                 {/* Coluna de Informações e Opções */}
                 <VStack flex={1} gap={8} align="flex-start">
                   <Flex flexDir={'column'} gap={2}>
-                    <CustomText text={product.name || "Descrição do produto aqui..."} fontSize="lg" fontWeight="semibold" />
-                    <CustomText text={`R$ ${product.price}` || "Descrição do produto aqui..."} fontSize="lg" fontWeight="semibold" />
+                    <CustomText text={product.title || "Título do produto aqui..."} fontSize="lg" fontWeight="semibold" />
+                    <CustomText text={`R$ ${product.priceRange.minVariantPrice.amount}` || "Descrição do produto aqui..."} fontSize="lg" fontWeight="semibold" />
                   </Flex>
 
                   {/* Seção de Cores (Estática) */}
                   <Flex flexDir="column" gap={2} w="100%">
-
-                    <CustomText text="Product color:" fontWeight="semibold" fontSize={'sm'} />
-                    <CustomText text="Color:" fontWeight="semibold" fontSize={'sm'} />
-
                     <HStack gap={6}>
-                      {mockColors.map((color) => (
-                        <Circle
-                          key={color.hex}
-                          size="24px"
-                          bg={color.hex}
-                          border="1px solid"
-                          borderColor={color.hex === '#FFFFFF' ? 'gray.300' : 'transparent'}
-                          title={color.name}
-                          _hover={{ cursor: 'pointer', boxShadow: 'md', border: '2px solid', borderColor: 'black' }}
-                        />
-                      ))}
+                      {availableColors.length > 0 && (
+                        <Flex flexDir="column" gap={2} w="100%">
+                          <CustomText text="Cor:" fontWeight="semibold" fontSize={'sm'} />
+                          {/* Se quiser mostrar o nome da cor selecionada (você precisará de um estado para isso) */}
+                          {/* <CustomText text={`Selecionada: ${selectedColor?.name || 'Nenhuma'}`} fontSize={'xs'} /> */}
+                          <HStack gap={3}> {/* Aumentei um pouco o gap para as bolinhas */}
+                            {availableColors.map((color) => (
+                              <Circle
+                                key={color.name} // Usar o nome da cor ou um ID único se tiver
+                                size="28px" // Um pouco maior para melhor clique
+                                bg={color.hex}
+                                border="2px solid" // Borda um pouco mais grossa para o estado selecionado
+                                // Lógica para destacar a cor selecionada (você precisará de um estado 'selectedColor')
+                                borderColor={selectedColor?.name === color.name ? 'blue.500' : (color.hex === '#FFFFFF' || color.hex === '#FEFEFE' ? 'gray.300' : 'transparent')}
+                                title={color.name} // Mostra o nome da cor no hover
+                                cursor="pointer"
+                                onClick={() => setSelectedColor(color)} // Você precisará de um estado 'selectedColor' e 'setSelectedColor'
+                                _hover={{
+                                  borderColor: 'gray.400',
+                                  transform: 'scale(1.1)'
+                                }}
+                                transition="all 0.2s ease-in-out"
+                              />
+                            ))}
+                          </HStack>
+                        </Flex>
+                      )}
                     </HStack>
                   </Flex>
 
@@ -99,17 +158,36 @@ export function ProductDetailModal({
                       <CustomText cursor='zoom-in' text="Size Chart:" fontWeight="semibold" fontSize={'sm'} opacity={0.6} textDecor={'underline'} />
                     </Flex>
                     <HStack gap={2}>
-                      {mockSizes.map((size) => (
-                        <Button
-                          key={size.name}
-                          size="sm"
-                          variant={size.available ? "outline" : "ghost"}
-                          disabled={!size.available}
-                          colorScheme={size.available ? "gray" : undefined}
-                        >
-                          {size.name}
-                        </Button>
-                      ))}
+                      {availableSizes.length > 0 && (
+                        <Flex flexDir="column" gap={2} w="100%">
+                          <Flex justifyContent={'space-between'}>
+                            <CustomText text="Tamanho:" fontWeight="semibold" fontSize={'sm'} />
+                            {/* <CustomText cursor='pointer' text="Size Chart" fontWeight="semibold" fontSize={'sm'} opacity={0.6} textDecor={'underline'} /> */}
+                          </Flex>
+                          <HStack gap={2} wrap="wrap"> {/* Adicionado wrap para tamanhos */}
+                            {availableSizes.map((size) => {
+                              // Lógica para verificar se a combinação cor+tamanho está disponível
+                              const variantForThisCombination = product.variants.nodes.find(variant =>
+                                (variant.selectedOptions.find(opt => opt.name.toUpperCase() === 'COR')?.value === selectedColor?.name || !selectedColor) &&
+                                variant.selectedOptions.find(opt => opt.name.toUpperCase() === 'TAMANHO')?.value === size.name
+                              );
+                              const isActuallyAvailable = variantForThisCombination ? variantForThisCombination.availableForSale : false;
+
+                              return (
+                                <Button
+                                  key={size.name}
+                                  size="sm"
+                                  variant={selectedSize?.name === size.name ? "solid" : "outline"} // Destaca o selecionado
+                                  colorScheme={selectedSize?.name === size.name ? "blue" : (isActuallyAvailable ? "gray" : "gray")}
+                                  onClick={() => setSelectedSize(size)} // Você precisará de um estado 'selectedSize' e 'setSelectedSize'
+                                >
+                                  {size.name}
+                                </Button>
+                              );
+                            })}
+                          </HStack>
+                        </Flex>
+                      )}
                     </HStack>
                   </Flex>
                   <Flex w='100%' flexDir={'column'} gap={4}>

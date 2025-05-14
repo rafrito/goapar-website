@@ -11,7 +11,7 @@ export function ProductsPage() {
         <Container centerContent bgColor={'bodyBg'} maxW={1920} p={0}>
             <PreHeader />
             <Header />
-            <MainProductsList start={0} end={12} />
+            <MainProductsList start={0} end={25} />
         </Container>
     )
 }

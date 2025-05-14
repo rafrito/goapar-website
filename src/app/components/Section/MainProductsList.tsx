@@ -5,6 +5,8 @@ import { PiCaretDownLight } from "react-icons/pi"
 import { CustomText } from "../ui/CustomText";
 import { CustomButton } from "../ui/CustomButton";
 import { ProductsList } from "./ProductsList";
+import { ShopifyCollection, ShopifyProduct } from "@/types";
+import { getCollections, getProducts, getProductTypes } from "@/lib/shopify";
 
 
 interface MainProductsListProps {
@@ -14,8 +16,8 @@ interface MainProductsListProps {
 
 export function MainProductsList({ start, end }: MainProductsListProps) {
 
-    const [products, setProducts] = useState<Products[]>([]);
-    const [productTypes, setProductTypes] = useState<ProductType[]>([]);
+    const [products, setProducts] = useState<ShopifyProduct[]>([]);
+    const [productTypes, setProductTypes] = useState<string[]>([]);
 
     const columnsPerPage = {
         base: 2,
@@ -31,22 +33,25 @@ export function MainProductsList({ start, end }: MainProductsListProps) {
     ]
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchProducts = async () => {
+            // Assuming getProducts and Product type are imported from your Shopify API client
+            // e.g., import { getProducts, Product } from '@/lib/shopify';
             try {
-                const productsApiResponse = await axios.get('/api/get-products')
-                const productsData: Products[] = await productsApiResponse.data;
-                setProducts(productsData);
-
-                const productTypeApiresponse = await axios.get('/api/get-productTypes')
-                const productTypesData: ProductType[] = await productTypeApiresponse.data;
-                setProductTypes(productTypesData);
-
+                const products: ShopifyProduct[] = await getProducts(end);
+                console.log("Produtos recebidos no cliente:", products);
+                setProducts(products);
+                const productTypes: string[] = await getProductTypes();
+                console.log("Collections recebidos no cliente:", productTypes);
+                setProductTypes(productTypes);
+                // For now, as getProducts is not defined, I'll use a placeholder
+                console.log("Fetching products...");
+                // Replace with actual API call when getProducts is available
             } catch (error) {
-                console.error("Failed to fetch data:", error);
+                console.error("Erro ao buscar produtos:", error);
             }
         };
 
-        fetchData();
+        fetchProducts();
     }, []);
 
     const sortedProducts = useMemo(() => {
@@ -55,16 +60,16 @@ export function MainProductsList({ start, end }: MainProductsListProps) {
             const [sortBy, sortOrder] = sortValue.split('-');
 
             if (sortBy === 'name') {
-                const nameA = a.name.toLowerCase();
-                const nameB = b.name.toLowerCase();
+                const nameA = a.title.toLowerCase();
+                const nameB = b.title.toLowerCase();
                 if (sortOrder === "asc") {
                     return nameA.localeCompare(nameB);
                 } else {
                     return nameB.localeCompare(nameA);
                 }
             } else if (sortBy === 'price') {
-                const priceA = parseFloat(a.price);
-                const priceB = parseFloat(b.price);
+                const priceA = parseFloat(a.priceRange.minVariantPrice.amount);
+                const priceB = parseFloat(b.priceRange.minVariantPrice.amount);
                 if (sortOrder === "asc") {
                     return priceA - priceB;
                 } else {
@@ -88,7 +93,7 @@ export function MainProductsList({ start, end }: MainProductsListProps) {
                     <Flex gap={1}>
                         {productTypes.map((type, idx) => {
                             return (
-                                <CustomButton key={type.id} text={type.departament} border={'1px solid'} borderColor={'buttonDarkBg'} rounded={'2xl'} h={8} />
+                                <CustomButton key={type+idx} text={type} border={'1px solid'} borderColor={'buttonDarkBg'} rounded={'2xl'} h={8} />
                             )
                         })}
                     </Flex>
@@ -98,7 +103,7 @@ export function MainProductsList({ start, end }: MainProductsListProps) {
                                 <Menu.Trigger asChild>
                                     <Flex cursor={'pointer'} alignItems={'center'} gap={1}>
                                         <Text>Sort</Text>
-                                        <PiCaretDownLight/>
+                                        <PiCaretDownLight />
                                     </Flex>
                                 </Menu.Trigger>
                                 <Portal>
