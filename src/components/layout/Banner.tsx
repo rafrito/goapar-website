@@ -1,6 +1,6 @@
 import { Button, Flex, Image, Text } from "@chakra-ui/react";
-import { CustomButton } from "./ui/CustomButton";
-import { CustomText } from "./ui/CustomText";
+import { CustomButton } from "../ui/CustomButton";
+import { CustomText } from "../ui/CustomText";
 
 
 export function Banner() {

@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react";
-import { CustomText } from "./ui/CustomText";
+import { CustomText } from "../ui/CustomText";
 
 
 export function BrandMessage() {

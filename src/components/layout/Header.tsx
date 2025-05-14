@@ -1,7 +1,7 @@
 import { Avatar, Flex, Image, Text } from "@chakra-ui/react";
 import { PiCarThin, PiHeart, PiMagnifyingGlass, PiMagnifyingGlassThin, PiShoppingCart, PiShoppingCartThin, PiSuitcase } from "react-icons/pi";
-import { ColorModeButton, useColorModeValue } from "./ui/color-mode";
-import { useCartDrawer } from "./ui/cart-drawer-provider";
+import { ColorModeButton, useColorModeValue } from "../ui/color-mode";
+import { useCartDrawer } from "../../contexts/cart-drawer-provider";
 
 
 export function Header() {

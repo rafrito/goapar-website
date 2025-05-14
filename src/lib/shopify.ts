@@ -1,6 +1,6 @@
 // src/lib/shopify.ts
 import { createStorefrontApiClient, type StorefrontApiClient } from '@shopify/storefront-api-client';
-import { Cart } from '../app/components/ui/cart-provider';
+import { Cart } from '../contexts/cart-provider';
 import { ShopifyCollection, ShopifyProduct } from '@/types';
 // Importe os tipos que você precisará para o carrinho (do seu CartContext)
 

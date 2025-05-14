@@ -1,6 +1,6 @@
 // /d:/awer/awer-shop/src/app/components/Section/ProductsList.tsx
 import { SimpleGrid, Flex, SimpleGridProps, useDisclosure } from "@chakra-ui/react";
-import { CustomText } from "../ui/CustomText";
+import { CustomText } from "../../ui/CustomText";
 import { useState } from "react";
 import { ProductDetailModal } from "./ProductDetailModal";
 import { ShopifyProduct } from "@/types";

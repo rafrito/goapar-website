@@ -14,14 +14,16 @@ import {
   Text,
   // Outros componentes Chakra que você pode precisar para estilizar
 } from '@chakra-ui/react';
-import React, { useMemo, useState } from 'react'; // Importe React
-import { CustomText } from '../ui/CustomText';
-import { CustomButton } from '../ui/CustomButton';
-import { CartDrawer } from './CarDrawer';
-import { useCartDrawer } from '../ui/cart-drawer-provider';
+import { Toaster, toaster } from "@/components/ui/toaster"
+
+import React, { useEffect, useMemo, useState } from 'react'; // Importe React
+import { CustomText } from '../../ui/CustomText';
+import { CustomButton } from '../../ui/CustomButton';
+import { CartDrawer } from './CartDrawer';
+import { useCartDrawer } from '../../../contexts/cart-drawer-provider';
 import { ColorOption, ProductVariant, ShopifyProduct } from '@/types';
 import { COLOR_NAME_TO_HEX_MAP, SIZE_NAME_MAP } from '@/utils/productUtils';
-import { useCart } from '../ui/cart-provider';
+import { useCart } from '@/contexts/cart-provider';
 
 
 interface StaticProductDialogProps {
@@ -39,13 +41,97 @@ export function ProductDetailModal({
     return null; // Não renderiza nada se não houver produto
   }
   const { open: openCart, onOpen: onOpenCart, onClose: onCloseCart, onToggle } = useCartDrawer(); // Pega do contexto!
-  const { addItem, isLoading: isCartLoading } = useCart(); // <<<<---- USANDO O CONTEXTO DO CARRINHO
+
+  const { addItem, isLoading: isCartLoading } = useCart();
 
 
   const [selectedColor, setSelectedColor] = useState<ColorOption | null>(null);
-  const [selectedSize, setSelectedSize] = useState<{ name: string; displayName: string; available: boolean } | null>(null); // Usando displayName
+  const [selectedSize, setSelectedSize] = useState<{ name: string; available: boolean } | null>(null); // Usando displayName
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant | undefined>(undefined);
   const [quantity, setQuantity] = useState(1); // Estado para quantidade
+
+
+  const handleAddToCart = async () => {
+    if (!product) {
+      console.error("Produto não definido, não é possível adicionar ao carrinho.");
+      // Adicione um toast de erro aqui se desejar
+      return;
+    }
+
+    const productHasColorOptions = availableColors.length > 0;
+    const productHasSizeOptions = availableSizes.length > 0;
+
+    // 1. Validar se as opções necessárias foram selecionadas (se o produto tiver variantes)
+    if (productHasColorOptions && !selectedColor) {
+      // Idealmente, use um toast do Chakra UI aqui para feedback ao usuário
+      toaster.create({ title: 'Por favor, selecione uma cor.' }); // Substitua por toast
+      return;
+    }
+    if (productHasSizeOptions && !selectedSize) {
+      toaster.create({ title: 'Por favor, selecione um tamanho.' }); // Substitua por toast
+      return;
+    }
+
+    // 2. Determinar qual variantId usar
+    let variantIdToAdd: string | undefined = undefined;
+
+    if (product.variants && product.variants.nodes && product.variants.nodes.length > 0) {
+      // Se o produto TEM variantes, precisamos da selectedVariant
+      if (!selectedVariant) {
+        toaster.create({ title: 'Por favor, selecione uma combinação válida de opções.' }); // Substitua por toast
+        return;
+      }
+      if (!selectedVariant.availableForSale) {
+        toaster.create({ title: 'Esta combinação está fora de estoque.' }); // Substitua por toast
+        return;
+      }
+      variantIdToAdd = selectedVariant.id;
+    } else if (product.variants?.nodes?.[0]?.id) {
+
+      // Se o produto NÃO tem opções selecionáveis (mas a API sempre retorna um array de variantes,
+      // mesmo para produtos simples), usamos o ID da primeira (e única) variante.
+      variantIdToAdd = product.variants.nodes[0].id;
+      if (!product.variants.nodes[0].availableForSale) {
+        toaster.create({ title: 'Produto fora de estoque.' }); // Substitua por toast
+        return;
+      }
+    } else {
+      // Caso de segurança: não deveria acontecer se os dados do produto estiverem corretos
+      console.error("Não foi possível determinar a variante para adicionar ao carrinho.");
+      toaster.create({ title: 'Erro ao selecionar o produto. Tente novamente.' }); // Substitua por toast
+      return;
+    }
+
+    if (!variantIdToAdd) {
+      console.error("ID da variante não encontrado para adicionar ao carrinho.");
+      toaster.create({ title: 'Erro ao processar o produto. Tente novamente.' }); // Substitua por toast
+      return;
+    }
+
+    console.log(`Tentando adicionar ao carrinho: Variante ID: ${variantIdToAdd}, Quantidade: ${quantity}`);
+
+    try {
+      // 3. Chamar a função addItem do seu CartContext
+      //    A função addItem no seu CartProvider fará a chamada à API do Shopify
+      //    e depois atualizará o estado global do carrinho.
+      await addItem(variantIdToAdd, quantity);
+
+      // 4. Feedback para o usuário (ex: toast de sucesso)
+      console.log(`${product.title} (Qtd: ${quantity}) adicionado ao carrinho!`);
+      toaster.create({ title: `${product.title} adicionado à sacola!` }); // Substitua por toast
+
+      // 5. Opcional: Abrir o drawer do carrinho
+      onOpenCart(); // Função do useCartDrawer que você já tem
+
+      // 6. Fechar o modal do produto
+      onClose(); // Função vinda das props para fechar este modal
+
+    } catch (error) {
+      console.error("Erro ao chamar addItem do CartContext:", error);
+      // Feedback de erro para o usuário (ex: toast de erro)
+      toaster.create({ title: 'Houve um erro ao adicionar o produto à sacola. Tente novamente.' }); // Substitua por toast
+    }
+  };
 
 
   const availableColors = useMemo(() => {
@@ -89,14 +175,73 @@ export function ProductDetailModal({
     });
     // Para tamanhos, geralmente o nome é suficiente.
     // Se precisar de mais dados por tamanho, crie uma interface SizeOption
-    return Array.from(sizeValues).map(sizeName => ({ name: SIZE_NAME_MAP[sizeName], available: true /* Lógica de disponibilidade real aqui */ }));
+    return Array.from(sizeValues).map(sizeName => ({ name: sizeName, available: true /* Lógica de disponibilidade real aqui */ }));
   }, [product]);
 
 
 
+  // Efeito para resetar seleções e quantidade quando o produto muda ou modal abre/fecha
+  useEffect(() => {
+    if (isOpen && product) {
+      // Tenta pré-selecionar a primeira cor e tamanho, se existirem e houver variantes
+      const firstColor = availableColors.length > 0 ? availableColors[0] : null;
+      const firstSize = availableSizes.length > 0 ? availableSizes[0] : null;
+
+      setSelectedColor(firstColor);
+      setSelectedSize(firstSize);
+      setQuantity(1);
+      // selectedVariant será atualizado pelo próximo useEffect
+    } else if (!isOpen) {
+      // Limpa ao fechar
+      setSelectedColor(null);
+      setSelectedSize(null);
+      setSelectedVariant(undefined);
+      setQuantity(1);
+    }
+  }, [product, isOpen, availableColors, availableSizes]);
+
+  // **** PASSO ATUAL: useEffect para encontrar a variante correspondente ****
+  useEffect(() => {
+    if (product && product.variants && product.variants.nodes && (selectedColor || selectedSize || (availableColors.length === 0 && availableSizes.length === 0))) {
+      // Se não há opções de cor nem tamanho (produto simples), pega a primeira variante
+      if (availableColors.length === 0 && availableSizes.length === 0 && product.variants.nodes.length > 0) {
+        setSelectedVariant(product.variants.nodes[0]);
+        return;
+      }
+
+      // Procura a variante que corresponde às opções selecionadas
+      const variant = product.variants.nodes.find(vNode => {
+        const colorMatch = !selectedColor || vNode.selectedOptions.some(
+          opt => opt.name.trim().toUpperCase() === 'COR' && opt.value === selectedColor.name
+        );
+        const sizeMatch = !selectedSize || vNode.selectedOptions.some(
+          opt => opt.name.trim().toUpperCase() === 'TAMANHO' && opt.value === selectedSize.name
+        );
+
+        // Considera se o produto realmente TEM essas opções
+        const productHasColorOption = availableColors.length > 0;
+        const productHasSizeOption = availableSizes.length > 0;
+
+        if (productHasColorOption && productHasSizeOption) {
+          return colorMatch && sizeMatch;
+        } else if (productHasColorOption) {
+          return colorMatch;
+        } else if (productHasSizeOption) {
+          return sizeMatch;
+        }
+        return false; // Nenhuma opção para parear, mas isso não deveria acontecer se variants.nodes existe
+      });
+      setSelectedVariant(variant);
+    } else if (product && product.variants && product.variants.nodes && product.variants.nodes.length === 1 && availableColors.length === 0 && availableSizes.length === 0) {
+      // Caso especial: produto simples com apenas uma variante e sem opções de escolha
+      setSelectedVariant(product.variants.nodes[0]);
+    } else {
+      setSelectedVariant(undefined); // Nenhuma variante encontrada ou produto não tem variantes
+    }
+  }, [selectedColor, selectedSize, product, availableColors, availableSizes]); // Dependências
 
 
-  
+
   return (
     <Dialog.Root size={'xl'} open={isOpen} onOpenChange={(openState) => !openState.open && onClose()} modal={true}>
       <Portal>
@@ -189,9 +334,9 @@ export function ProductDetailModal({
                                   size="sm"
                                   variant={selectedSize?.name === size.name ? "solid" : "outline"} // Destaca o selecionado
                                   colorScheme={selectedSize?.name === size.name ? "blue" : (isActuallyAvailable ? "gray" : "gray")}
-                                  // onClick={() => setSelectedSize(size)} // Você precisará de um estado 'selectedSize' e 'setSelectedSize'
+                                  onClick={() => setSelectedSize(size)} // Você precisará de um estado 'selectedSize' e 'setSelectedSize'
                                 >
-                                  {size.name}
+                                  {SIZE_NAME_MAP[size.name]}
                                 </Button>
                               );
                             })}
@@ -201,7 +346,24 @@ export function ProductDetailModal({
                     </HStack>
                   </Flex>
                   <Flex w='100%' flexDir={'column'} gap={4}>
-                    <CustomButton text='Add to Bag' isDark={true} w='100%' border='1px solid' borderColor={'borderColor'} onClick={() => onOpenCart()} />
+                    <CustomButton
+                      text='Add to Bag'
+                      isDark={true} // Ou o estilo que você quer
+                      w='100%'
+                      size="lg" // Botão maior para destaque
+                      // border='1px solid' // Removi, CustomButton deve lidar com seu próprio estilo
+                      // borderColor={'borderColor'}
+                      onClick={handleAddToCart} // <<<<---- CONECTA A FUNÇÃO AQUI
+                      loading={isCartLoading} // Usa o isLoading do useCart
+                      disabled={
+                        // Desabilita se:
+                        // 1. O produto tem opções e uma variante válida não foi selecionada
+                        ((availableColors.length > 0 || availableSizes.length > 0) && !selectedVariant) ||
+                        // 2. A variante selecionada (ou a única variante) não está disponível para venda
+                        (selectedVariant && !selectedVariant.availableForSale) ||
+                        // 3. É um produto simples (sem opções) mas sua única variante não está disponível
+                        (!availableColors.length && !availableSizes.length && product.variants?.nodes?.[0] && !product.variants.nodes[0].availableForSale)
+                      } />
                     <CustomText cursor='zoom-in' text="View full details:" fontWeight="semibold" fontSize={'sm'} opacity={0.6} textDecor={'underline'} />
                   </Flex>
                 </VStack>
@@ -213,6 +375,7 @@ export function ProductDetailModal({
           </Dialog.Content>
         </Dialog.Positioner>
       </Portal>
+      <Toaster />
     </Dialog.Root>
   );
 }

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Provider from "./providers"
-import { CartDrawer } from "./components/Section/CarDrawer";
+import { CartDrawer } from "../components/layout/Section/CartDrawer";
 import { Toaster } from "@chakra-ui/react";
 
 

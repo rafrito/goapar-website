@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@chakra-ui/cli": "^3.18.0",
     "@chakra-ui/react": "^3.16.1",
     "@emotion/react": "^11.14.0",
     "@shopify/storefront-api-client": "^1.0.7",
@@ -26,6 +25,7 @@
     "toaster": "^0.1.2"
   },
   "devDependencies": {
+    "@chakra-ui/cli": "^3.18.0",
     "@eslint/eslintrc": "^3",
     "@types/node": "^20",
     "@types/react": "^19",

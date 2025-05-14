@@ -1,8 +1,8 @@
-import { CustomText } from "../ui/CustomText";
+import { CustomText } from "../../ui/CustomText";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Flex, FlexProps, Image, Spinner } from "@chakra-ui/react";
-import CustomSpinner from "../ui/CustomSpinner";
+import CustomSpinner from "../../ui/CustomSpinner";
 
 // Define the type for the API response
 interface ProductType {

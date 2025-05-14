@@ -13,7 +13,7 @@ import {
     Field,
 } from '@chakra-ui/react';
 import { useForm } from "react-hook-form"
-import { CustomButton } from './ui/CustomButton';
+import { CustomButton } from '../ui/CustomButton';
 
 
 interface FormValues {

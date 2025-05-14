@@ -26,6 +26,7 @@ export function HomepageProductsList({ start, end }: MainProductsListProps) {
             // e.g., import { getProducts, Product } from '@/lib/shopify';
             try {
                 const products: ShopifyProduct[] = await getProducts(end);
+                console.log("Products fetched:", products);
                 setProducts(products);
                 // For now, as getProducts is not defined, I'll use a placeholder
                 console.log("Fetching products...");

@@ -1,8 +1,8 @@
 import { Flex, Heading } from "@chakra-ui/react";
 import { ProductTypes } from "./Section/ProductTypes";
-import { CustomText } from "./ui/CustomText";
 import { MainProductsList } from "./Section/MainProductsList";
 import { HomepageProductsList } from "./Section/HomepageProductsList";
+import { CustomText } from "../ui/CustomText";
 
 
 export function Section() {

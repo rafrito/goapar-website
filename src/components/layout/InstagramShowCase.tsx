@@ -1,7 +1,7 @@
 import { Flex, Image, Icon } from "@chakra-ui/react";
-import { CustomText } from "./ui/CustomText";
 import { FaInstagram } from "react-icons/fa"; // Assuming you have react-icons installed
 import { PiInstagramLogoThin } from "react-icons/pi";
+import { CustomText } from "../ui/CustomText";
 
 export function InstagramShowCase() {
     const instagramPhotos = [

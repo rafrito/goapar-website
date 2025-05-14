@@ -5,7 +5,7 @@ import { ClientOnly, IconButton, Skeleton } from "@chakra-ui/react"
 import { ThemeProviderProps, useTheme } from "next-themes"
 import { forwardRef } from "react"
 import { LuMoon, LuSun } from "react-icons/lu"
-import { ThemeProvider } from "./theme-provider"
+import { ThemeProvider } from "../../contexts/theme-provider"
 
 export function ColorModeProvider(props: ThemeProviderProps) {
   return (
