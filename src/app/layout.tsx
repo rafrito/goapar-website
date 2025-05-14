@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Provider from "./providers"
 import { CartDrawer } from "./components/Section/CarDrawer";
+import { Toaster } from "@chakra-ui/react";
 
 
 const geistSans = Geist({

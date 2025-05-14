@@ -19,8 +19,9 @@ import { CustomText } from '../ui/CustomText';
 import { CustomButton } from '../ui/CustomButton';
 import { CartDrawer } from './CarDrawer';
 import { useCartDrawer } from '../ui/cart-drawer-provider';
-import { ShopifyProduct } from '@/types';
+import { ColorOption, ProductVariant, ShopifyProduct } from '@/types';
 import { COLOR_NAME_TO_HEX_MAP, SIZE_NAME_MAP } from '@/utils/productUtils';
+import { useCart } from '../ui/cart-provider';
 
 
 interface StaticProductDialogProps {
@@ -38,8 +39,14 @@ export function ProductDetailModal({
     return null; // Não renderiza nada se não houver produto
   }
   const { open: openCart, onOpen: onOpenCart, onClose: onCloseCart, onToggle } = useCartDrawer(); // Pega do contexto!
+  const { addItem, isLoading: isCartLoading } = useCart(); // <<<<---- USANDO O CONTEXTO DO CARRINHO
 
-  const [selectedColor, setSelectedColor] = useState<{ name: string; hex: string } | null>(null); // Estado para a cor selecionada
+
+  const [selectedColor, setSelectedColor] = useState<ColorOption | null>(null);
+  const [selectedSize, setSelectedSize] = useState<{ name: string; displayName: string; available: boolean } | null>(null); // Usando displayName
+  const [selectedVariant, setSelectedVariant] = useState<ProductVariant | undefined>(undefined);
+  const [quantity, setQuantity] = useState(1); // Estado para quantidade
+
 
   const availableColors = useMemo(() => {
     if (!product || !product.variants || !product.variants.nodes) {
@@ -67,8 +74,6 @@ export function ProductDetailModal({
   }, [product]); // Recalcula apenas se o 'product' mudar
 
 
-  const [selectedSize, setSelectedSize] = useState<{ name: string; available: boolean } | null>(null); // Estado para o tamanho selecionado
-  // Você faria uma lógica similar para 'availableSizes'
   const availableSizes = useMemo(() => {
     if (!product || !product.variants || !product.variants.nodes) {
       return [];
@@ -87,6 +92,11 @@ export function ProductDetailModal({
     return Array.from(sizeValues).map(sizeName => ({ name: SIZE_NAME_MAP[sizeName], available: true /* Lógica de disponibilidade real aqui */ }));
   }, [product]);
 
+
+
+
+
+  
   return (
     <Dialog.Root size={'xl'} open={isOpen} onOpenChange={(openState) => !openState.open && onClose()} modal={true}>
       <Portal>
@@ -179,7 +189,7 @@ export function ProductDetailModal({
                                   size="sm"
                                   variant={selectedSize?.name === size.name ? "solid" : "outline"} // Destaca o selecionado
                                   colorScheme={selectedSize?.name === size.name ? "blue" : (isActuallyAvailable ? "gray" : "gray")}
-                                  onClick={() => setSelectedSize(size)} // Você precisará de um estado 'selectedSize' e 'setSelectedSize'
+                                  // onClick={() => setSelectedSize(size)} // Você precisará de um estado 'selectedSize' e 'setSelectedSize'
                                 >
                                   {size.name}
                                 </Button>
