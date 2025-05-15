@@ -1,19 +1,6 @@
 // src/components/ProductDetailModal.tsx (ou onde preferir)
 
-import {
-  Dialog,
-  Portal,
-  CloseButton,
-  Image,
-  Button,
-  Flex,
-  VStack,
-  HStack, // Se for usar para algo como botões lado a lado no footer
-  AspectRatio,
-  Circle,
-  Text,
-  // Outros componentes Chakra que você pode precisar para estilizar
-} from '@chakra-ui/react';
+import { Dialog, Portal, CloseButton, Image, Button, Flex, VStack, HStack, AspectRatio, Circle } from '@chakra-ui/react';
 import { Toaster, toaster } from "@/components/ui/toaster"
 
 import React, { useEffect, useMemo, useState } from 'react'; // Importe React
@@ -51,9 +38,57 @@ export function ProductDetailModal({
   const [quantity, setQuantity] = useState(1); // Estado para quantidade
 
 
+  const availableColors = useMemo(() => {
+    if (!product || !product.variants || !product.variants.nodes) {
+      return []; // Retorna vazio se não houver produto ou variantes
+    }
+
+    const colorValues = new Set<string>(); // Usar um Set para garantir valores únicos de NOMES de cor
+
+    product.variants.nodes.forEach(variantNode => {
+      const colorOption = variantNode.selectedOptions.find(
+        option => option.name.trim().toUpperCase() === 'COR' // Case-insensitive
+      );
+      if (colorOption && colorOption.value) {
+        colorValues.add(colorOption.value); // Adiciona o NOME da cor ao Set
+      }
+    });
+
+    return Array.from(colorValues).map(colorName => {
+      const normalizedColorName = colorName.trim().toUpperCase();
+      return {
+        name: colorName, // Nome original para exibição, se desejar
+        hex: COLOR_NAME_TO_HEX_MAP[normalizedColorName] || '#CCCCCC', // Fallback para cinza
+      };
+    });
+  }, [product]); // Recalcula apenas se o 'product' mudar
+
+
+  const availableSizes = useMemo(() => {
+    if (!product || !product.variants || !product.variants.nodes) {
+      return [];
+    }
+    const sizeValues = new Set<string>();
+    product.variants.nodes.forEach(variantNode => {
+      const sizeOption = variantNode.selectedOptions.find(
+        option => option.name.trim().toUpperCase() === 'TAMANHO'
+      );
+      if (sizeOption && sizeOption.value) {
+        sizeValues.add(sizeOption.value);
+      }
+    });
+    // Para tamanhos, geralmente o nome é suficiente.
+    // Se precisar de mais dados por tamanho, crie uma interface SizeOption
+    return Array.from(sizeValues).map(sizeName => ({ name: sizeName, available: true /* Lógica de disponibilidade real aqui */ }));
+  }, [product]);
+
+
+
+  // Função para adicionar ao carrinho
   const handleAddToCart = async () => {
     if (!product) {
       console.error("Produto não definido, não é possível adicionar ao carrinho.");
+      toaster.create({ title: "Produto não definido, não é possível adicionar ao carrinho." });
       // Adicione um toast de erro aqui se desejar
       return;
     }
@@ -132,51 +167,7 @@ export function ProductDetailModal({
       toaster.create({ title: 'Houve um erro ao adicionar o produto à sacola. Tente novamente.' }); // Substitua por toast
     }
   };
-
-
-  const availableColors = useMemo(() => {
-    if (!product || !product.variants || !product.variants.nodes) {
-      return []; // Retorna vazio se não houver produto ou variantes
-    }
-
-    const colorValues = new Set<string>(); // Usar um Set para garantir valores únicos de NOMES de cor
-
-    product.variants.nodes.forEach(variantNode => {
-      const colorOption = variantNode.selectedOptions.find(
-        option => option.name.trim().toUpperCase() === 'COR' // Case-insensitive
-      );
-      if (colorOption && colorOption.value) {
-        colorValues.add(colorOption.value); // Adiciona o NOME da cor ao Set
-      }
-    });
-
-    return Array.from(colorValues).map(colorName => {
-      const normalizedColorName = colorName.trim().toUpperCase();
-      return {
-        name: colorName, // Nome original para exibição, se desejar
-        hex: COLOR_NAME_TO_HEX_MAP[normalizedColorName] || '#CCCCCC', // Fallback para cinza
-      };
-    });
-  }, [product]); // Recalcula apenas se o 'product' mudar
-
-
-  const availableSizes = useMemo(() => {
-    if (!product || !product.variants || !product.variants.nodes) {
-      return [];
-    }
-    const sizeValues = new Set<string>();
-    product.variants.nodes.forEach(variantNode => {
-      const sizeOption = variantNode.selectedOptions.find(
-        option => option.name.trim().toUpperCase() === 'TAMANHO'
-      );
-      if (sizeOption && sizeOption.value) {
-        sizeValues.add(sizeOption.value);
-      }
-    });
-    // Para tamanhos, geralmente o nome é suficiente.
-    // Se precisar de mais dados por tamanho, crie uma interface SizeOption
-    return Array.from(sizeValues).map(sizeName => ({ name: sizeName, available: true /* Lógica de disponibilidade real aqui */ }));
-  }, [product]);
+  
 
 
 
@@ -200,7 +191,10 @@ export function ProductDetailModal({
     }
   }, [product, isOpen, availableColors, availableSizes]);
 
-  // **** PASSO ATUAL: useEffect para encontrar a variante correspondente ****
+
+
+  
+  // **** useEffect para encontrar a variante correspondente ****
   useEffect(() => {
     if (product && product.variants && product.variants.nodes && (selectedColor || selectedSize || (availableColors.length === 0 && availableSizes.length === 0))) {
       // Se não há opções de cor nem tamanho (produto simples), pega a primeira variante

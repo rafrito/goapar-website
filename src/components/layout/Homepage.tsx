@@ -15,7 +15,6 @@ export function Homepage() {
 
     return (
         <Container centerContent bgColor={'bodyBg'} maxW={1920} p={0}>
-            
             <PreHeader/>
             <Header/>
             <Banner/>

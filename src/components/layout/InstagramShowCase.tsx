@@ -1,4 +1,4 @@
-import { Flex, Image, Icon } from "@chakra-ui/react";
+import { Flex, Image, Icon, Link } from "@chakra-ui/react";
 import { FaInstagram } from "react-icons/fa"; // Assuming you have react-icons installed
 import { PiInstagramLogoThin } from "react-icons/pi";
 import { CustomText } from "../ui/CustomText";
@@ -17,9 +17,11 @@ export function InstagramShowCase() {
             <Flex p={8}>
                 <CustomText text={"Shop Instagram"} fontSize={"lg"} />
             </Flex>
-            <Flex py={8}>
+            <Flex py={{base:0, md:8}}>
                 {instagramPhotos.map((photo) => {
+                    
                     return (
+                        <Link href='https://www.instagram.com/yourprofile/' target="_blank" key={photo.id}>
                         <Flex
                             key={photo.id}
                             p={2}
@@ -51,6 +53,7 @@ export function InstagramShowCase() {
                                 <Icon as={PiInstagramLogoThin} boxSize={8} color="white" />
                             </Flex>
                         </Flex>
+                        </Link>
                     );
                 })}
             </Flex>

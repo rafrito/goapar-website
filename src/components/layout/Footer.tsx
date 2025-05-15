@@ -31,6 +31,7 @@ export function Footer() {
 
     return (
         <Flex
+            id='contato'
             w='100%'
             bg={'brandBg'}
             flexDir={'column'}

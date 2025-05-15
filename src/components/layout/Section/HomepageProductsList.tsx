@@ -39,22 +39,6 @@ export function HomepageProductsList({ start, end }: MainProductsListProps) {
         fetchProducts();
     }, []);
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const response = await axios.get('/api/get-products')
-    //             const data: Products[] = await response.data;
-    //             setProducts(data);
-    //         } catch (error) {
-    //             console.error("Failed to fetch product types:", error);
-    //         }
-    //     };
-
-    //     fetchData();
-    // }, []); // The empty dependency array ensures this effect runs only once when the component mounts.
-
-    const [hoveredProductIndex, setHoveredProductIndex] = useState<number | null>(null); // Estado para controlar o hover individualmente
-
     return (
         <Flex gap={8} w='100%' alignItems={'center'} justifyContent={'space-between'} flexDir={'column'}>
             <ProductsList start={start} end={end} columnsPerPage={columnsPerPage} products={products} />

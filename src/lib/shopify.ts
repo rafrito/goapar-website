@@ -35,6 +35,7 @@ export async function getProducts(first: number = 10): Promise<ShopifyProduct[]>
           id
           title
           handle
+          productType
           descriptionHtml
           featuredImage {
             url

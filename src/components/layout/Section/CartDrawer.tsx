@@ -22,6 +22,7 @@ import { useCartDrawer } from '../../../contexts/cart-drawer-provider';
 import { useCart } from '@/contexts/cart-provider';
 import { CartLine } from '@/types';
 import { CustomButton } from '@/components/ui/CustomButton';
+import CustomSpinner from '@/components/ui/CustomSpinner';
 
 // Interface para os itens do carrinho (você precisará definir isso com base nos dados do Shopify)
 interface CartItem {
@@ -84,6 +85,7 @@ export function CartDrawer({
     return (
         // Drawer.Root controla o estado geral
         <Drawer.Root placement="end"
+            size={'sm'}
             open={openCart}
             onOpenChange={(openState) => {
                 if (!openState.open) { // Se o novo estado for fechado
@@ -103,12 +105,11 @@ export function CartDrawer({
                         </Drawer.CloseTrigger>
 
                         <Drawer.Body>
-                            {isLoading && cartLines.length === 0 && ( // Loading inicial ou ao recarregar carrinho vazio
+                            {isLoading && ( // Loading inicial ou ao recarregar carrinho vazio
                                 <Flex align="center" justify="center" h="100%">
-                                    <Spinner size="xl" />
+                                    <CustomSpinner />
                                 </Flex>
                             )}
-
                             {!isLoading && error && ( // Mostra erro se houver
                                 <Flex align="center" justify="center" h="100%" direction="column" gap={3}>
                                     <Text color="red.500">Erro ao carregar o carrinho.</Text>

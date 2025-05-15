@@ -1,4 +1,4 @@
-import { Button, Flex, Image, Text } from "@chakra-ui/react";
+import { Button, Flex, Image, Link, Text } from "@chakra-ui/react";
 import { CustomButton } from "../ui/CustomButton";
 import { CustomText } from "../ui/CustomText";
 
@@ -12,10 +12,12 @@ export function Banner() {
     </>
 
     return (
-        <Flex w='100%' minH={712} alignItems={'end'} justifyContent={'start'} bgImage={'url(photos/banner.png)'} bgSize={'105%'}>
+        <Flex w='100%' minH={712} alignItems={'end'} justifyContent={'start'} bgPos={'top'} bgImage={'url(photos/banner.png)'} bgSize={{ base: 'cover', md: '105%' }}>
             <Flex flexDir={'column'} p={8} gap={4}>
-                <CustomText text={bannerText} fontSize={'lg'} color={'white'}/>
-                <CustomButton />
+                <CustomText text={bannerText} fontSize={'lg'} color={'white'} />
+                <Link href='/products'>
+                    <CustomButton />
+                </Link>
             </Flex>
         </Flex>
     )

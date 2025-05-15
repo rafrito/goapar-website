@@ -18,6 +18,8 @@ export function MainProductsList({ start, end }: MainProductsListProps) {
 
     const [products, setProducts] = useState<ShopifyProduct[]>([]);
     const [productTypes, setProductTypes] = useState<string[]>([]);
+    const [selectedProductType, setSelectedProductType] = useState<string | null>(null);
+
 
     const columnsPerPage = {
         base: 2,
@@ -54,50 +56,78 @@ export function MainProductsList({ start, end }: MainProductsListProps) {
         fetchProducts();
     }, []);
 
-    const sortedProducts = useMemo(() => {
+    // Função para lidar com o clique no botão de tipo de produto
+    const handleProductTypeSelect = (type: string) => {
+        if (selectedProductType === type) {
+            setSelectedProductType(null); // Se clicar no tipo já selecionado, limpa o filtro
+        } else {
+            setSelectedProductType(type); // Define o novo filtro
+        }
+    };
+
+
+    const filteredAndSortedProducts = useMemo(() => {
         if (!products) return [];
-        const sorted = [...products].sort((a, b) => {
+
+        // 1. Filtrar os produtos
+        let filteredProducts = products;
+        if (selectedProductType) {
+            filteredProducts = products.filter(
+                (product) => product.productType === selectedProductType // Assumindo que seu ShopifyProduct tem 'productType'
+            );
+        }
+
+        // 2. Ordenar os produtos filtrados
+        const sorted = [...filteredProducts].sort((a, b) => {
             const [sortBy, sortOrder] = sortValue.split('-');
 
             if (sortBy === 'name') {
                 const nameA = a.title.toLowerCase();
                 const nameB = b.title.toLowerCase();
-                if (sortOrder === "asc") {
-                    return nameA.localeCompare(nameB);
-                } else {
-                    return nameB.localeCompare(nameA);
-                }
+                return sortOrder === "asc" ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
             } else if (sortBy === 'price') {
                 const priceA = parseFloat(a.priceRange.minVariantPrice.amount);
                 const priceB = parseFloat(b.priceRange.minVariantPrice.amount);
-                if (sortOrder === "asc") {
-                    return priceA - priceB;
-                } else {
-                    return priceB - priceA;
-                }
+                return sortOrder === "asc" ? priceA - priceB : priceB - priceA;
             }
             return 0;
         });
         return sorted;
-    }, [products, sortValue]);
+    }, [products, sortValue, selectedProductType]); // Adicionado selectedProductType como dependência
+
 
     return (
         <Flex gap={8} w='100%' alignItems={'center'} justifyContent={'space-between'} flexDir={'column'}>
 
 
-            <Flex flexDir={'column'} w='100%' p={4} borderBottom={'1px solid'} borderColor={'borderColor'} gap={4}>
+            <Flex flexDir={'column'} w='100%' p={{base:2,md:4}} borderBottom={'1px solid'} borderColor={'borderColor'} gap={4}>
                 <Flex>
                     <CustomText text={'Shop'} fontSize={'lg'} fontWeight={'semibold'} />
                 </Flex>
-                <Flex justifyContent={'space-between'} alignItems={'center'} gap={4} w='100%'>
+                <Flex flexDir={{base:'column', md:'row'}} justifyContent={'space-between'} alignItems={{base:'start', md:'center'}} gap={4} w='100%'>
                     <Flex gap={1}>
+                        <CustomButton
+                            text="Todos"
+                            onClick={() => setSelectedProductType(null)}
+                            variant={selectedProductType === null ? "solid" : "outline"} // Estilo para botão ativo
+                            // Adicione outros estilos que seu CustomButton aceita
+                            borderColor={selectedProductType === null ? 'black' : 'buttonDarkBg'} // Exemplo de borda
+                            colorScheme={selectedProductType === null ? 'black' : undefined} // Exemplo de esquema de cor
+                            rounded={'2xl'}
+                            isDark={selectedProductType === null}
+                            bgColorHover='brand.600' colorHover='white'
+                            h={8}
+                        />
                         {productTypes.map((type, idx) => {
                             return (
-                                <CustomButton key={type+idx} text={type} border={'1px solid'} borderColor={'buttonDarkBg'} rounded={'2xl'} h={8} />
+                                <CustomButton key={type + idx} text={type} border={'1px solid'} borderColor={'buttonDarkBg'} rounded={'2xl'} h={8}
+                                    bgColorHover='brand.600' colorHover='white'
+                                    onClick={() => handleProductTypeSelect(type)} isDark={selectedProductType === type} // CHAMA A FUNÇÃO DE FILTRO
+                                />
                             )
                         })}
                     </Flex>
-                    <Flex gap={24} px={24}>
+                    <Flex gap={{base:4, md:24}} px={{base:2, md:24}}>
                         <Flex>
                             <Menu.Root>
                                 <Menu.Trigger asChild>
@@ -130,7 +160,7 @@ export function MainProductsList({ start, end }: MainProductsListProps) {
                 </Flex>
             </Flex>
 
-            <ProductsList start={start} end={end} columnsPerPage={columnsPerPage} products={sortedProducts} />
+            <ProductsList start={start} end={end} columnsPerPage={columnsPerPage} products={filteredAndSortedProducts} />
         </Flex>
     )
 }
