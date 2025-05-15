@@ -64,7 +64,7 @@ export async function getProducts(first: number = 10): Promise<ShopifyProduct[]>
 
   try {
     // Usa o método 'request' do cliente oficial
-    const { data, errors, extensions } = await client.request<{ products: { nodes: ShopifyProduct[] } }>(query, {
+    const { data, errors } = await client.request<{ products: { nodes: ShopifyProduct[] } }>(query, {
       variables: { first } // Passa variáveis aqui
     });
 

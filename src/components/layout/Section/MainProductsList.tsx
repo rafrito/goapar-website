@@ -1,12 +1,11 @@
 import { Flex, Menu, Portal, Text } from "@chakra-ui/react"
-import axios from "axios";
 import { useState, useEffect, useMemo } from "react";
 import { PiCaretDownLight } from "react-icons/pi"
 import { CustomText } from "../../ui/CustomText";
 import { CustomButton } from "../../ui/CustomButton";
 import { ProductsList } from "./ProductsList";
-import { ShopifyCollection, ShopifyProduct } from "@/types";
-import { getCollections, getProducts, getProductTypes } from "@/lib/shopify";
+import { ShopifyProduct } from "@/types";
+import { getProducts, getProductTypes } from "@/lib/shopify";
 
 
 interface MainProductsListProps {

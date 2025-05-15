@@ -4,7 +4,6 @@ import { CustomText } from "../../ui/CustomText";
 import { useState } from "react";
 import { ProductDetailModal } from "./ProductDetailModal";
 import { ShopifyProduct } from "@/types";
-import { CustomButton } from "@/components/ui/CustomButton";
 interface ProductsListProps {
     start: number;
     end: number;

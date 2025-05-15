@@ -3,22 +3,17 @@ import {
     Flex,
     Image,
     Link as ChakraLink,
-    Text,
     Box,
-    IconButton,
-    // Remova os imports de Menu específicos do Chakra se você não os estiver usando mais para este Menu
-    // Menu, MenuButton, MenuList, MenuItem
     Portal,
     Menu,
     Button, // Importe o Portal do Chakra UI ou da biblioteca do seu Menu
 } from "@chakra-ui/react";
-import { PiHamburgerThin, PiList, PiShoppingCartThin } from "react-icons/pi";
+import { PiList, PiShoppingCartThin } from "react-icons/pi";
 import { ColorModeButton, useColorModeValue } from "../ui/color-mode";
 import { useCartDrawer } from "../../contexts/cart-drawer-provider";
 import { useCart } from "@/contexts/cart-provider";
 import { CustomText } from "../ui/CustomText";
 import { scrollToSection } from "@/utils";
-import { HiCog } from "react-icons/hi";
 
 // ASSUMA que 'Menu' aqui é o objeto da sua biblioteca que contém .Root, .Trigger, etc.
 // Ex: import * as Menu from '@ark-ui/react' (se estiver usando Ark UI diretamente)

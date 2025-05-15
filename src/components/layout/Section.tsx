@@ -1,6 +1,5 @@
-import { Flex, Heading, useBreakpointValue } from "@chakra-ui/react";
+import { Flex, useBreakpointValue } from "@chakra-ui/react";
 import { ProductTypes } from "./Section/ProductTypes";
-import { MainProductsList } from "./Section/MainProductsList";
 import { HomepageProductsList } from "./Section/HomepageProductsList";
 import { CustomText } from "../ui/CustomText";
 

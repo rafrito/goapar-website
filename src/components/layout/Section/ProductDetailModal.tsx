@@ -6,7 +6,6 @@ import { Toaster, toaster } from "@/components/ui/toaster"
 import React, { useEffect, useMemo, useState } from 'react'; // Importe React
 import { CustomText } from '../../ui/CustomText';
 import { CustomButton } from '../../ui/CustomButton';
-import { CartDrawer } from './CartDrawer';
 import { useCartDrawer } from '../../../contexts/cart-drawer-provider';
 import { ColorOption, ProductVariant, ShopifyProduct } from '@/types';
 import { COLOR_NAME_TO_HEX_MAP, SIZE_NAME_MAP } from '@/utils/productUtils';
@@ -27,7 +26,7 @@ export function ProductDetailModal({
   if (!product) {
     return null; // Não renderiza nada se não houver produto
   }
-  const { open: openCart, onOpen: onOpenCart, onClose: onCloseCart, onToggle } = useCartDrawer(); // Pega do contexto!
+  const { onOpen: onOpenCart } = useCartDrawer(); // Pega do contexto!
 
   const { addItem, isLoading: isCartLoading } = useCart();
 

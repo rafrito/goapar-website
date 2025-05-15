@@ -1,5 +1,4 @@
 import { Flex, Image, Icon, Link } from "@chakra-ui/react";
-import { FaInstagram } from "react-icons/fa"; // Assuming you have react-icons installed
 import { PiInstagramLogoThin } from "react-icons/pi";
 import { CustomText } from "../ui/CustomText";
 

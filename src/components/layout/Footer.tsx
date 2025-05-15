@@ -1,11 +1,8 @@
 import {
-    Box,
-    Container,
     Stack,
     Text,
     Link,
     Input,
-    Button,
     SimpleGrid,
     VisuallyHidden,
     Heading,
@@ -25,7 +22,6 @@ export function Footer() {
 
     const {
         register,
-        handleSubmit,
         formState: { errors },
     } = useForm<FormValues>()
 

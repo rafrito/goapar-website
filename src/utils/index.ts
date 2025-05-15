@@ -29,17 +29,17 @@ const scrollToSection = (id: string) => {
     }
 };
 
-const whatsappLink = (path?: string) => {
+const whatsappLink = () => {
 
     return `https://wa.me/${whatsappNumber}?text=Ol%C3%A1%2C%20acessei%20o%20site%20do%20Studio%20Torroja%20e%20gostaria%20de%20um%20or%C3%A7amento%21`
 }
 
-const instagramLink = (path?: string) => {
+const instagramLink = () => {
 
     return `${instagram}`
 }
 
-const mailLink = (path?: string) => {
+const mailLink = () => {
 
     return `mailto:${email}`
 }

@@ -1,5 +1,4 @@
-import { Avatar, Flex, Image, Text } from "@chakra-ui/react";
-import { PiHeart, PiMagnifyingGlass, PiMagnifyingGlassThin, PiSuitcase } from "react-icons/pi";
+import { Flex, Text } from "@chakra-ui/react";
 
 
 export function PreHeader() {

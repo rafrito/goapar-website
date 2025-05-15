@@ -1,7 +1,7 @@
 "use client"
 
 import system from "@/theme"
-import { ChakraProvider, defaultSystem } from "@chakra-ui/react"
+import { ChakraProvider } from "@chakra-ui/react"
 import { ColorModeProvider } from "../components/ui/color-mode"
 import { CartDrawerProvider } from "../contexts/cart-drawer-provider"
 import { ThemeProvider } from "../contexts/theme-provider"

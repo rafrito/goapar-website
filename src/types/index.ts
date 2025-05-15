@@ -1,36 +1,3 @@
-interface ProductType {
-    createdAt: string;
-    departament: string;
-    products: Record<string, any>; // Consider defining a more specific type for 'products'
-    id: string;
-}
-
-interface Color {
-    name: string;
-    hex: string;
-}
-
-interface Products {
-    createdAt: string;
-    name: string;
-    image: string;
-    price: string;
-    departament: string;
-    material: string;
-    description: string;
-    colors: Color[];
-    id: string;
-    productTypeId: string;
-}
-
-
-
-
-
-
-
-
-
 // SHOPIFY TYPES
 
 export interface ShopifyCollection {
@@ -40,15 +7,15 @@ export interface ShopifyCollection {
     descriptionHtml?: string | null; // Descrição da coleção (opcional)
     image?: ShopifyImage | null; // Imagem da coleção (opcional)
     // Adicione outros campos se precisar (ex: products(first: N) para pegar alguns produtos da coleção)
-  }
-  
-  // Tipo para a resposta da query que busca múltiplas coleções
-  export interface CollectionsQueryResult {
+}
+
+// Tipo para a resposta da query que busca múltiplas coleções
+export interface CollectionsQueryResult {
     collections: {
-      nodes: ShopifyCollection[];
+        nodes: ShopifyCollection[];
     };
-  }
-  
+}
+
 
 // Tipo básico para imagens
 export interface ShopifyImage {
@@ -182,4 +149,4 @@ export interface CartLineUpdateInput {
 export interface ColorOption {
     name: string; // Ex: "Bege", "Ouro rosa"
     hex?: string; // Opcional: código hexadecimal para a bolinha de cor
-  }
+}

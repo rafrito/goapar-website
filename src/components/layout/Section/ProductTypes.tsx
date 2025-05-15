@@ -1,7 +1,7 @@
 import { CustomText } from "../../ui/CustomText";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Flex, FlexProps, Image, Link, Spinner } from "@chakra-ui/react";
+import { Flex, FlexProps, Link } from "@chakra-ui/react";
 import CustomSpinner from "../../ui/CustomSpinner";
 
 // Define the type for the API response
@@ -17,7 +17,7 @@ interface ProductTypesProps {
     height: FlexProps['height'];
 }
 
-export function ProductTypes({ start, end, height }: ProductTypesProps) {
+export function ProductTypes({ start, end }: ProductTypesProps) {
     const [productTypes, setProductTypes] = useState<ProductType[]>([]);
 
     useEffect(() => {

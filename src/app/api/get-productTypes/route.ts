@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
     const productTypesApiUrl = process.env.PRODUCT_TYPES_API_URL;
 
     if (!productTypesApiUrl) {

@@ -7,17 +7,12 @@ import {
     Drawer, // Importa o Drawer
     Portal,
     Flex,
-    Heading,
     Text,
     VStack,
     Box,
-    IconButton, // Para o botão de abrir o drawer
-    useDisclosure,
     Image,
-    HStack,
-    Spinner, // Para controlar o estado aberto/fechado programaticamente (opcional)
+    HStack, // Para controlar o estado aberto/fechado programaticamente (opcional)
 } from '@chakra-ui/react';
-import { PiShoppingCart } from 'react-icons/pi';
 import { useCartDrawer } from '../../../contexts/cart-drawer-provider';
 import { useCart } from '@/contexts/cart-provider';
 import { CartLine } from '@/types';
@@ -45,15 +40,15 @@ interface CartDrawerProps {
 }
 
 export function CartDrawer({
-    cartItems = [], // Valor padrão: carrinho vazio
-    subtotal = 0,
-    onRemoveItem,
-    onUpdateQuantity,
-    onCheckout,
+    // cartItems = [], // Valor padrão: carrinho vazio
+    // subtotal = 0,
+    // onRemoveItem,
+    // onUpdateQuantity,
+    // onCheckout,
 }: CartDrawerProps) {
     // Hook para controlar a visibilidade do Drawer
 
-    const { open: openCart, onOpen: onOpenCart, onClose: onCloseCart, onToggle } = useCartDrawer(); // Pega do contexto!
+    const { open: openCart, onClose: onCloseCart } = useCartDrawer(); // Pega do contexto!
 
     // Hook para acessar os dados e funções do carrinho global
     const {
