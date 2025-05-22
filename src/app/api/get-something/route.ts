@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-    const productTypesApiUrl = process.env.PRODUCTS_API_URL;
+    const productTypesApiUrl = process.env.SOMETHING_API_URL;
 
     if (!productTypesApiUrl) {
-        return NextResponse.json({ error: 'PRODUCTS_API_URL is not defined' }, { status: 500 });
+        return NextResponse.json({ error: 'SOMETHING_API_URL is not defined' }, { status: 500 });
     }
 
     try {

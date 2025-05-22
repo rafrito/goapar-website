@@ -1,5 +1,5 @@
 {
-  "name": "awer-shop",
+  "name": "frontend-base",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -11,7 +11,6 @@
   "dependencies": {
     "@chakra-ui/react": "^3.16.1",
     "@emotion/react": "^11.14.0",
-    "@shopify/storefront-api-client": "^1.0.7",
     "add": "^2.0.6",
     "axios": "^1.9.0",
     "color-mode": "^0.1.0",

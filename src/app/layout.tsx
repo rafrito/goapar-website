@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Provider from "./providers"
-import { CartDrawer } from "../components/layout/Section/CartDrawer";
 
 
 // const geistSans = Geist({
@@ -14,8 +13,8 @@ import { CartDrawer } from "../components/layout/Section/CartDrawer";
 // });
 
 export const metadata: Metadata = {
-  title: "Awer Shop",
-  description: "A maior loja tech do país",
+  title: "Frontend base",
+  description: "Frontend base hoje, amanhã e sempre",
 };
 
 export default function RootLayout({
@@ -28,7 +27,6 @@ export default function RootLayout({
       <body>
         <Provider>
           {children}
-          <CartDrawer/>
         </Provider>
       </body>
     </html>
