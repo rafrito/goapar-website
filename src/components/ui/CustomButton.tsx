@@ -7,17 +7,25 @@ interface CustomButtonProps extends ChakraButtonProps {
     colorHover?: string
 }
 
-export function CustomButton({ text = 'Shop Now', bgColor = 'buttonBg', color = 'buttonColor', bgColorHover = 'buttonBgHover', colorHover = 'buttonColorHover', ...restProps }: CustomButtonProps) {
+export function CustomButton({ text = 'Consulte agora', color = 'buttonColor', bgColorHover = 'buttonBgHover', colorHover = 'buttonColorHover', ...restProps }: CustomButtonProps) {
 
     if (restProps.isDark) {
-        bgColor = 'buttonDarkBg'
-        color = 'buttonDarkColor'
+        color = 'buttonColor'
         bgColorHover = 'buttonDarkBgHover'
         colorHover = 'buttonDarkColorHover'
     }
-
+    
     return (
-        <Button {...restProps} bgColor={bgColor} color={color} rounded={restProps.rounded?? 'l1'} _hover={{ bgColor: bgColorHover, color: colorHover, transition: '300ms' }}>
+        <Button {...restProps}
+            fontWeight={'normal'}
+            bgColor='buttonBg'
+            color={color}
+            rounded={restProps.rounded ?? 'md'}
+            _hover={{
+                bgColor:'buttonBgHover',
+                color: colorHover,
+                transition: '600ms ease-in-out',
+            }}>
             {text}
         </Button>
     )

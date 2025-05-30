@@ -3,14 +3,18 @@
 import { createSystem, defaultConfig, defineConfig } from "@chakra-ui/react"
 
 
+
 const config = defineConfig({
-    
     theme: {
         tokens: {
             colors: {
-                fullBlack:{value:"#000000"},
+                fullBlack: { value: "#000000" },
                 black: { value: "#1A202C" }, // Preto padrão Chakra (quase preto)
                 white: { value: "#FFFFFF" },
+                ghostWhite: { value: "#F0EFF4" }, // Branco fantasma (quase branco)
+                cadetBlue: { value: "#54b9c9" }, // Azul cadete (azul claro)
+                gunMetal:{value:'#292f36'},
+                roseWood: { value: "#570A0A" }, // Madeira de rosa (vermelho escuro)
                 brand: { // Sua cor de destaque
                     // ... (sua escala de cores brand)
                     50: { value: "#FFF5F5" },
@@ -35,15 +39,15 @@ const config = defineConfig({
                 bodyBg: {
                     // Valor literal 'white' para base
                     // String de referência '{colors.path.to.token}' para _dark
-                    value: { base: "white", _dark: "black" }
+                    value: { base: "{color.ghostWhite}", _dark: "black" }
                 },
-                preHeaderBg:{
+                preHeaderBg: {
                     value: { base: "black", _dark: "white" }
                 },
-                invertedColor:{
+                invertedColor: {
                     value: { base: "white", _dark: "black" }
                 },
-                spinnerColor:{
+                spinnerColor: {
                     value: { base: "black", _dark: "white" }
                 },
                 // Cor principal do texto no corpo
@@ -78,19 +82,16 @@ const config = defineConfig({
                     value: { base: "{colors.gray.50}", _dark: "{colors.gray.700}" }
                 },
                 buttonBg: {
-                    value: { base: "white", _dark: "black" }
-                },
-                buttonDarkBg: {
-                    value: { base: "black", _dark: "white" }
+                    value: { base: "{colors.brand.500}", _dark: "{colors.brand.500}" }
                 },
                 buttonBgHover: {
-                    value: { base: "black", _dark: "light" }
+                    value: { base: "{colors.cadetBlue}", _dark: "{colors.cadetBlue}" }
                 },
                 buttonDarkBgHover: {
                     value: { base: "light", _dark: "black" }
                 },
                 buttonColor: {
-                    value: { base: "black", _dark: "white" }
+                    value: { base: "white", _dark: "white" }
                 },
                 buttonDarkColor: {
                     value: { base: "white", _dark: "black" }
@@ -104,19 +105,62 @@ const config = defineConfig({
                 brandBg: {
                     value: { base: "#F5F4F4", _dark: "#040404" }
                 },
-                borderColor:{
+                borderColor: {
                     value: { base: "#00000022", _dark: "#FFFFFF22" }
+                },
+                headerColor: {
+                    value: { base: "#00000077", _dark: "#9E9E9E" }
+                },
+                mainColor: {
+                    value: { base: "black", _dark: "white" }
+                },
+                mainSubColor: {
+                    value: { base: "#00000077", _dark: "#9E9E9E" }
+                },
+                showCaseBg:{
+                    value: { base: "#00000077", _dark: "#000000ee" }
+                },
+                showCaseBorder:{
+                    value: { base: "#00000077", _dark: "#131415" }
+                },
+                footerBg: {
+                    value: { base: "{colors.gray.200}", _dark: "#18181C" }
+                },
+                footerColor: {
+                    value: { base: "#00000077", _dark: "#9E9E9E" }
+                },
+                footerHeaderColor: {
+                    value: { base: "black", _dark: "white" }
+                },
+                bottomFooterBg: {
+                    value: { base: "{color.ghostWhite}", _dark: "black" }
+                },
+                bottomFooterColor: {
+                    value: { base: "#00000077", _dark: "#9E9E9E" }
+                },
+                bottomFooterHeaderColor: {
+                    value: { base: "black", _dark: "white" }
+                },
+                bottomFooterIconBg: {
+                    value: { base: "{colors.gray.200}", _dark: "{colors.gray.900}" }
+                },
+                bottomFooterIconBgHover: {
+                    value: { base: "{colors.gray.300}", _dark: "{colors.gray.700}" }
+                },
+                brandGradient: {
+                    value: { base: '#FF5251', _dark: "#FF5251" }
                 }
                 // ... adicione outros tokens semânticos ...
             }
         },
-        
+
     },
     globalCss: {
         "html, body": {
             margin: '0',
             padding: '0',
-            bgColor:'{colors.bodyBg}'
+            bgColor: '{colors.bodyBg}',
+            zIndex:-2
         },
     },
 })

@@ -1,8 +1,8 @@
-import { Flex } from "@chakra-ui/react";
+import { Main } from "@/components/layout/Main/Main";
 
 export default function Home() {
 
   return (
-    <Flex> hi </Flex>
+    <Main/>
   );
 }

@@ -44,5 +44,35 @@ const mailLink = () => {
     return `mailto:${email}`
 }
 
+const logoSrc = 'logos/logo.png';
 
-export { scrollToSection, whatsappLink, whatsappNumber, mapsLink, instagramLink, mailLink }
+const footerSectionsLabel = {
+    consultoria: 'Consultoria',
+    tecnologia: 'Tecnologia',
+    empresa:'Awer'
+}
+const footerSections = {
+    consultoria: [
+        { label: 'Consultoria', href: '#' },
+        { label: 'Mapeamento de processos', href: '#' },
+        { label: 'Planejamento e orçamento', href: '#' },
+        { label: 'Geração de relatórios e indicadores', href: '#' },
+        { label: 'Estabelecimento e revisão de Metas', href: '#' },
+    ],
+    tecnologia: [
+        { label: 'Tecnologia', href: '#' },
+        { label: 'Aplicativos', href: '#' },
+        { label: 'E-commerce', href: '#' },
+        { label: 'Crawlers', href: '#' },
+        { label: 'Landing Pages', href: '#' },
+    ],
+    empresa: [
+        { label: 'Nossa História', href: '#' },
+        { label: 'Equipe', href: '#' },
+        { label: 'Carreiras', href: '#' },
+        { label: 'Contato', href: '#' },
+        { label: 'Blog', href: '#' },
+    ],
+};
+
+export { scrollToSection, whatsappLink, whatsappNumber, mapsLink, instagramLink, mailLink, logoSrc, footerSections, footerSectionsLabel }

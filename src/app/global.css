@@ -1,0 +1,25 @@
+/* Em globals.css ou similar */
+@keyframes rotateBackground {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Classe que aplicará a animação */
+.rotating-bg {
+  animation: rotateBackground 360s linear infinite; /* 60s para uma rotação bem lenta, 'linear' para velocidade constante, 'infinite' para repetir */
+  transform-origin: center center; /* Garante que a rotação seja pelo centro da imagem/elemento */
+}
+
+
+@media (max-width: 767px) {
+  .rotating-bg {
+    animation: none; /* Desabilita a animação */
+    /* Opcional: você pode querer ajustar outras propriedades do fundo
+       especificamente para mobile aqui, se necessário, mas para apenas
+       parar a rotação, 'animation: none;' é suficiente. */
+  }
+}

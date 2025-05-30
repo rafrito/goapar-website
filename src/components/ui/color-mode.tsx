@@ -4,8 +4,9 @@ import type { IconButtonProps } from "@chakra-ui/react"
 import { ClientOnly, IconButton, Skeleton } from "@chakra-ui/react"
 import { ThemeProviderProps, useTheme } from "next-themes"
 import { forwardRef } from "react"
-import { LuMoon, LuSun } from "react-icons/lu"
 import { ThemeProvider } from "../../contexts/theme-provider"
+import { PiMoonLight, PiSunLight, PiSunThin } from "react-icons/pi"
+import { motion } from "framer-motion"
 
 export function ColorModeProvider(props: ThemeProviderProps) {
   return (
@@ -32,29 +33,33 @@ export function useColorModeValue<T>(light: T, dark: T) {
 
 export function ColorModeIcon() {
   const { colorMode } = useColorMode()
-  return colorMode === "light" ? <LuSun /> : <LuMoon />
+  return colorMode === "light" ? <PiSunLight /> : <PiMoonLight />
 }
 
 export const ColorModeButton = forwardRef<HTMLButtonElement, IconButtonProps>(
   function ColorModeButton(props, ref) {
     const { toggleColorMode } = useColorMode()
+    const MotionIconButton = motion(IconButton);
+
     return (
       <ClientOnly fallback={<Skeleton boxSize="8" />}>
-        <IconButton
+        <MotionIconButton
           onClick={toggleColorMode}
-          variant="ghost"
-          size="sm"
-          ref={ref}
-          {...props}
-          css={{
-            _icon: {
-              width: "5",
-              height: "5",
-            },
+          aria-label="Mudar tema"
+          bgColor={'transparent'}
+          color='headerColor'
+          // Estado inicial (sem hover)
+          initial={{ rotate: 0, scale: 1 }}
+          // Animação no hover
+          whileHover={{
+            color: "#FF5F5E", // Cor do ícone no hover
+            rotate: 360, // Gira 360 graus no hover
+            scale: 1.3,  // Aumenta o tamanho em 20% no hover
+            transition: { duration: 0.6, ease:'circInOut' }, // Transição suave para o hover
           }}
         >
           <ColorModeIcon />
-        </IconButton>
+        </MotionIconButton>
       </ClientOnly>
     )
   },
