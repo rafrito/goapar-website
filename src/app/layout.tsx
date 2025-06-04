@@ -32,7 +32,7 @@ export default function RootLayout({
       <body>
         <Provider>
           <Container centerContent maxW="container.xl" p={0} minH="100vh" display="flex" flexDirection="column" pos={'relative'} overflowX="hidden" >
-            <Image className={'rotating-bg'} src={'main/background.svg'} objectPosition={{base:'center',md:'top'}} objectFit={{ base: 'cover', md: 'cover' }} pos={'absolute'} h={{ base: '100vh', md: '120vh' }} w='100%' zIndex={-1} opacity={0.5} />
+            {/* <Image className={'rotating-bg'} src={'main/background.svg'} objectPosition={{base:'center',md:'top'}} objectFit={{ base: 'contain', md: 'cover' }} pos={'absolute'} h={{md: '120vh' }} w='100%' zIndex={-1} opacity={{base:0.8, md:0.5}}  mt={{base:32, md:''}}/> */}
             <Header />
             {children}
             <Footer />

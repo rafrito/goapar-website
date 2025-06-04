@@ -118,10 +118,10 @@ const config = defineConfig({
                     value: { base: "#00000077", _dark: "#9E9E9E" }
                 },
                 showCaseBg:{
-                    value: { base: "#00000077", _dark: "#000000ee" }
+                    value: { base: "#00000077", _dark: "{colors.gray.900}" }
                 },
                 showCaseBorder:{
-                    value: { base: "#00000077", _dark: "#131415" }
+                    value: { base: "#00000077", _dark: "#13141588" }
                 },
                 footerBg: {
                     value: { base: "{colors.gray.200}", _dark: "#18181C" }

@@ -2,9 +2,10 @@
 'use client'; // Necessário para hooks e interatividade
 
 import { JSX } from "react";
-import { Button, ButtonProps as ChakraButtonProps } from "@chakra-ui/react";
+import { Button, ButtonProps as ChakraButtonProps, Text, useBreakpointValue } from "@chakra-ui/react";
 import { motion, Variants, Transition } from 'framer-motion'; // Importe motion e Variants
 import { PiArrowRight, PiArrowRightBold } from "react-icons/pi";
+import { FaLongArrowAltRight } from "react-icons/fa";
 
 
 interface MotionButtonProps extends ChakraButtonProps {
@@ -12,7 +13,7 @@ interface MotionButtonProps extends ChakraButtonProps {
     action?: () => void
 }
 
-const ChakraMotionButton = motion<ChakraButtonProps>(Button as any);
+const ChakraMotionButton = motion(Button);
 
 export function MotionButton({ text = "Consulte agora" }: MotionButtonProps) {
 
@@ -62,6 +63,10 @@ export function MotionButton({ text = "Consulte agora" }: MotionButtonProps) {
 }
 
 export function GetStartedMotionButton({ text = "Ver mais" }: MotionButtonProps) {
+    const isMobile = useBreakpointValue({
+        base: true,
+        md: false
+    })
 
     // Define as variantes de animação
     const buttonVariants: Variants = {
@@ -69,7 +74,7 @@ export function GetStartedMotionButton({ text = "Ver mais" }: MotionButtonProps)
             boxShadow: "0px 2px 5px rgba(0,0,0,0.1)", // Sombra sutil inicial (opcional)
             backgroundColor: '#FF5F5E',
             color: '#FFFFFF',
-            width:150
+            width: 150
         },
         hover: { // Estado no hover
             backgroundColor: '#54b9c9',
@@ -101,16 +106,19 @@ export function GetStartedMotionButton({ text = "Ver mais" }: MotionButtonProps)
             whileTap="tap"          // Anima para o estado "tap" ao clicar
             transition={defaultTransition}
             style={{
-                fontSize:20,
-                borderRadius:24,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                padding:20
+                padding: 20
             }}
+            fontSize={{ base: 16, md: 16 }}
+            borderRadius={'2xl'}
         >
-            {text} {/* Usa a prop 'text' ou o 'children' padrão */}
-            <PiArrowRightBold/>
+            <Text textAlign={'start'}>
+                {text} {/* Usa a prop 'text' ou o 'children' padrão */}
+            </Text>
+            {isMobile ? '' : <FaLongArrowAltRight style={{paddingTop:1}}  />
+            }
         </ChakraMotionButton>
     );
 }

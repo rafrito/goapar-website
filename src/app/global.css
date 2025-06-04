@@ -15,11 +15,11 @@
 }
 
 
-@media (max-width: 767px) {
+/* @media (max-width: 767px) {
   .rotating-bg {
-    animation: none; /* Desabilita a animação */
+    animation: none;  */
     /* Opcional: você pode querer ajustar outras propriedades do fundo
        especificamente para mobile aqui, se necessário, mas para apenas
        parar a rotação, 'animation: none;' é suficiente. */
-  }
-}
+  /* } */
+/* } */

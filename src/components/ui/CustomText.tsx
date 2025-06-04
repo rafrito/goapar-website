@@ -1,15 +1,15 @@
-import { Text, TextProps as ChakraTextProps } from "@chakra-ui/react";
+import { Text, FlexProps as ChakraFlexProps, Flex } from "@chakra-ui/react";
 import { JSX } from "react";
 
-interface CustomTextProps extends ChakraTextProps {
+interface CustomTextProps extends ChakraFlexProps {
     text?: string | JSX.Element,
 }
 
 export function CustomText({ text = 'Shop Now', fontSize = 'sm', color = 'TextColor', fontWeight='normal', ...restProps }: CustomTextProps) {
 
     return (
-        <Text {...restProps} fontSize={fontSize} color={color} fontWeight={fontWeight}>
+        <Flex {...restProps} fontSize={fontSize} color={color} fontWeight={fontWeight}>
             {text}
-        </Text>
+        </Flex>
     )
 }
