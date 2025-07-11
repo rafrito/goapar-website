@@ -1,5 +1,5 @@
 export const footerData = {
-    logoSrc: 'logos/logo.png',
+    logoSrc: '/logos/logo.png',
     logoAlt: "Logo",
     footerDescription: "A tecnologia é a ferramenta que impulsiona o progresso, mas a consultoria especializada é o mapa detalhado que guia você rumo ao sucesso estratégico e à inovação contínua.",
     guideHeading: "Guia",
