@@ -22,7 +22,7 @@ export const awerTestimonials: Testimonial[] = [
     id: '2',
     quote: "A parceria com a Awer transformou a gestão do nosso escritório. Com o suporte estratégico e a tecnologia desenvolvida por eles — especialmente os bots de segurança — tivemos uma melhoria real nos resultados. Sou muito grata pela dedicação e competência desse time incrivel.",
     authorName: 'Marina Precinotto',
-    authorTitle: 'Sócia patrimonial, SCC Advocacia',
+    authorTitle: 'Sócia Patrimonial, SCC Advocacia',
     authorImage: 'feedbacks/marina.jpg',
     rating: 5,
   },
