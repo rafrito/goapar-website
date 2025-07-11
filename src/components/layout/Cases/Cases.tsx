@@ -56,7 +56,6 @@ const buttonVariants: Variants = {
         width: 240
     },
     hover: {
-        backgroundColor: '#FF5F5E', // Cor padrão, será sobrescrita pela prop
         boxShadow: "0px 4px 12px rgba(0,0,0,0.15)",
         border: 'none',
         width: 600,
