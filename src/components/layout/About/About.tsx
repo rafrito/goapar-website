@@ -6,7 +6,7 @@
 
 // --- Framework e UI Libs ---
 import { Button, Flex, Image, Link, Text } from "@chakra-ui/react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 // --- Dados Locais ---
 import { aboutData } from "@/data/about"; // Dados de texto para o componente
@@ -24,7 +24,7 @@ export function About() {
 
     // --- Definição das Variantes de Animação ---
     // Variante genérica para animar a entrada de elementos
-    const itemVariants = {
+    const itemVariants: Variants  = {
         hidden: { opacity: 0, y: 20 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
     };

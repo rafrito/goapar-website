@@ -2,7 +2,7 @@
 'use client';
 
 import { Flex, Heading, Text, Icon, VStack } from "@chakra-ui/react";
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { PiWrench } from "react-icons/pi"; // Ícone de ferramenta, apropriado para "construção"
 
 export default function AplicativosWeb() {
@@ -13,7 +13,7 @@ export default function AplicativosWeb() {
     const MotionIcon = motion(Icon);
 
     // Variantes de animação para a entrada dos elementos
-    const containerVariants = {
+    const containerVariants: Variants  = {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
@@ -24,7 +24,7 @@ export default function AplicativosWeb() {
         },
     };
 
-    const itemVariants = {
+    const itemVariants: Variants  = {
         hidden: { y: 20, opacity: 0 },
         visible: {
             y: 0,

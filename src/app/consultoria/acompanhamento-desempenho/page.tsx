@@ -13,7 +13,7 @@ export default function AcompanhamentoDesempenho() {
     const MotionIcon = motion(Icon);
 
     // Variantes de animação para a entrada dos elementos
-    const containerVariants = {
+    const containerVariants: Variants  = {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
