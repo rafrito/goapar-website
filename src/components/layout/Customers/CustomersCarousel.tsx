@@ -29,7 +29,7 @@ export function CustomersCarousel({
     const duplicatedLogos2 = [...awerClientLogos2, ...awerClientLogos2];
 
     // Marquee animation variants
-    const marqueeVariants = {
+    const marqueeVariants: Variants  = {
         animate: {
             x: [0, "-60%"],
             transition: {
@@ -42,7 +42,7 @@ export function CustomersCarousel({
             },
         },
     };
-    const marqueeVariants2 = {
+    const marqueeVariants2: Variants  = {
         animate: {
             x: [0, "-60%"],
             transition: {
