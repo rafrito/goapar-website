@@ -141,7 +141,7 @@ export function Cases({ c }: CasesDataProps) {
                     flexDir={'column'}
                     w='100%'
                     justifyContent={'space-between'}
-                    h={{ base: 'stretch', md: '100%' }}
+                    h={{ base: 'auto', md: '100%' }}
                     gap={{ base: 4, md: 2 }}
                 >
                     <Flex flexDir={'column'} gap={{ base: 8, md: 8 }} p={{ base: 4, md: 0 }}>

@@ -49,7 +49,7 @@ export function Main() {
                     animate='visible' // Estado final
                     className={'rotating-bg'} // Classe CSS para rotação
                     src={mainImageData.imageSrc} // Caminho da imagem
-                    boxSize={{ base: '80vw', md: 'lg' }} // Tamanho da caixa
+                    boxSize={{ base: '80vw', md: 'xl' }} // Tamanho da caixa
                     zIndex={100} // Z-index
                 />
             </Flex>
