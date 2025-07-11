@@ -50,7 +50,7 @@ const slideContentVariants: Variants = {
     visible: {
         opacity: 1,
         x: 0,
-        transition: { duration: 1, ease: [0.0, 0.0, 0.58, 1.0] }
+        transition: { duration: 1, ease: "easeOut" }
     }
 };
 

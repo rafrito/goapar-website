@@ -35,7 +35,7 @@ export function TitleST() {
             y: 0,
             transition: {
                 duration: 1.5,
-                ease: [0.0, 0.0, 0.58, 1.0],
+                ease: "easeOut",
                 delay: 1.8,    // <<<< ATRASO MAIOR PARA O SEGUNDO TEXTO APARECER
             }
         }
@@ -49,7 +49,7 @@ export function TitleST() {
             y: 0,
             transition: {
                 duration: 1,
-                ease: [0.0, 0.0, 0.58, 1.0],
+                ease: "easeOut",
                 delay: 2.4,    // <<<< ATRASO AINDA MAIOR PARA O BOTÃO
             }
         }
@@ -62,7 +62,7 @@ export function TitleST() {
             width: '95%',
             transition: {
                 duration: 1,
-                ease: [0.0, 0.0, 0.58, 1.0],
+                ease: "easeOut",
                 delay: 2.4,    // <<<< ATRASO AINDA MAIOR PARA O BOTÃO
             }
         }

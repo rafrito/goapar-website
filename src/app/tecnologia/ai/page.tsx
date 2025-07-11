@@ -31,7 +31,7 @@ export default function AI() {
             opacity: 1,
             transition: {
                 duration: 0.5,
-                ease: [0.0, 0.0, 0.58, 1.0],
+                ease: "easeOut",
             },
         },
     };

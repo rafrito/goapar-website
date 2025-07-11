@@ -2,7 +2,7 @@
 'use client';
 
 import { Flex, Heading, Text, Icon, VStack } from "@chakra-ui/react";
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { PiWrench } from "react-icons/pi"; // Ícone de ferramenta, apropriado para "construção"
 
 export default function AcompanhamentoDesempenho() {
@@ -24,14 +24,14 @@ export default function AcompanhamentoDesempenho() {
         },
     };
 
-    const itemVariants = {
+    const itemVariants: Variants = {
         hidden: { y: 20, opacity: 0 },
         visible: {
             y: 0,
             opacity: 1,
             transition: {
                 duration: 0.5,
-                ease: [0.0, 0.0, 0.58, 1.0],
+                ease: "easeOut",
             },
         },
     };
