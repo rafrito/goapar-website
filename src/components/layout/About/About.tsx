@@ -131,7 +131,7 @@ export function About() {
                             {aboutData.connectionDescription}
                         </MotionText>
                     </MotionFlex>
-                    <MotionFlex w='100%'>
+                    <MotionFlex h='100%' w='100%'>
                         <Image
                             src={'about/connection.jpg'}
                             alt="Pessoas conectadas em reunião"
