@@ -9,11 +9,12 @@ const config = defineConfig({
         tokens: {
             colors: {
                 fullBlack: { value: "#000000" },
-                black: { value: "#1A202C" }, // Preto padrão Chakra (quase preto)
+                black: { value: "#000000" }, // Preto padrão Chakra (quase preto)
                 white: { value: "#FFFFFF" },
                 ghostWhite: { value: "#F0EFF4" }, // Branco fantasma (quase branco)
                 cadetBlue: { value: "#54b9c9" }, // Azul cadete (azul claro)
                 gunMetal:{value:'#292f36'},
+                shotGunMetal:{value:'#141414'},
                 roseWood: { value: "#570A0A" }, // Madeira de rosa (vermelho escuro)
                 brand: { // Sua cor de destaque
                     // ... (sua escala de cores brand)
@@ -39,7 +40,7 @@ const config = defineConfig({
                 bodyBg: {
                     // Valor literal 'white' para base
                     // String de referência '{colors.path.to.token}' para _dark
-                    value: { base: "{color.ghostWhite}", _dark: "black" }
+                    value: { base: "{colors.ghostWhite}", _dark: "black" }
                 },
                 preHeaderBg: {
                     value: { base: "black", _dark: "white" }
@@ -49,6 +50,9 @@ const config = defineConfig({
                 },
                 spinnerColor: {
                     value: { base: "black", _dark: "white" }
+                },
+                blackToShotGunMetal: {
+                    value: { base: "linear(to-r, black, {colors.shotGunMetal})", _dark: "linear(to-r, black, {colors.shotGunMetal})" }
                 },
                 // Cor principal do texto no corpo
                 textPrimary: {

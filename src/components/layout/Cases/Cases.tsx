@@ -1,168 +1,218 @@
-'use client'
-import { CustomText } from "@/components/ui/CustomText";
-import { CasesProps } from "@/data/cases";
-import { Button, Flex, Link, Tag, Text } from "@chakra-ui/react";
+// src/components/layout/Cases.tsx
+'use client';
+
+// ============================================================================
+//   IMPORTS
+// ============================================================================
+
+// --- Framework e UI Libs ---
+import { Button, Flex, Link, Tag, Text, IconButton } from "@chakra-ui/react";
 import { motion, Variants } from "framer-motion";
 import { FaLongArrowAltRight } from "react-icons/fa";
 
+// --- Componentes e Dados do Projeto ---
+import { CustomText } from "@/components/ui/CustomText";
+import { CasesProps } from "@/data/cases"; // Supondo que a interface venha daqui
 
+// ============================================================================
+//   VARIANTES DE ANIMAÇÃO (FRAMER MOTION)
+// ============================================================================
+// Definidas fora do componente para melhor performance, evitando recriação a cada render.
+
+const caseFlexVariantsLeft: Variants = {
+    hidden: { opacity: 0, x: '-10%' },
+    inView: {
+        opacity: 1, x: 0,
+        transition: { duration: 1.4, ease: 'easeInOut' }
+    }
+};
+
+const caseFlexVariantsRight: Variants = {
+    hidden: { opacity: 0, x: '10%' },
+    inView: {
+        opacity: 1, x: 0,
+        transition: { duration: 1.4, ease: 'easeInOut', delay: 0.7 }
+    }
+};
+
+const titleVariants: Variants = {
+    hidden: { opacity: 0, y: -20 },
+    inView: { opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.5 } }
+};
+
+const tagVariants: Variants = {
+    hidden: { opacity: 0, y: -20 },
+    inView: { opacity: 1, y: 0, transition: { duration: 0.8, delay: 1 } }
+};
+
+const descriptionVariants: Variants = {
+    hidden: { opacity: 0, y: -20 },
+    inView: { opacity: 1, y: 0, transition: { duration: 0.8, delay: 1.5 } }
+};
+
+const buttonVariants: Variants = {
+    initial: {
+        boxShadow: "0px 2px 5px rgba(0,0,0,0.1)",
+        width: 240
+    },
+    hover: {
+        backgroundColor: '#FF5F5E', // Cor padrão, será sobrescrita pela prop
+        boxShadow: "0px 4px 12px rgba(0,0,0,0.15)",
+        border: 'none',
+        width: 600,
+        transition: { type: "spring", stiffness: 400, damping: 100 }
+    },
+    tap: {
+        scale: 0.80,
+    }
+};
+
+
+// ============================================================================
+//   COMPONENTE PRINCIPAL: Cases
+// ============================================================================
 interface CasesDataProps {
-    c: CasesProps
+    c: CasesProps;
 }
 
 export function Cases({ c }: CasesDataProps) {
 
-    const { description, image, orientation, product, tagLabel } = c
+    // --- Desestruturação das Props ---
+    const { description, image, orientation, product, tagLabel } = c;
 
-    const MotionText = motion(CustomText)
-    const MotionFlex = motion(Flex)
-    const MotionTag = motion(Tag.Root)
-    const MotionButton = motion(Button)
+    // --- Componentes com Animação ---
+    const MotionText = motion(CustomText);
+    const MotionFlex = motion(Flex);
+    const MotionTag = motion(Tag.Root);
+    const MotionButton = motion(Button);
 
-
+    // --- Lógica de Orientação ---
     const isImageLeft = orientation === 'image-left';
 
-    const CaseFlexVariantsRight: Variants = {
-        hidden: {
-            opacity: 0, x: '10%'
-        },
-        inView: {
-            opacity: 1, x: 0,
-            transition: {
-                duration: 1.4, ease: 'easeInOut'
-            }
-        }
-    }
-
-    const CaseFlexVariantsLeft: Variants = {
-        hidden: {
-            opacity: 0, x: '-10%'
-        },
-        inView: {
-            opacity: 1, x: 0,
-            transition: {
-                duration: 1.4, ease: 'easeInOut'
-            }
-        }
-    }
-
-    const buttonVariants: Variants = {
-        initial: { // Estado normal (sem hover, sem clique)
-            boxShadow: "0px 2px 5px rgba(0,0,0,0.1)", // Sombra sutil inicial (opcional)
-            width: 240
-        },
-        hover: { // Estado no hover
-            backgroundColor: '#FF5F5E',
-            boxShadow: "0px 4px 12px rgba(0,0,0,0.15)", // Sombra um pouco maior
-            width: 600,
-            transition: { // Transição específica para o estado de hover
-                type: "spring", // Tipo de transição (spring, tween)
-                stiffness: 400,
-                damping: 100
-            }
-        },
-        tap: { // Estado ao clicar/pressionar
-            scale: 0.80, // Diminui 5%
-        }
-    };
-
+    // --- Renderização do Componente ---
     return (
         <Flex justifyContent="center">
             <Flex
+                // Layout principal que alterna a direção da imagem
                 w="100%"
-                maxWidth="1440px" // or any other max width you want
                 justifyContent={'center'}
                 alignItems={'start'}
-                gap={{ base: 8, md: 24 }}
+                gap={{ base: 8, md: 32 }}
+                minH={{ base: '100%', xl: 500 }}
                 flexDir={{ base: 'column', md: isImageLeft ? 'row' : 'row-reverse' }}
             >
 
-                {/* Imagem */}
+                {/* Bloco da Imagem (Esquerdo ou Direito) */}
                 <MotionFlex
-                    variants={CaseFlexVariantsLeft}
+                    variants={caseFlexVariantsLeft}
                     initial='hidden'
                     whileInView='inView'
+                    viewport={{ once: true }}
+                    // Estilização da imagem
                     w='100%'
+                    h={{ base: '40vh', md: '100%' }}
                     justifyContent={'right'}
                     pos={'relative'}
-                    bgImage={`url(${image})`} h={{ base: 400, md: '100%' }} bgSize={'cover'} bgPos={'center'}
+                    bgColor={'black'}
+                    bgImage={`url(${image})`}
+                    bgSize={'cover'}
+                    bgPos={'start'}
                 >
+                    {/* Gradiente sobre a imagem para dar contraste ao texto */}
                     <Flex
                         position="absolute"
                         top="0"
                         left="0"
                         right="0"
                         bottom="0"
-                        bgGradient="to-r" gradientFrom="#000000" gradientTo="transparent 66%"
+                        bgGradient="to-r"
+                        gradientFrom="#000000"
+                        gradientTo="transparent 33%"
                     />
                 </MotionFlex>
 
-                {/* Textos */}
+                {/* Bloco de Texto (Direito ou Esquerdo) */}
                 <MotionFlex
-                    variants={CaseFlexVariantsRight}
+                    variants={caseFlexVariantsRight}
                     initial='hidden'
                     whileInView='inView'
-                    flexDir={'column'} w='100%' gap={{ base: 2, md: 8 }}>
+                    viewport={{ once: true }}
+                    // Layout do container de texto
+                    flexDir={'column'}
+                    w='100%'
+                    justifyContent={'space-between'}
+                    h={{ base: 'stretch', md: '100%' }}
+                    gap={{ base: 4, md: 2 }}
+                >
+                    <Flex flexDir={'column'} gap={{ base: 8, md: 8 }} p={{ base: 4, md: 0 }}>
+                        <Flex flexDir={'column'} gap={{ base: 8, md: 8 }}>
 
-                    <Flex flexDir={'column'} gap={{ base: 2, md: 8 }}>
+                            {/* Título do Produto */}
+                            <Flex>
+                                <MotionText
+                                    variants={titleVariants}
+                                    text={product}
+                                    fontSize={{ base: '3xl', md: '6xl' }}
+                                    lineHeight={1.2}
+                                />
+                            </Flex>
 
+                            {/* Tag (Consultoria/Tecnologia) */}
+                            <Flex>
+                                <MotionTag
+                                    bgColor={tagLabel === 'Consultoria' ? 'brand.500' : 'cadetBlue'}
+                                    variants={tagVariants}
+                                >
+                                    <Tag.Label
+                                        fontSize={{ base: 'lg', md: 'xl' }}
+                                        color={'ghostWhite'}
+                                        py={{ base: 2, md: 4 }}
+                                        px={{ base: 4, md: 6 }}
+                                    >
+                                        {tagLabel}
+                                    </Tag.Label>
+                                </MotionTag>
+                            </Flex>
+
+                        </Flex>
+
+                        {/* Descrição do Case */}
                         <Flex>
                             <MotionText
-                                variants={{
-                                    hidden: { opacity: 0, y: -20 },
-                                    inView: { opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.5 } }
-                                }}
-                                text={product} fontSize={{ base: '3xl', md: '6xl' }} lineHeight={1.2} />
-                        </Flex>
-                        <Flex>
-                            <MotionTag
-                                variants={{
-                                    hidden: { opacity: 0, y: -20 },
-                                    inView: { opacity: 1, y: 0, transition: { duration: 0.8, delay: 1 } }
-                                }}
-                            >
-                                <Tag.Label
-                                    fontSize={{ base: 'lg', md: 'xl' }}
-                                    color={'textSecondary'}
-                                    py={{ base: 2, md: 4 }}
-                                    px={{ base: 4, md: 6 }}
-                                >
-                                    {tagLabel}
-                                </Tag.Label>
-                            </MotionTag>
+                                variants={descriptionVariants}
+                                fontSize={{ base: 'md', md: 'xl' }}
+                                color='textSecondary'
+                                fontWeight={'regular'}
+                                letterSpacing={1.3}
+                                text={description}
+                            />
                         </Flex>
                     </Flex>
-                    <Flex>
-                        <MotionText
-                            variants={{
-                                hidden: { opacity: 0, y: -20 },
-                                inView: { opacity: 1, y: 0, transition: { duration: 0.8, delay: 1.5 } }
-                            }}
-                            fontSize={{ base: 'md', md: 'xl' }}
-                            color='textSecondary'
-                            fontWeight={'regular'}
-                            letterSpacing={1.3}
-                            text={description} />
-                    </Flex>
-                    <Flex>
+
+                    {/* Botão "Saiba Mais" */}
+                    <Flex p={{base:4, md:0}}>
                         <MotionButton
                             fontSize={'md'}
                             initial='initial'
                             whileHover="hover"
                             variants={buttonVariants}
-                            borderRadius={'3xl'}
+                            borderRadius={'md'}
                             bgColor={'transparent'}
-                            border={'1px solid #ff5f5e88'}
+                            border={tagLabel === 'Consultoria' ? '1px solid #FF5F5E' : '1px solid cadetBlue'}
                             color={'textPrimary'}
                             justifyContent={'space-between'}
+                            // Sobrescreve a cor do hover dinamicamente
+                            _hover={{
+                                backgroundColor: tagLabel === 'Consultoria' ? '#FF5F5E' : 'cadetBlue'
+                            }}
                         >
                             Clique para saber mais
                             <FaLongArrowAltRight />
                         </MotionButton>
-
                     </Flex>
                 </MotionFlex>
+
             </Flex>
         </Flex>
-    )
+    );
 }

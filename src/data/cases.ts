@@ -11,7 +11,7 @@ export interface CasesProps {
 export const cases: CasesProps[] = [
     {
         orientation: 'image-left', // Imagem à direita, texto à esquerda
-        image: 'cases/consultoria.svg', // Placeholder
+        image: 'cases/consultoria-2.svg', // Placeholder
         product: 'Consultoria Estratégica Integrada', // Título do pilar
         tagLabel: 'Consultoria', // Categoria
         description: 'Oferecemos uma visão 360º para o seu negócio, conectando planejamento comercial, prospecção, gestão financeira e otimização de processos para impulsionar seus resultados e garantir crescimento sustentável.',

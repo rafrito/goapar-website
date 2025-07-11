@@ -1,3 +1,6 @@
+'use client'
+
+
 import {
     Flex,
     Image,
@@ -13,13 +16,31 @@ import { CustomText } from "../ui/CustomText";
 import { MotionButton } from "../ui/MotionButton";
 import { logoSrc } from "@/utils";
 import { HeaderMobileMenu } from "./HeaderMobileMenu";
+import { motion, Variants } from "framer-motion";
 
 export function Header() {
 
+    const MotionFlex = motion(Flex);
+
+
+    const headerlVariants: Variants = {
+        hidden: { opacity: 0 }, // Começa invisível e um pouco abaixo
+        visible: {
+            opacity: 1,
+            transition: {
+                duration: 0.6, // Duração da animação
+                ease: "easeInOut",
+            }
+        }
+    }
+
     return (
-        <Flex
+        <MotionFlex
             as="header"
             justifyContent={'space-between'}
+            initial="hidden"
+            animate="visible"
+            variants={headerlVariants}
             alignItems="center"
             py={4}
             px={{ base: 4, md: 2 }}
@@ -36,11 +57,15 @@ export function Header() {
             {/* Seção Direita: Ações e Menu Mobile */}
             <Flex alignItems={'center'} gap={{ base: 2, sm: 3, md: 4 }}>
 
-
-                <ColorModeButton />
                 <Flex gap={8} fontSize={'sm'} display={{ base: 'none', md: 'flex' }}>
                     <ChakraLink _hover={{ cursor: 'pointer', color: 'brand.500', textDecoration: 'none' }}>
-                        <CustomText color={'headerColor'} text={'Home'} />
+                        <CustomText color={'headerColor'} text={'Home'} letterSpacing={1.8} textTransform={'uppercase'} />
+                    </ChakraLink>
+                    <ChakraLink _hover={{ cursor: 'pointer', color: 'brand.500', textDecoration: 'none' }}>
+                        <CustomText color={'headerColor'} text={'Consultoria'}letterSpacing={1.8} textTransform={'uppercase'} />
+                    </ChakraLink>
+                    <ChakraLink _hover={{ cursor: 'pointer', color: 'brand.500', textDecoration: 'none' }}>
+                        <CustomText color={'headerColor'} text={'Tecnologia'}letterSpacing={1.8} textTransform={'uppercase'} />
                     </ChakraLink>
                     <ChakraLink _hover={{ cursor: 'pointer', color: 'brand.500', textDecoration: 'none' }}>
                         <MotionButton />
@@ -52,6 +77,6 @@ export function Header() {
                 <HeaderMobileMenu />
 
             </Flex>
-        </Flex>
+        </MotionFlex>
     );
 }

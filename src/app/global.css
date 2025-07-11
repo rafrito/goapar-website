@@ -3,6 +3,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -10,16 +11,44 @@
 
 /* Classe que aplicará a animação */
 .rotating-bg {
-  animation: rotateBackground 360s linear infinite; /* 60s para uma rotação bem lenta, 'linear' para velocidade constante, 'infinite' para repetir */
-  transform-origin: center center; /* Garante que a rotação seja pelo centro da imagem/elemento */
+  animation: rotateBackground 270s linear infinite;
+  /* 60s para uma rotação bem lenta, 'linear' para velocidade constante, 'infinite' para repetir */
+  transform-origin: center center;
+  /* Garante que a rotação seja pelo centro da imagem/elemento */
 }
 
+.testimonial-carousel .swiper-pagination-bullet {
+  background-color: #A0AEC0;
+  /* Cinza para as bolinhas inativas */
+  opacity: 0.7;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.testimonial-carousel .swiper-pagination-bullet-active {
+  background-color: #FFFFFF;
+  /* Branco para a bolinha ativa */
+  transform: scale(1.2);
+  opacity: 1;
+}
+
+.testimonial-carousel .swiper-button-next,
+.testimonial-carousel .swiper-button-prev {
+  color: #FFFFFF;
+  /* Cor das setas de navegação */
+  transform: scale(0.8);
+}
+
+.testimonial-carousel .swiper-button-next:after,
+.testimonial-carousel .swiper-button-prev:after {
+  font-size: 2rem;
+  /* Tamanho das setas */
+}
 
 /* @media (max-width: 767px) {
   .rotating-bg {
     animation: none;  */
-    /* Opcional: você pode querer ajustar outras propriedades do fundo
+/* Opcional: você pode querer ajustar outras propriedades do fundo
        especificamente para mobile aqui, se necessário, mas para apenas
        parar a rotação, 'animation: none;' é suficiente. */
-  /* } */
+/* } */
 /* } */

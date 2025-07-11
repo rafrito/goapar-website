@@ -9,6 +9,10 @@ import { PiMoonLight, PiSunLight, PiSunThin } from "react-icons/pi"
 import { motion } from "framer-motion"
 
 export function ColorModeProvider(props: ThemeProviderProps) {
+  const { setTheme } = useTheme()
+  setTheme("dark")
+  console.log('after light')
+
   return (
     <ThemeProvider attribute="class" disableTransitionOnChange {...props} />
   )
@@ -17,7 +21,7 @@ export function ColorModeProvider(props: ThemeProviderProps) {
 export function useColorMode() {
   const { resolvedTheme, setTheme } = useTheme()
   const toggleColorMode = () => {
-    setTheme(resolvedTheme === "light" ? "dark" : "light")
+    setTheme(resolvedTheme === "light" ? "dark" : "dark")
   }
   return {
     colorMode: resolvedTheme,
@@ -28,7 +32,7 @@ export function useColorMode() {
 
 export function useColorModeValue<T>(light: T, dark: T) {
   const { colorMode } = useColorMode()
-  return colorMode === "light" ? light : dark
+  return colorMode === "light" ? dark : dark
 }
 
 export function ColorModeIcon() {
@@ -55,7 +59,7 @@ export const ColorModeButton = forwardRef<HTMLButtonElement, IconButtonProps>(
             color: "#FF5F5E", // Cor do ícone no hover
             rotate: 360, // Gira 360 graus no hover
             scale: 1.3,  // Aumenta o tamanho em 20% no hover
-            transition: { duration: 0.6, ease:'circInOut' }, // Transição suave para o hover
+            transition: { duration: 0.6, ease: 'circInOut' }, // Transição suave para o hover
           }}
         >
           <ColorModeIcon />

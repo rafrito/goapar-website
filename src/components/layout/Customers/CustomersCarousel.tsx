@@ -1,36 +1,37 @@
-// src/components/sections/ClientLogosCarousel.tsx (ou onde preferir)
+// src/components/sections/ClientLogosCarousel.tsx
 'use client';
 
 import React from 'react';
 import { Box, Flex, Image, VisuallyHidden } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
-import { awerClientLogos, awerClientLogos2, ClientLogo } from '@/data/clientLogos'; // Importe seus logos
+import { motion, Variants } from 'framer-motion';
+import { awerClientLogos, awerClientLogos2, ClientLogo } from '@/data/clientLogos';
 
 interface ClientLogosCarouselProps {
     logos?: ClientLogo[];
-    animationDuration?: number; // Duração da animação em segundos
-    logoHeight?: string | number; // Altura padrão para os logos
+    animationDuration?: number;
+    logoHeight?: string | number;
 }
 
 export function CustomersCarousel({
     logos = awerClientLogos,
-    animationDuration = 40, // Mais longo para um scroll mais lento
-    logoHeight = 40, // Ajuste conforme necessário
+    animationDuration = 40,
+    logoHeight = 40,
 }: ClientLogosCarouselProps) {
     if (!logos || logos.length === 0) {
-        return null; // Não renderiza nada se não houver logos
+        return null;
     }
 
-    // Duplica os logos para criar o efeito de loop infinito
+    // Motion component for Framer Motion animations
+    const MotionFlex = motion(Flex);
 
-    const MotionFlex = motion(Flex)
-
+    // Duplicate logos for the infinite loop effect
     const duplicatedLogos1 = [...awerClientLogos, ...awerClientLogos];
     const duplicatedLogos2 = [...awerClientLogos2, ...awerClientLogos2];
 
+    // Marquee animation variants
     const marqueeVariants = {
         animate: {
-            x: [0, "-60%"], // Anima da posição inicial até mover todo o primeiro conjunto para a esquerda
+            x: [0, "-60%"],
             transition: {
                 x: {
                     repeat: Infinity,
@@ -43,7 +44,7 @@ export function CustomersCarousel({
     };
     const marqueeVariants2 = {
         animate: {
-            x: [0, "-60%"], // Anima da posição inicial até mover todo o primeiro conjunto para a esquerda
+            x: [0, "-60%"],
             transition: {
                 x: {
                     repeat: Infinity,
@@ -55,18 +56,35 @@ export function CustomersCarousel({
         },
     };
 
+    // Carousel animation variants
+    const carouselVariants: Variants = {
+        hidden: { opacity: 0, y: 0 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 1,
+                ease: "easeInOut",
+                delay: 3.6,
+            }
+        }
+    }
+
     return (
-        <Flex
+        <MotionFlex
             width="full"
-            py={{ base: 8, md: 2 }} // Espaçamento vertical
+            variants={carouselVariants}
+            initial="hidden"
+            animate="visible"
+            py={{ base: 8, md: 4 }}
             position="relative"
             h='100%'
             flexDir={'column'}
             gap={4}
         >
-            <VisuallyHidden>Nossos Clientes</VisuallyHidden> {/* Para acessibilidade */}
+            <VisuallyHidden>Nossos Clientes</VisuallyHidden>
             <MotionFlex
-                style={{ display: 'flex', width: `${logos.length * 2 * 200}px` }} // Largura total estimada (Nº logos * 2 * largura estimada por logo)
+                style={{ display: 'flex', width: `${logos.length * 2 * 200}px` }}
                 variants={marqueeVariants}
                 animate="animate"
             >
@@ -75,21 +93,20 @@ export function CustomersCarousel({
                         key={`logo-${logo.alt}-${index}`}
                         alignItems="center"
                         justifyContent="center"
-                        minWidth="180px" // Largura mínima para cada logo no carrossel
-                        height={logoHeight}
-                        mx={{ base: 4, md: 8 }} // Espaçamento horizontal entre os logos
+                        minWidth="180px"
+                        height={{base:20, md: logoHeight}}
+                        mx={{ base: 4, md: 8 }}
                     >
                         <Flex flexDir={'column'} gap={8}>
-
                             <Image
                                 src={logo.src}
                                 alt={logo.alt}
-                                maxHeight={logo.height || logoHeight} // Usa altura específica do logo se definida, senão a padrão
-                                maxWidth={logo.width || "150px"} // Largura máxima para o logo
+                                maxHeight={logo.height || { base: 20, md: logoHeight }}
+                                maxWidth={logo.width || "150px"}
                                 objectFit="contain"
-                                filter="grayscale(100%)" // Opcional: Deixa os logos em escala de cinza
-                                opacity={0.7} // Opcional: Opacidade para um visual mais sutil
-                                _hover={{ // Opcional: Efeito no hover
+                                filter="grayscale(100%)"
+                                opacity={0.7}
+                                _hover={{
                                     filter: "grayscale(0%)",
                                     opacity: 1,
                                     transform: "scale(1.1)",
@@ -100,33 +117,32 @@ export function CustomersCarousel({
                     </Flex>
                 ))}
             </MotionFlex>
+
             <MotionFlex
-                style={{ display: 'flex', width: `${logos.length * 2 * 200}px` }} // Largura total estimada (Nº logos * 2 * largura estimada por logo)
+                style={{ display: 'flex', width: `${logos.length * 2 * 200}px` }}
                 variants={marqueeVariants2}
                 animate="animate"
-                
             >
                 {duplicatedLogos2.map((logo, index) => (
                     <Flex
                         key={`logo-${logo.alt}-${index}`}
                         alignItems="center"
                         justifyContent="center"
-                        minWidth="180px" // Largura mínima para cada logo no carrossel
-                        height={logoHeight}
-                        mx={{ base: 4, md: 8 }} // Espaçamento horizontal entre os logos
+                        minWidth="180px"
+                        height={{base:20, md: logoHeight}}
+                        mx={{ base: 4, md: 8 }}
                         pr={40}
                     >
                         <Flex flexDir={'column'} gap={8}>
-
                             <Image
                                 src={logo.src}
                                 alt={logo.alt}
-                                maxHeight={logo.height || logoHeight} // Usa altura específica do logo se definida, senão a padrão
-                                maxWidth={logo.width || "150px"} // Largura máxima para o logo
+                                maxHeight={logo.height || { base: 20, md: logoHeight }}
+                                maxWidth={logo.width || "150px"}
                                 objectFit="contain"
-                                filter="grayscale(100%)" // Opcional: Deixa os logos em escala de cinza
-                                opacity={0.7} // Opcional: Opacidade para um visual mais sutil
-                                _hover={{ // Opcional: Efeito no hover
+                                filter="grayscale(100%)"
+                                opacity={0.7}
+                                _hover={{
                                     filter: "grayscale(0%)",
                                     opacity: 1,
                                     transform: "scale(1.1)",
@@ -137,7 +153,6 @@ export function CustomersCarousel({
                     </Flex>
                 ))}
             </MotionFlex>
-
-        </Flex>
+        </MotionFlex>
     );
 }

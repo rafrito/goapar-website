@@ -21,11 +21,13 @@ export function MotionButton({ text = "Consulte agora" }: MotionButtonProps) {
     const buttonVariants: Variants = {
         initial: { // Estado normal (sem hover, sem clique)
             boxShadow: "0px 2px 5px rgba(0,0,0,0.1)", // Sombra sutil inicial (opcional)
-            backgroundColor: '#FF5F5E',
+            border: '1px solid white', // Borda azul
+            backgroundColor: 'transparent',
             color: '#FFFFFF',
         },
         hover: { // Estado no hover
             backgroundColor: '#54b9c9',
+            border: '1px solid #54b9c9', // Borda azul
             scale: 1.05, // Aumenta 5%
             boxShadow: "0px 4px 12px rgba(0,0,0,0.15)", // Sombra um pouco maior
             transition: { // Transição específica para o estado de hover
@@ -114,7 +116,7 @@ export function GetStartedMotionButton({ text = "Ver mais" }: MotionButtonProps)
             fontSize={{ base: 16, md: 16 }}
             borderRadius={'2xl'}
         >
-            <Text textAlign={'start'}>
+            <Text textAlign={{base: 'center', md:'start'}} w='100%'>
                 {text} {/* Usa a prop 'text' ou o 'children' padrão */}
             </Text>
             {isMobile ? '' : <FaLongArrowAltRight style={{paddingTop:1}}  />

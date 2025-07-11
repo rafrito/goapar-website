@@ -22,7 +22,7 @@ export function Title() {
             transition: {
                 duration: 2, // Duração da animação
                 ease: "easeInOut",
-                delay: 0.2,    // <<<< ATRASO PARA O PRIMEIRO TEXTO APARECER
+                delay: 0.2 + 0.6,    // <<<< ATRASO PARA O PRIMEIRO TEXTO APARECER
             }
         }
     };
@@ -36,7 +36,7 @@ export function Title() {
             transition: {
                 duration: 1.5,
                 ease: "easeOut",
-                delay: 1.8,    // <<<< ATRASO MAIOR PARA O SEGUNDO TEXTO APARECER
+                delay: 1.8 + 0.6,    // <<<< ATRASO MAIOR PARA O SEGUNDO TEXTO APARECER
             }
         }
     };
@@ -50,7 +50,7 @@ export function Title() {
             transition: {
                 duration: 1,
                 ease: "easeOut",
-                delay: 2.4,    // <<<< ATRASO AINDA MAIOR PARA O BOTÃO
+                delay: 2.4 + 0.6,    // <<<< ATRASO AINDA MAIOR PARA O BOTÃO
             }
         }
     };
@@ -63,7 +63,7 @@ export function Title() {
             transition: {
                 duration: 1,
                 ease: "easeOut",
-                delay: 2.4,    // <<<< ATRASO AINDA MAIOR PARA O BOTÃO
+                delay: 2.4 + 0.6,    // <<<< ATRASO AINDA MAIOR PARA O BOTÃO
             }
         }
     };
@@ -72,15 +72,16 @@ export function Title() {
         initial: { // Estado normal (sem hover, sem clique)
             boxShadow: "0px 2px 5px rgba(0,0,0,0.1)", // Sombra sutil inicial (opcional)
             color: '#FFFFFF',
+            backgroundColor: '#FF5F5E', // Cor de fundo inicial
             width: 150
         },
         hover: { // Estado no hover
-            backgroundColor: '#FF5F5E',
+            backgroundColor: 'transparent',
             boxShadow: "0px 4px 12px rgba(0,0,0,0.15)", // Sombra um pouco maior
-            width: 500,
+            width: 600,
             transition: { // Transição específica para o estado de hover
                 type: "spring", // Tipo de transição (spring, tween)
-                stiffness: 400,
+                stiffness: 300,
                 damping: 100
             }
         },
@@ -94,7 +95,7 @@ export function Title() {
             as="section" // Boa prática usar tags semânticas
             flexDir={'column'}
             gap={8}
-            p={{base:8, md:2}}
+            p={{base:4, md:2}}
             alignItems={'start'}
             justifyContent={'start'}
             width="100%" // Garante que o Flex ocupe a largura
@@ -125,9 +126,9 @@ export function Title() {
                         lineHeight={1.1}
                         color="transparent" // Use seu token semântico
                         bgClip="text"
-                        bgGradient="to-r"
-                        gradientFrom={'#FF5F5E'}
-                        gradientTo={'textPrimary'}
+                        bgGradient="to-l"
+                        gradientFrom={'brand.900'}
+                        gradientTo={'brand.500'}
                     />
                 </MotionFlex>
                 {/* Envolve o CustomText com motion.div ou MotionFlex se CustomText não for motion */}
@@ -167,10 +168,10 @@ export function Title() {
                     variants={barVariants}
                     initial="hidden"
                     animate="visible"
-                    h={0.1} w={'95%'} bgColor={'red'}
+                    h={0.2} w={'95%'} bgColor={'red'}
                     bgGradient="to-r"
-                    gradientFrom={'#FF5F5E'}
-                    gradientTo={'textPrimary'}
+                    gradientFrom={'brand.400'}
+                    gradientTo={'brand.900'}
                 />
             </MotionFlex>
 
@@ -185,7 +186,6 @@ export function Title() {
                     whileHover="hover"
                     variants={buttonVariants}
                     borderRadius={'3xl'}
-                    bgColor={'transparent'}
                     border={'1px solid #ff5f5e'}
                     color={'textPrimary'}
                     justifyContent={'space-between'}

@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 // Importando ícones do react-icons. Escolha os que correspondem aos da imagem.
 // A imagem parece ter Twitter, LinkedIn e Discord (ou similar).
-import { FaTwitter, FaLinkedinIn, FaDiscord } from 'react-icons/fa';
+import { FaTwitter, FaLinkedinIn, FaDiscord, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 
 export function BottomFooter() {
     const bgColor = 'bottomFooterBg'
@@ -25,7 +25,6 @@ export function BottomFooter() {
                 align="center"
                 justify="space-between"
                 py={{ base: 4, md: 5 }}
-                px={{ base: 4, md: 8 }}
                 w='100%'
                 borderTopWidth="1px" // Adiciona uma borda no topo se desejar, para separar do conteúdo acima
                 flexDir={{base:'column-reverse', sm:'row'}}
@@ -45,7 +44,7 @@ export function BottomFooter() {
                             color={textColor}
                             _hover={{ bg: iconHoverBg }}
                         >
-                            <FaTwitter />
+                            <FaInstagram />
 
                         </IconButton>
                     </Link>
@@ -71,7 +70,7 @@ export function BottomFooter() {
                             color={textColor}
                             _hover={{ bg: iconHoverBg }}
                         >
-                            <FaDiscord />
+                            <FaWhatsapp />
 
                         </IconButton>
                     </Link>
