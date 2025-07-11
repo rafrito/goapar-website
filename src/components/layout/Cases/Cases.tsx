@@ -97,8 +97,8 @@ export function Cases({ c }: CasesDataProps) {
                 w="100%"
                 justifyContent={'center'}
                 alignItems={'start'}
-                gap={{ base: 8, md: 32 }}
-                minH={{ base: '100%', xl: 500 }}
+                gap={{ base: 8, md: 16, lg: 32 }}
+                minH={{ base: '100%', md: 500, xl: 500 }}
                 flexDir={{ base: 'column', md: isImageLeft ? 'row' : 'row-reverse' }}
             >
 
@@ -152,7 +152,7 @@ export function Cases({ c }: CasesDataProps) {
                                 <MotionText
                                     variants={titleVariants}
                                     text={product}
-                                    fontSize={{ base: '3xl', md: '6xl' }}
+                                    fontSize={{ base: '3xl', md: '4xl', lg: '6xl' }}
                                     lineHeight={1.2}
                                 />
                             </Flex>

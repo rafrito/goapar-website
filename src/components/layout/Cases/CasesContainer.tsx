@@ -6,7 +6,7 @@ import { cases } from "@/data/cases";
 export function CasesContainer() {
 
     return (
-        <Flex w='100%' flexDir={'column'} gap={{ base: 16, md:40 }}>
+        <Flex w='100%' flexDir={'column'} gap={{ base: 16, lg:40 }}>
             {cases.map((c, index) => {
                 return (<Cases key={c.product + index} c={c} />)
             })}

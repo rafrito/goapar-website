@@ -65,8 +65,8 @@ export function About() {
                             alt="Equipe trabalhando com inovação"
                             borderRadius={'md'}
                             w='100%'
-                            minHeight={{ base: 'auto', md: 400 }}
-                            h={{ base: '30vh', md: '100%' }}
+                            minHeight={{ base: 'auto', lg: 400 }}
+                            h={{ base: '30vh', lg: '100%' }}
                             objectFit={'cover'}
                             objectPosition={'center'}
                         />
@@ -101,7 +101,7 @@ export function About() {
                 {/* Sub-coluna 2 (Imagem "Conexão") */}
                 <Flex
                     w='100%'
-                    flexDir={{ base: "column-reverse", md: 'column' }}
+                    flexDir={{ base: "column-reverse", lg: 'column' }}
                     gap={4}
                     alignItems={'start'}
                     justifyContent={'start'}
@@ -119,7 +119,7 @@ export function About() {
                             color="cadetBlue"
                             textTransform="uppercase"
                             letterSpacing="wider"
-                            fontSize={{ base: 'lg', md: 'xl' }}
+                            fontSize={{ base: 'lg', lg: 'xl' }}
                             lineHeight={1.2}
                         >
                             {aboutData.connectionText}
@@ -131,14 +131,14 @@ export function About() {
                             {aboutData.connectionDescription}
                         </MotionText>
                     </MotionFlex>
-                    <MotionFlex h='100%'>
+                    <MotionFlex w='100%'>
                         <Image
                             src={'about/connection.jpg'}
                             alt="Pessoas conectadas em reunião"
                             borderRadius={'md'}
                             w='100%'
-                            minHeight={{ base: 'auto', md: 400 }}
-                            h='100%'
+                            minHeight={{ base: 'auto', lg: 400 }}
+                            h={{ base: '30vh', lg: '100%' }}
                             objectFit={'cover'}
                             objectPosition={'center'}
                         />
