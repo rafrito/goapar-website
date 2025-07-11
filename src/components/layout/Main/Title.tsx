@@ -31,7 +31,7 @@ export function Title() {
             y: 0,
             transition: {
                 duration: 1.5,
-                ease: "easeOut",
+                ease: [0.0, 0.0, 0.58, 1.0],
                 delay: 2.4,
             }
         }
@@ -44,7 +44,7 @@ export function Title() {
             y: 0,
             transition: {
                 duration: 1,
-                ease: "easeOut",
+                ease: [0.0, 0.0, 0.58, 1.0],
                 delay: 3.0,
             }
         }
@@ -56,7 +56,7 @@ export function Title() {
             width: '95%',
             transition: {
                 duration: 1,
-                ease: "easeOut",
+                ease: [0.0, 0.0, 0.58, 1.0],
                 delay: 3.0,
             }
         }

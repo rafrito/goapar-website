@@ -33,7 +33,7 @@ export function Title() {
             y: 0,
             transition: {
                 duration: 0.6,
-                ease: "easeOut",
+                ease: [0.0, 0.0, 0.58, 1.0],
                 delay: 0.6,    // <<<< ATRASO MAIOR PARA O SEGUNDO TEXTO APARECER
             }
         }
@@ -47,7 +47,7 @@ export function Title() {
             y: 0,
             transition: {
                 duration: 0.6,
-                ease: "easeOut",
+                ease: [0.0, 0.0, 0.58, 1.0],
                 delay: 0.9,    // <<<< ATRASO AINDA MAIOR PARA O BOTÃO
             }
         }
