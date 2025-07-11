@@ -19,7 +19,7 @@ export const awerServices: Service[] = [
     description: 'Desenvolvemos frontends de e-commerce sob medida com Next.js, proporcionando design exclusivo e performance superior, integrados a plataformas robustas como Shopify para gestão de produtos, pedidos e pagamentos.',
     category: 'Tecnologia',
     image: 'Ecommerce.jpg',
-    link: '/ecommerce',
+    link: '/tecnologia/ecommerce',
   },
   {
     id: 'web-crawlers',
@@ -28,7 +28,7 @@ export const awerServices: Service[] = [
     description: 'Criamos soluções de web scraping (crawlers com Puppeteer e Node.js) para coletar dados públicos, monitorar informações de mercado e automatizar a obtenção de dados para sua empresa.',
     category: 'Tecnologia',
     image: 'Crawler.jpg',
-    link: '/crawlers',
+    link: '/tecnologia/crawlers',
   },
   {
     id: 'landing-pages',
@@ -37,7 +37,7 @@ export const awerServices: Service[] = [
     description: 'Design e desenvolvimento de Landing Pages otimizadas (Next.js, Chakra UI) para capturar leads, promover produtos ou serviços específicos, com foco em usabilidade, performance e conversão.',
     category: 'Tecnologia',
     image: 'LandingPage.jpg',
-    link: '/landing-pages',
+    link: '/tecnologia/landing-pages',
   },
   {
     id: 'aplicativos-web',
@@ -46,7 +46,7 @@ export const awerServices: Service[] = [
     description: 'Desenvolvimento completo de aplicações web modernas e responsivas, desde o frontend (Next.js) até o backend (Node.js) e banco de dados (MongoDB/Prisma), incluindo integrações com APIs e sistemas de autenticação (Auth0).',
     category: 'Tecnologia',
     image: 'AppWeb.jpg',
-    link: '/tech',
+    link: '/tecnologia/aplicativos-web',
   },
   {
     id: 'robos-desktop-automacao',
@@ -55,7 +55,7 @@ export const awerServices: Service[] = [
     description: 'Desenvolvemos robôs (aplicativos desktop com Nextron/Electron) para automatizar processos repetitivos, extrair dados de sistemas ou da web (crawlers), e integrar informações, aumentando a eficiência e a inteligência do seu negócio.',
     category: 'Tecnologia',
     image: 'Robot.jpg',
-    link: '/produtos/botrt',
+    link: '/tecnologia/botrt',
   },
   {
     id: 'ia-integration',
@@ -64,6 +64,7 @@ export const awerServices: Service[] = [
     description: 'Exploramos e implementamos soluções com IA (usando Vercel AI SDK, modelos como Gemini/OpenAI) para criar chatbots, analisar dados, gerar conteúdo e otimizar tarefas em suas aplicações.',
     category: 'Tecnologia',
     image: 'AI.jpg',
+    link: '/tecnologia/AI',
   },
 
   // --- Serviços de Consultoria (Expandido) ---

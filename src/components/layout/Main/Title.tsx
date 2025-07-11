@@ -1,33 +1,29 @@
-// src/components/layout/Title.tsx (ou onde estiver seu componente)
-'use client'; // Necessário para Framer Motion e interatividade
+// src/components/layout/Title.tsx
+'use client';
 
 import { CustomText } from "@/components/ui/CustomText";
-import { GetStartedMotionButton } from "@/components/ui/MotionButton"; // Seu botão já animado
-import { Box, Button, Flex } from "@chakra-ui/react";
-import { hover, motion, Variants } from 'framer-motion'; // Importe motion e Variants
-import { FaArrowRight, FaLongArrowAltRight } from "react-icons/fa";
+import { titleData } from "@/data/main";
+import { Button, Flex, Link } from "@chakra-ui/react";
+import { motion, Variants } from 'framer-motion';
+import { FaLongArrowAltRight } from "react-icons/fa";
 
-// Vamos criar componentes motion a partir do Flex para usá-los como contêineres de animação
-// Isso é útil se CustomText não for um componente motion por si só
 const MotionFlex = motion(Flex);
 const MotionButton = motion(Button)
 
 export function Title() {
-    // Variantes para o primeiro CustomText (título)
     const titleVariants: Variants = {
-        hidden: { opacity: 0, y: 120 }, // Começa invisível e um pouco abaixo
+        hidden: { opacity: 0, y: 120 },
         visible: {
             opacity: 1,
             y: 0,
             transition: {
-                duration: 2, // Duração da animação
+                duration: 2,
                 ease: "easeInOut",
-                delay: 0.2 + 0.6,    // <<<< ATRASO PARA O PRIMEIRO TEXTO APARECER
+                delay: 0.8,
             }
         }
     };
 
-    // Variantes para o segundo CustomText (subtítulo)
     const subtitleVariants: Variants = {
         hidden: { opacity: 0, y: 60 },
         visible: {
@@ -36,12 +32,11 @@ export function Title() {
             transition: {
                 duration: 1.5,
                 ease: "easeOut",
-                delay: 1.8 + 0.6,    // <<<< ATRASO MAIOR PARA O SEGUNDO TEXTO APARECER
+                delay: 2.4,
             }
         }
     };
 
-    // Variantes para o botão
     const buttonVariantsContainer: Variants = {
         hidden: { opacity: 0, y: 30 },
         visible: {
@@ -50,11 +45,10 @@ export function Title() {
             transition: {
                 duration: 1,
                 ease: "easeOut",
-                delay: 2.4 + 0.6,    // <<<< ATRASO AINDA MAIOR PARA O BOTÃO
+                delay: 3.0,
             }
         }
     };
-    // Variantes para o botão
     const barVariants: Variants = {
         hidden: { opacity: 0, width: 0 },
         visible: {
@@ -63,88 +57,83 @@ export function Title() {
             transition: {
                 duration: 1,
                 ease: "easeOut",
-                delay: 2.4 + 0.6,    // <<<< ATRASO AINDA MAIOR PARA O BOTÃO
+                delay: 3.0,
             }
         }
     };
 
     const buttonVariants: Variants = {
-        initial: { // Estado normal (sem hover, sem clique)
-            boxShadow: "0px 2px 5px rgba(0,0,0,0.1)", // Sombra sutil inicial (opcional)
+        initial: {
+            boxShadow: "0px 2px 5px rgba(0,0,0,0.1)",
             color: '#FFFFFF',
-            backgroundColor: '#FF5F5E', // Cor de fundo inicial
+            backgroundColor: '#FF5F5E',
             width: 150
         },
-        hover: { // Estado no hover
+        hover: {
             backgroundColor: 'transparent',
-            boxShadow: "0px 4px 12px rgba(0,0,0,0.15)", // Sombra um pouco maior
+            boxShadow: "0px 4px 12px rgba(0,0,0,0.15)",
             width: 600,
-            transition: { // Transição específica para o estado de hover
-                type: "spring", // Tipo de transição (spring, tween)
+            transition: {
+                type: "spring",
                 stiffness: 300,
                 damping: 100
             }
         },
-        tap: { // Estado ao clicar/pressionar
-            scale: 0.80, // Diminui 5%
+        tap: {
+            scale: 0.80,
         }
     };
 
     return (
         <Flex
-            as="section" // Boa prática usar tags semânticas
+            as="section"
             flexDir={'column'}
             gap={8}
-            p={{base:4, md:2}}
+            p={{ base: 4, md: 2 }}
             alignItems={'start'}
             justifyContent={'start'}
-            width="100%" // Garante que o Flex ocupe a largura
-            overflow="hidden" // Para evitar que a animação 'y: 20' cause scrollbar
+            width="100%"
+            overflow="hidden"
         >
             <MotionFlex
                 flexDir={'column'}
-                gap={{ base: 4, md: 2 }} // Ajustei o gap
+                gap={{ base: 4, md: 2 }}
                 textAlign={'start'}
                 alignItems={'start'}
                 justifyContent={'start'}
-            // Para controlar a animação dos filhos em sequência,
-            // você pode usar 'staggerChildren' no contêiner pai,
-            // mas definir delays individuais como fiz acima é mais explícito para este caso.
             >
-                {/* Envolve o CustomText com motion.div ou MotionFlex se CustomText não for motion */}
                 <MotionFlex
                     variants={titleVariants}
-                    initial='hidden' // Começa no estado 'hidden'
-                    animate='visible' // Anima para o estado 'visible' quando o componente monta
+                    initial='hidden'
+                    animate='visible'
                 >
                     <CustomText
                         as={'h1'}
-                        maxW={{ base: "100%", sm: "80%", md: "700px" }} // Use valores responsivos ou específicos
-                        text={'Soluções personalizadas.'}
+                        maxW={{ base: "100%", sm: "80%", md: "700px" }}
+                        text={titleData.title1}
                         fontWeight={'semibold'}
-                        fontSize={{ base: '3xl', sm: '4xl', md: '5xl', lg: '64px' }} // Ajuste responsivo
+                        fontSize={{ base: '3xl', sm: '4xl', md: '5xl', lg: '64px' }}
                         lineHeight={1.1}
-                        color="transparent" // Use seu token semântico
+                        color="transparent"
                         bgClip="text"
                         bgGradient="to-l"
                         gradientFrom={'brand.900'}
                         gradientTo={'brand.500'}
                     />
                 </MotionFlex>
-                {/* Envolve o CustomText com motion.div ou MotionFlex se CustomText não for motion */}
                 <MotionFlex
                     variants={titleVariants}
-                    initial='hidden' // Começa no estado 'hidden'
-                    animate='visible' // Anima para o estado 'visible' quando o componente monta
+                    initial='hidden'
+                    animate='visible'
                 >
                     <CustomText
                         as={'h1'}
-                        maxW={{ base: "100%", sm: "80%", md: "700px" }} // Use valores responsivos ou específicos
-                        text={'Resultados Imediatos.'}
+                        maxW={{ base: "100%", sm: "80%", md: "700px" }}
+                        text={titleData.title2}
                         fontWeight={'semibold'}
-                        fontSize={{ base: '3xl', sm: '4xl', md: '5xl', lg: '64px' }} // Ajuste responsivo
+                        fontSize={{ base: '3xl', sm: '4xl', md: '5xl', lg: '64px' }}
                         lineHeight={1.1}
-                        color="textPrimary" // Use seu token semântico
+                        color="textPrimary"
                     />
                 </MotionFlex>
 
@@ -155,12 +144,12 @@ export function Title() {
                 >
                     <CustomText
                         as={'h2'}
-                        maxW={{ base: "100%", sm: "70%", md: "600px" }} // Ajuste responsivo
+                        maxW={{ base: "100%", sm: "70%", md: "600px" }}
                         py={{ base: 2, md: 8 }}
-                        text={'Descubra como nossa consultoria e tecnologia podem otimizar seus processos e impulsionar o crescimento do seu negócio.'}
-                        lineHeight={1.5} // Aumentei um pouco para melhor legibilidade
-                        fontSize={{ base: 'md', md: 'lg', lg: '2xl' }} // Ajuste responsivo
-                        color='textSecondary' // Use seu token semântico
+                        text={titleData.subtitle}
+                        lineHeight={1.5}
+                        fontSize={{ base: 'md', md: 'lg', lg: '2xl' }}
+                        color='textSecondary'
                     />
                 </MotionFlex>
 
@@ -175,25 +164,26 @@ export function Title() {
                 />
             </MotionFlex>
 
-            <MotionFlex
-                variants={buttonVariantsContainer} // Anima o container do botão
-                initial="hidden"
-                animate="visible"
-            >
-                {/* <MotionButton text="Conheça nosso trabalho" size={{ base: "md", md: "lg" }} /> */}
-                <MotionButton
-                    initial='initial'
-                    whileHover="hover"
-                    variants={buttonVariants}
-                    borderRadius={'3xl'}
-                    border={'1px solid #ff5f5e'}
-                    color={'textPrimary'}
-                    justifyContent={'space-between'}
+            <Link href={titleData.buttonLink} target="_blank">
+                <MotionFlex
+                    variants={buttonVariantsContainer}
+                    initial="hidden"
+                    animate="visible"
                 >
-                    Saiba mais
-                    <FaLongArrowAltRight />
-                </MotionButton>
-            </MotionFlex>
+                    <MotionButton
+                        initial='initial'
+                        whileHover="hover"
+                        variants={buttonVariants}
+                        borderRadius={'3xl'}
+                        border={'1px solid #ff5f5e'}
+                        color={'textPrimary'}
+                        justifyContent={'space-between'}
+                    >
+                        {titleData.buttonText}
+                        <FaLongArrowAltRight />
+                    </MotionButton>
+                </MotionFlex>
+            </Link>
         </Flex>
     );
 }

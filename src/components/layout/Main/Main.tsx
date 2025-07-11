@@ -3,9 +3,11 @@ import { Flex, Image, Text } from "@chakra-ui/react"; // Importa os componentes 
 import { Title } from "./Title"; // Importa o componente Title
 import { motion, Variants } from "framer-motion"; // Importa as funções do framer-motion
 import { CustomersCarousel } from "../Customers/CustomersCarousel"; // Importa o componente CustomersCarousel
+import { mainImageData } from "@/data/main";
 
 
 export function Main() {
+
 
     const ImageMotion = motion(Image) // Cria um componente Image do framer-motion
 
@@ -46,7 +48,7 @@ export function Main() {
                     initial='hidden' // Estado inicial
                     animate='visible' // Estado final
                     className={'rotating-bg'} // Classe CSS para rotação
-                    src={'main/background.svg'} // Caminho da imagem
+                    src={mainImageData.imageSrc} // Caminho da imagem
                     boxSize={{ base: '80vw', md: 'lg' }} // Tamanho da caixa
                     zIndex={100} // Z-index
                 />

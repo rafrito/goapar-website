@@ -1,3 +1,5 @@
+import { title } from "process";
+
 export interface CasesProps {
     orientation: 'image-left' | 'image-right';
     image: string;
@@ -23,6 +25,10 @@ export const cases: CasesProps[] = [
         product: 'Soluções Tecnológicas Sob Medida', // Título do pilar
         tagLabel: 'Tecnologia', // Categoria
         description: 'Desenvolvemos desde e-commerces headless de alta performance e landing pages otimizadas para conversão, até robôs de automação (crawlers) e aplicações web/desktop, utilizando as tecnologias mais modernas para transformar suas ideias em realidade.',
-        link: '/tech' // Link para a página principal de tecnologia/portfólio
+        link: '/tecnologia' // Link para a página principal de tecnologia/portfólio
     }
 ];
+
+export const callToAction = {
+    title: 'Clique para saber mais'
+}

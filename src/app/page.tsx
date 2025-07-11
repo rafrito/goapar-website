@@ -1,9 +1,7 @@
 import { About } from "@/components/layout/About/About";
 import { CasesContainer } from "@/components/layout/Cases/CasesContainer";
-import { CustomersCarousel } from "@/components/layout/Customers/CustomersCarousel";
 import { FeedbacksCarousel } from "@/components/layout/Feedbacks/FeedbacksCarousel";
 import { Main } from "@/components/layout/Main/Main";
-import { MainST } from "@/components/layout/MainST/Main";
 import { ProductCarousel } from "@/components/layout/Products/ProductCarousel";
 import { Flex } from "@chakra-ui/react";
 

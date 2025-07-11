@@ -18,8 +18,8 @@ import { BottomFooter } from "@/components/layout/BottomFooter";
 // });
 
 export const metadata: Metadata = {
-  title: "Frontend base",
-  description: "Frontend base hoje, amanhã e sempre",
+  title: "Awer Consultoria",
+  description: "",
 };
 
 export default function RootLayout({

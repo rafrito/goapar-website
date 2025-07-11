@@ -1,79 +1,108 @@
-// src/components/BottomFooter.tsx (ou onde preferir)
-'use client'; // Se estiver usando Next.js App Router e hooks/interatividade do Chakra
+// src/components/layout/BottomFooter.tsx
+'use client';
 
+// ============================================================================
+//   IMPORTS
+// ============================================================================
+
+// --- Componentes Chakra UI ---
 import {
-    Box,
     Flex,
     Text,
     Link,
     IconButton,
-    HStack, // Para agrupar os ícones horizontalmente
+    HStack,
 } from '@chakra-ui/react';
-// Importando ícones do react-icons. Escolha os que correspondem aos da imagem.
-// A imagem parece ter Twitter, LinkedIn e Discord (ou similar).
-import { FaTwitter, FaLinkedinIn, FaDiscord, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 
+// --- Ícones ---
+import { FaLinkedinIn, FaInstagram, FaWhatsapp } from 'react-icons/fa';
+
+// --- Dados Locais ---
+import { BottomFooterData } from '@/data/bottomFooter'; // Dados de texto e links para o rodapé
+
+// ============================================================================
+//   COMPONENTE PRINCIPAL: BottomFooter
+// ============================================================================
 export function BottomFooter() {
-    const bgColor = 'bottomFooterBg'
-    const textColor = 'bottomFooterColor'
-    const iconHoverBg = 'bottomFooterIconBgHover'
 
+    // --- Constantes de Estilo ---
+    // Define as cores a serem usadas, buscando do seu tema do Chakra UI
+    const bgColor = 'bottomFooterBg';
+    const textColor = 'bottomFooterColor';
+    const iconHoverBg = 'bottomFooterIconBgHover';
+
+    // --- Renderização do Componente ---
     return (
-        <Flex bg={bgColor} color={textColor} w='100%' >
+        // Container externo que ocupa 100% da largura e define as cores de fundo e texto
+        <Flex bg={bgColor} color={textColor} w='100%'>
             <Flex
-                as="footer"
+                as="footer" // Tag semântica para rodapé
+
+                // Layout
+                w='100%'
                 align="center"
                 justify="space-between"
+                flexDir={{ base: 'column-reverse', sm: 'row' }} // Inverte a ordem no mobile
+                gap={{ base: 4, sm: 2 }}
+
+                // Estilo
                 py={{ base: 4, md: 5 }}
-                w='100%'
-                borderTopWidth="1px" // Adiciona uma borda no topo se desejar, para separar do conteúdo acima
-                flexDir={{base:'column-reverse', sm:'row'}}
-                gap={{base:4, sm:2}}
+                borderTopWidth="1px" // Linha sutil no topo para separar do conteúdo
             >
+                {/* -------------------------------------------------------------------- */}
+                {/* Texto de Copyright (Esquerda)                                      */}
+                {/* -------------------------------------------------------------------- */}
                 <Text fontSize="sm">
-                    2021-2025 Awer Soluções. Todos os direitos reservados. {/* Adapte o texto conforme necessário */}
+                    {BottomFooterData.copyrightText}
                 </Text>
 
-                <HStack gap={3}> {/* Espaçamento entre os ícones */}
-                    <Link href="https://twitter.com/yourprofile">
+                {/* -------------------------------------------------------------------- */}
+                {/* Ícones de Redes Sociais (Direita)                                  */}
+                {/* -------------------------------------------------------------------- */}
+                <HStack gap={3}>
+
+                    {/* Ícone do Instagram */}
+                    <Link href={BottomFooterData.instagramLink} target='_blank'>
                         <IconButton
-                            bgColor={'bottomFooterIconBg'}
-                            aria-label="Twitter"
+                            aria-label="Instagram" // Corrigido para acessibilidade
                             variant="ghost"
                             size="sm"
+                            bgColor={'bottomFooterIconBg'}
                             color={textColor}
                             _hover={{ bg: iconHoverBg }}
                         >
                             <FaInstagram />
-
                         </IconButton>
                     </Link>
-                    <Link href="https://linkedin.com/in/yourprofile">
+
+                    {/* Ícone do LinkedIn */}
+                    <Link href={BottomFooterData.linkedinLink} target='_blank'>
                         <IconButton
-                            bgColor={'bottomFooterIconBg'}
-                            aria-label="Twitter"
+                            aria-label="LinkedIn" // Corrigido para acessibilidade
                             variant="ghost"
                             size="sm"
+                            bgColor={'bottomFooterIconBg'}
                             color={textColor}
                             _hover={{ bg: iconHoverBg }}
                         >
                             <FaLinkedinIn />
-
                         </IconButton>
                     </Link>
-                    <Link href="https://discord.com/yourserver">
+
+                    {/* Ícone do WhatsApp */}
+                    <Link href={BottomFooterData.whatsappLink} target='_blank'>
                         <IconButton
-                            bgColor={'bottomFooterIconBg'}
-                            aria-label="Twitter"
+                            aria-label="WhatsApp" // Corrigido para acessibilidade
                             variant="ghost"
                             size="sm"
+                            bgColor={'bottomFooterIconBg'}
                             color={textColor}
                             _hover={{ bg: iconHoverBg }}
                         >
                             <FaWhatsapp />
-
                         </IconButton>
                     </Link>
+
                 </HStack>
             </Flex>
         </Flex>

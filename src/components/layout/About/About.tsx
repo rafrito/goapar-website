@@ -1,42 +1,57 @@
-'use client'
+'use client';
 
-import { Button, Flex, Image, Text } from "@chakra-ui/react";
+// ============================================================================
+//   IMPORTS
+// ============================================================================
+
+// --- Framework e UI Libs ---
+import { Button, Flex, Image, Link, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
-// Componente About
+// --- Dados Locais ---
+import { aboutData } from "@/data/about"; // Dados de texto para o componente
+
+// ============================================================================
+//   COMPONENTE PRINCIPAL: About
+// ============================================================================
 export function About() {
 
-    // Criação de componentes Motion do Framer Motion para animações
+    // --- Hooks e Componentes com Animação ---
+    // Criação de componentes "Motion" para permitir animações via Framer Motion
     const MotionFlex = motion(Flex);
     const MotionText = motion(Text);
     const MotionButton = motion(Button);
 
-    // Variantes de animação para os itens
+    // --- Definição das Variantes de Animação ---
+    // Variante genérica para animar a entrada de elementos
     const itemVariants = {
         hidden: { opacity: 0, y: 20 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
     };
 
+    // --- Renderização do Componente ---
     return (
         // Container principal com layout flexível e responsivo
         <MotionFlex
             w='100%'
             gap={{ base: 8, md: 16 }}
-            direction={{ base: 'column-reverse', lg: 'row' }}
+            direction={{ base: 'column-reverse', lg: 'row' }} // Inverte a ordem no mobile
             alignItems={'center'}
             justifyContent={'space-between'}
         >
 
-            {/* Coluna da Esquerda (Imagens ilustrativas) */}
+            {/* -------------------------------------------------------------------- */}
+            {/* Coluna da Esquerda (Imagens Ilustrativas)                           */}
+            {/* -------------------------------------------------------------------- */}
             <Flex
-                flex={1}
+                flex={1} // Ocupa uma fração do espaço disponível
                 p={{ base: 4, md: 0 }}
                 gap={{ base: 4, lg: 8 }}
-                direction={{ base: 'column', lg: 'row' }}
+                direction={{ base: 'column', lg: 'row' }} // Colunas no desktop, linhas no mobile
                 alignItems={'stretch'}
                 justifyContent={'space-between'}
             >
-                {/* Container para a primeira imagem e texto */}
+                {/* Sub-coluna 1 (Imagem "Inovação") */}
                 <Flex
                     w='100%'
                     flexDir={'column'}
@@ -47,15 +62,15 @@ export function About() {
                     <MotionFlex w='100%'>
                         <Image
                             src={'about/inovation.jpg'}
+                            alt="Equipe trabalhando com inovação"
                             borderRadius={'md'}
-                            w='100%' // Ocupa 100% da largura do contêiner pai
+                            w='100%'
                             minHeight={{ base: 'auto', md: 400 }}
-                            h={{ base: '30vh', md: '100%' }} // Define uma altura fixa e responsiva
-                            objectFit={'cover'} // Garante que a imagem cubra a área sem distorcer
+                            h={{ base: '30vh', md: '100%' }}
+                            objectFit={'cover'}
                             objectPosition={'center'}
                         />
                     </MotionFlex>
-                    {/* Container para o texto sobre inovação */}
                     <MotionFlex
                         flexDir={'column'}
                         gap={2}
@@ -72,18 +87,18 @@ export function About() {
                             fontSize={{ base: 'lg', md: 'xl' }}
                             lineHeight={1.2}
                         >
-                            INOVAÇÃO
+                            {aboutData.inovationText}
                         </MotionText>
                         <MotionText
                             color={'ghostWhite'}
                             letterSpacing={'wide'}
                         >
-                            Inovação é a força que nos move e a base do nosso negócio. Buscamos constantemente novas maneiras de criar soluções tecnológicas que impulsionem o sucesso de nossos clientes.
+                            {aboutData.inovationDescription}
                         </MotionText>
                     </MotionFlex>
                 </Flex>
 
-                {/* Container para a segunda imagem e texto */}
+                {/* Sub-coluna 2 (Imagem "Conexão") */}
                 <Flex
                     w='100%'
                     flexDir={{ base: "column-reverse", md: 'column' }}
@@ -91,7 +106,6 @@ export function About() {
                     alignItems={'start'}
                     justifyContent={'start'}
                 >
-                    {/* Container para o texto sobre conexão */}
                     <MotionFlex
                         flexDir={'column'}
                         gap={2}
@@ -108,19 +122,19 @@ export function About() {
                             fontSize={{ base: 'lg', md: 'xl' }}
                             lineHeight={1.2}
                         >
-                            CONEXÃO
+                            {aboutData.connectionText}
                         </MotionText>
                         <MotionText
                             color={'ghostWhite'}
                             letterSpacing={'wide'}
                         >
-                            Conectamos nossos clientes às soluções mais eficazes para seus problemas, construindo pontes tecnológicas que impulsionam o sucesso e a inovação.
+                            {aboutData.connectionDescription}
                         </MotionText>
                     </MotionFlex>
-
                     <MotionFlex h='100%'>
                         <Image
                             src={'about/connection.jpg'}
+                            alt="Pessoas conectadas em reunião"
                             borderRadius={'md'}
                             w='100%'
                             minHeight={{ base: 'auto', md: 400 }}
@@ -132,9 +146,11 @@ export function About() {
                 </Flex>
             </Flex>
 
-            {/* Coluna da Direita (Texto e Botão) */}
+            {/* -------------------------------------------------------------------- */}
+            {/* Coluna da Direita (Texto Principal e Botão)                         */}
+            {/* -------------------------------------------------------------------- */}
             <MotionFlex
-                flex={1}
+                flex={1} // Ocupa uma fração do espaço disponível
                 p={8}
                 direction="column"
                 gap={12}
@@ -143,7 +159,7 @@ export function About() {
                 align={{ base: 'center', lg: 'start' }}
                 variants={itemVariants}
             >
-                {/* Container para o texto "Um Pouco Sobre Nós" */}
+                {/* Bloco de Texto Principal */}
                 <Flex flexDir={'column'} gap={4}>
                     <MotionText
                         color="brand.500"
@@ -154,7 +170,7 @@ export function About() {
                         fontWeight={'normal'}
                         variants={itemVariants}
                     >
-                        Um Pouco
+                        {aboutData.aboutUsTitle}
                     </MotionText>
                     <MotionText
                         fontSize={{ base: '5xl', md: '6xl' }}
@@ -165,7 +181,7 @@ export function About() {
                         color="textPrimary"
                         variants={itemVariants}
                     >
-                        Sobre Nós
+                        {aboutData.aboutUsSubtitle}
                     </MotionText>
                     <MotionText
                         fontSize={{ base: 'lg', md: 'xl' }}
@@ -174,31 +190,34 @@ export function About() {
                         lineHeight="tall"
                         variants={itemVariants}
                     >
-                        Na Awer, transformamos ideias complexas em soluções tecnológicas elegantes e eficientes. Nossa paixão é construir produtos digitais que não apenas funcionam, mas que impulsionam o crescimento e resolvem problemas reais para nossos clientes.
+                        {aboutData.aboutUsDescription}
                     </MotionText>
                 </Flex>
-                {/* Botão "nossa história" */}
-                <MotionButton
-                    w={{ base: '100%', md: 'auto' }}
-                    px={6}
-                    py={6}
-                    bgColor={'brand.500'}
-                    color={'textPrimary'}
-                    fontWeight={'regular'}
-                    fontSize={{ base: 'md', md: 'lg' }}
-                    borderRadius={'sm'}
-                    textTransform={'uppercase'}
-                    letterSpacing={'wider'}
-                    _hover={{ bgColor: "cadetBlue", transition: 'background-color 0.6s ease' }}
-                    variants={itemVariants}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ duration: 0.3 }}
-                    onClick={() => window.location.href = '/sobre'}
-                >
-                    nossa história
-                </MotionButton>
+
+                {/* Botão de Ação */}
+                <Link href={aboutData.ourHistoryButtonLink} target="_blank">
+                    <MotionButton
+                        w={{ base: '100%', md: 'auto' }}
+                        px={6}
+                        py={6}
+                        bgColor={'brand.500'}
+                        color={'textPrimary'}
+                        fontWeight={'regular'}
+                        fontSize={{ base: 'md', md: 'lg' }}
+                        borderRadius={'sm'}
+                        textTransform={'uppercase'}
+                        letterSpacing={'wider'}
+                        _hover={{ bgColor: "cadetBlue", transition: 'background-color 0.6s ease' }}
+                        variants={itemVariants}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        transition={{ duration: 0.3 }}
+                    >
+                        {aboutData.ourHistoryButtonText}
+                    </MotionButton>
+                </Link>
             </MotionFlex>
+
         </MotionFlex>
-    )
+    );
 }

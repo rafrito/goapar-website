@@ -12,7 +12,7 @@ import { FaLongArrowAltRight } from "react-icons/fa";
 
 // --- Componentes e Dados do Projeto ---
 import { CustomText } from "@/components/ui/CustomText";
-import { CasesProps } from "@/data/cases"; // Supondo que a interface venha daqui
+import { callToAction, cases, CasesProps } from "@/data/cases"; // Supondo que a interface venha daqui
 
 // ============================================================================
 //   VARIANTES DE ANIMAÇÃO (FRAMER MOTION)
@@ -78,7 +78,7 @@ interface CasesDataProps {
 export function Cases({ c }: CasesDataProps) {
 
     // --- Desestruturação das Props ---
-    const { description, image, orientation, product, tagLabel } = c;
+    const { description, image, orientation, product, tagLabel, link } = c;
 
     // --- Componentes com Animação ---
     const MotionText = motion(CustomText);
@@ -190,26 +190,28 @@ export function Cases({ c }: CasesDataProps) {
                     </Flex>
 
                     {/* Botão "Saiba Mais" */}
-                    <Flex p={{base:4, md:0}}>
-                        <MotionButton
-                            fontSize={'md'}
-                            initial='initial'
-                            whileHover="hover"
-                            variants={buttonVariants}
-                            borderRadius={'md'}
-                            bgColor={'transparent'}
-                            border={tagLabel === 'Consultoria' ? '1px solid #FF5F5E' : '1px solid cadetBlue'}
-                            color={'textPrimary'}
-                            justifyContent={'space-between'}
-                            // Sobrescreve a cor do hover dinamicamente
-                            _hover={{
-                                backgroundColor: tagLabel === 'Consultoria' ? '#FF5F5E' : 'cadetBlue'
-                            }}
-                        >
-                            Clique para saber mais
-                            <FaLongArrowAltRight />
-                        </MotionButton>
-                    </Flex>
+                    <Link href={c.link} target="_blank">
+                        <Flex p={{ base: 4, md: 0 }}>
+                            <MotionButton
+                                fontSize={'md'}
+                                initial='initial'
+                                whileHover="hover"
+                                variants={buttonVariants}
+                                borderRadius={'md'}
+                                bgColor={'transparent'}
+                                border={tagLabel === 'Consultoria' ? '1px solid #FF5F5E' : '1px solid cadetBlue'}
+                                color={'textPrimary'}
+                                justifyContent={'space-between'}
+                                // Sobrescreve a cor do hover dinamicamente
+                                _hover={{
+                                    backgroundColor: tagLabel === 'Consultoria' ? '#FF5F5E' : 'cadetBlue'
+                                }}
+                            >
+                                {callToAction.title}
+                                <FaLongArrowAltRight />
+                            </MotionButton>
+                        </Flex>
+                    </Link>
                 </MotionFlex>
 
             </Flex>
