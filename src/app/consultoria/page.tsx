@@ -2,7 +2,7 @@
 'use client';
 
 import { Flex, Heading, Text, Icon, VStack } from "@chakra-ui/react";
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { PiWrench } from "react-icons/pi"; // Ícone de ferramenta, apropriado para "construção"
 
 export default function Consultoria() {
@@ -24,7 +24,7 @@ export default function Consultoria() {
         },
     };
 
-    const itemVariants = {
+    const itemVariants: Variants  = {
         hidden: { y: 20, opacity: 0 },
         visible: {
             y: 0,
