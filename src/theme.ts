@@ -35,7 +35,8 @@ const config = defineConfig({
                     blue: { value: "#133c96" },
                     lightBlue: { value: "#204CAD" },
                     shadow: { value: "rgba(0, 120, 215, 0.3)" },
-                    boxShadow: { value: "#3e67c0ff" }
+                    boxShadow: { value: "#3e67c0ff" },
+                    border: { value: "#3e67c0ff" }
                 },
                 boTrtDarkBlue: {
                     50: { value: "#e3e6ea" },

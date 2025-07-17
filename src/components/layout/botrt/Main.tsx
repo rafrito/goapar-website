@@ -17,13 +17,14 @@ import { PiRocketLaunchBold, PiWrench } from "react-icons/pi";
 // ============================================================================
 // Centraliza as cores usadas no componente para fácil manutenção e consistência.
 const COLORS = {
-    black: "#000000",
-    darkBlue: "#0d2558",
-    blue: "#133c96",
-    lightBlue: "#204CAD",
-    shadow: "rgba(0, 120, 215, 0.3)",
-    boxShadow: "#3e67c0ff"
+    black: "#000000",       // Um azul noturno, quase preto, para o início
+    darkBlue: "#0A225C",    // Um azul escuro e profundo para a transição
+    blue: "#0052D4",        // Um azul royal vibrante
+    lightBlue: "    #2d0303ff",    // Um azul elétrico para o final
+    shadow: "rgba(44, 105, 238, 0.3)", // Sombra baseada no azul final
+    boxShadow: "rgba(105, 6, 6, 1)"  // Brilho baseado no azul final
 };
+
 
 // ============================================================================
 //   COMPONENTE PRINCIPAL: Main
@@ -69,14 +70,15 @@ export function Main() {
             position="relative"
             w="100%"
             px={{ base: 2, md: '' }}
-            minH={{ base: "88vh", md: 1020 }}
+            py={{ base: 2, md: 20 }}
+            minH={{ base: "88vh", md: 832 }}
             justifyContent="center"
-            alignItems="center"
-            // Gradiente de fundo complexo
-            bgGradient="to-b"
-            gradientFrom={`${COLORS.black} 0%`}
-            gradientVia={`${COLORS.black}ff 5%,${COLORS.darkBlue} 34%, ${COLORS.blue} 65%`}
-            gradientTo={`${COLORS.lightBlue} 82%`}
+            alignItems="start"
+            // // Gradiente de fundo complexo
+            // bgGradient="to-b"
+            // gradientFrom={`${COLORS.black} 0%`}
+            // gradientVia={`${COLORS.black}ff 5%,${COLORS.darkBlue} 34%, ${COLORS.blue} 65%`}
+            // gradientTo={`${COLORS.lightBlue} 82%`}
             color="white"
             overflow="hidden" // Essencial para cortar a elipse que vaza
         >
@@ -94,8 +96,8 @@ export function Main() {
                 <MotionText
                     as="h1"
                     w='100%'
-                    maxW={{ base: '100%', md: '8xl' }}
-                    fontSize={{ base: '6xl', md: '9xl', lg: 160 }}
+                    maxW={{ base: '100%', md: '6xl' }}
+                    fontSize={{ base: '6xl', md: '9xl' }}
                     fontWeight="semibold"
                     variants={itemVariants}
                     lineHeight={{ base: '1.1', md: '0.85' }}
@@ -120,14 +122,14 @@ export function Main() {
                     w={{ base: 'min', md: 'auto' }}
                     px={8}
                     py={6}
-                    bgColor={'brand.600'}
-                    color={'textPrimary'}
+                    bgColor={'white'}
+                    color={'black'}
                     fontWeight={'bold'}
                     fontSize={{ base: 'md', md: 'lg' }}
                     borderRadius={'lg'}
                     textTransform={'uppercase'}
                     letterSpacing={'wider'}
-                    _hover={{ bgColor: "white", color: 'black', transition: 'background-color 0.6s ease' }}
+                    _hover={{ bgColor: "brand.600", color: 'white', transition: 'background-color 0.6s ease' }}
                     variants={itemVariants}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -151,7 +153,7 @@ export function Main() {
                 
                 // Estilo da Elipse
                 borderTop="2px solid"
-                borderColor="boTrtDarkBlue.200"
+                borderColor={'brand.400'}
                 borderRadius="100%"
                 bgColor={COLORS.black}
                 boxShadow={`0px 0px 80px 80px ${COLORS.boxShadow}`}
