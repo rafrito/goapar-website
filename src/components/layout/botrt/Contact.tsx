@@ -14,8 +14,13 @@ import {
     Input,
     Textarea,
     Stack,
+    Box, // Adicionado para a animação
 } from "@chakra-ui/react";
-import { motion, Variants } from 'framer-motion';
+import { motion, Variants, AnimatePresence } from 'framer-motion';
+import animationData from '../../../../public/botrt/contact/mail.json';
+import { useLottie } from "lottie-react";
+
+
 import { useForm } from "react-hook-form";
 
 // --- Ícones ---
@@ -60,6 +65,37 @@ const itemVariants: Variants = {
 };
 
 // ============================================================================
+//   SUB-COMPONENTE: Animação de Contato
+// ============================================================================
+function ContactAnimation() {
+
+    const defaultOptions = {
+        animationData: animationData,
+        loop: true,
+        autoplay: true,
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice"
+        }
+    }
+
+    const { View } = useLottie(defaultOptions);
+
+
+    return (
+        <Flex
+            w={{ base: 'md', md: 'xl' }}
+            h={{ base: 'md', md: 'xl' }}
+            justify="center"
+            align="center"
+            position="relative"
+        >
+           {View}
+        </Flex>
+    );
+}
+
+
+// ============================================================================
 //   COMPONENTE PRINCIPAL: ContactUs
 // ============================================================================
 export function ContactUs() {
@@ -67,14 +103,12 @@ export function ContactUs() {
     const MotionHeading = motion(Heading);
     const MotionText = motion(Text);
 
-    // Configuração do react-hook-form
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm<FormValues>();
 
-    // Função chamada no envio bem-sucedido do formulário
     const onSubmit = handleSubmit((data) => {
         const link = generateWhatsappLink(data.name, data.message);
         window.open(link, '_blank');
@@ -95,31 +129,26 @@ export function ContactUs() {
         >
             <Flex
                 w="100%"
+                maxW="container.xl"
+                mx="auto"
                 direction={{ base: 'column', lg: 'row' }}
                 gap={{ base: 12, lg: 16 }}
                 alignItems="center"
             >
-                {/* Coluna da Esquerda (Visual de Suporte) */}
+                {/* Coluna da Esquerda (Animação de Suporte) */}
                 <MotionFlex
+                    flex={1}
                     justify="center"
                     align="center"
                     variants={itemVariants}
-                    w='100%'
                 >
-                    <Flex
-                        w={{ base: '200px', md: '300px' }}
-                        h={{ base: '200px', md: '300px' }}
-                        justify="center"
-                        align="center"
-                        bgGradient="radial(circle, brand.700, gray.900 70%)"
-                        borderRadius="full"
-                    >
-                        <Icon as={PiHeadset} boxSize={{ base: 24, md: 40 }} color="brand.400" />
-                    </Flex>
+                    {/* AQUI ESTÁ A MUDANÇA: Substituímos o Flex com gradiente pela nova animação */}
+                    <ContactAnimation />
                 </MotionFlex>
 
                 {/* Coluna da Direita (Formulário) */}
                 <MotionFlex
+                    flex={1}
                     direction="column"
                     gap={4}
                     w="100%"
@@ -132,25 +161,26 @@ export function ContactUs() {
                         Tem alguma dúvida ou quer discutir um projeto? Preencha o formulário abaixo e nossa equipe entrará em contato o mais breve possível.
                     </MotionText>
 
-                    {/* Seu formulário, agora integrado */}
                     <Flex as="form" onSubmit={onSubmit} w="100%" mt={8}>
                         <Stack gap="6" w="100%" maxW="lg">
-                            <Field.Root invalid={!!errors.name}>
+                            <Field.Root invalid={!!errors.name} >
                                 <Field.Label>Seu Nome</Field.Label>
                                 <Input
                                     placeholder="Digite seu nome completo"
                                     size="lg"
+                                    focusRingColor="brand.500"
                                     {...register("name", { required: "O nome é obrigatório" })}
                                 />
                                 <Field.ErrorText>{errors.name?.message}</Field.ErrorText>
                             </Field.Root>
 
-                            <Field.Root invalid={!!errors.message}>
+                            <Field.Root invalid={!!errors.message} >
                                 <Field.Label>Mensagem</Field.Label>
                                 <Textarea
                                     placeholder="Como podemos ajudar?"
                                     size="lg"
                                     rows={5}
+                                    focusRingColor="brand.500"
                                     {...register("message", { required: "A mensagem é obrigatória" })}
                                 />
                                 <Field.ErrorText>{errors.message?.message}</Field.ErrorText>
@@ -158,15 +188,12 @@ export function ContactUs() {
 
                             <Button
                                 type="submit"
-                                bgColor={"brand.500"}
-                                color={"white"}
-                                _hover={{ bgColor: "brand.600" }}
+                                colorScheme="brand"
                                 size="lg"
                                 w={{ base: '100%', md: 'auto' }}
                                 alignSelf={{ base: 'stretch', md: 'flex-start' }}
-
                             >
-                                <PiWhatsappLogo />
+                                <PiWhatsappLogo color='whatsappColor' />
                                 Enviar via WhatsApp
                             </Button>
                         </Stack>
