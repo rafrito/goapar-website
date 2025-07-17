@@ -58,9 +58,10 @@ const scrollToSection = (id: string): void => {
  * Gera um link para o WhatsApp com uma mensagem padrão pré-preenchida.
  * @returns {string} A URL completa para o WhatsApp.
  */
-const whatsappLink = (): string => {
-    const message = "Olá! Acessei o site da Awer e gostaria de mais informações";
-    return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+const whatsappLink = (message?: string): string => {
+    const defaultMessage = "Olá! Acessei o site da Awer e gostaria de mais informações";
+    const text = message ?? defaultMessage;
+    return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`;
 };
 
 /**

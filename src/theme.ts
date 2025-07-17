@@ -28,7 +28,75 @@ const config = defineConfig({
                     700: { value: "#CC4B4A" },
                     800: { value: "#B24140" },
                     900: { value: "#993736" },
-                }
+                },
+                boTrtLandingPage: {
+                    black: { value: "#000000" },
+                    darkBlue: { value: "#0d2558" },
+                    blue: { value: "#133c96" },
+                    lightBlue: { value: "#204CAD" },
+                    shadow: { value: "rgba(0, 120, 215, 0.3)" },
+                    boxShadow: { value: "#3e67c0ff" }
+                },
+                boTrtDarkBlue: {
+                    50: { value: "#e3e6ea" },
+                    100: { value: "#b9c1cf" },
+                    200: { value: "#8f9bb4" },
+                    300: { value: "#657699" },
+                    400: { value: "#3b507e" },
+                    500: { value: "#0b132c" }, // base
+                    600: { value: "#091024" },
+                    700: { value: "#070d1c" },
+                    800: { value: "#050a14" },
+                    900: { value: "#03070c" }
+                },
+                boTrtRed: {
+                    50: { value: "#ffeaea" },
+                    100: { value: "#ffc7c7" },
+                    200: { value: "#ffa3a3" },
+                    300: { value: "#ff8080" },
+                    400: { value: "#f45e5d" }, // base
+                    500: { value: "#d94e4d" },
+                    600: { value: "#be3e3d" },
+                    700: { value: "#a32e2d" },
+                    800: { value: "#881e1d" },
+                    900: { value: "#6d0e0d" }
+                },
+                boTrtLightRed: {
+                    50: { value: "#fff6f6" },
+                    100: { value: "#ffe2e1" },
+                    200: { value: "#ffcfcf" },
+                    300: { value: "#ffbcbc" },
+                    400: { value: "#ffa2a1" }, // base
+                    500: { value: "#e08f8e" },
+                    600: { value: "#c17c7b" },
+                    700: { value: "#a26968" },
+                    800: { value: "#835655" },
+                    900: { value: "#644342" }
+                },
+                boTrtCharcoal: {
+                    50: { value: "#e6e6e7" },
+                    100: { value: "#c1c2c3" },
+                    200: { value: "#9c9d9f" },
+                    300: { value: "#77787b" },
+                    400: { value: "#525357" },
+                    500: { value: "#151721" }, // base
+                    600: { value: "#12141c" },
+                    700: { value: "#0f1117" },
+                    800: { value: "#0c0e12" },
+                    900: { value: "#090b0d" }
+                },
+                boTrtGhostWhite: {
+                    50: { value: "#ffffff" },
+                    100: { value: "#fafafd" },
+                    200: { value: "#f5f6fa" },
+                    300: { value: "#f2f3f7" },
+                    400: { value: "#f0eff5" }, // base
+                    500: { value: "#d8d7dd" },
+                    600: { value: "#c0bec5" },
+                    700: { value: "#a8a6ad" },
+                    800: { value: "#908e95" },
+                    900: { value: "#78767d" }
+                },
                 // Cores padrão 'gray', 'blue', etc., vêm do defaultConfig
             },
             // fonts: { heading: { value: ... }, body: { value: ... } },
