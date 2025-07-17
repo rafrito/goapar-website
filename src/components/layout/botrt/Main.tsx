@@ -70,7 +70,7 @@ export function Main() {
             position="relative"
             w="100%"
             px={{ base: 2, md: '' }}
-            py={{ base: 2, md: 20 }}
+            py={{ base: 8, md: 20 }}
             minH={{ base: "88vh", md: 832 }}
             justifyContent="center"
             alignItems="start"

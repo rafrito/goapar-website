@@ -12,6 +12,7 @@ export default function Home() {
     <Flex
       flexDir={'column'} // Direção flexível definida como coluna
       gap={{ base: 24, md: 32 }} // Espaçamento entre os elementos filhos, adaptável para base e md breakpoints
+      px={{ base: 4, md: 8 }} // Padding horizontal adaptável
       w='100%' // Largura de 100%
       minH={'100vh'} // Altura mínima de 100vh (viewport height)
       bgColor={'backgroundPrimary'} // Cor de fundo definida como a variável backgroundPrimary

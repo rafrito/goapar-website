@@ -31,7 +31,7 @@ export function Footer() {
             bg={bgColor}
             color={textColor}
             py={{ base: 10, md: 16 }}
-            px={{ base: 4, md: 8, lg: 12 }}
+            px={{ base: 4, md: 12, lg: 12 }}
             w='100%'
             mt={{ base: 8, md: 16 }}
         >

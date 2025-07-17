@@ -43,17 +43,18 @@ export function Header() {
     return (
         <MotionFlex
             as="header" // Tag semântica para cabeçalho
-            
+
             // Animação de entrada
             initial="hidden"
             animate="visible"
             variants={headerVariants}
-            
+
             // Layout e Estilo
             justifyContent={'space-between'}
             alignItems="center"
             py={4}
-            px={{ base: 4, md: 2 }}
+            px={{ base: 4, md: 12 }} // Padding horizontal adaptável
+
             w='100%'
             color={'headerColor'}
         >
@@ -62,11 +63,11 @@ export function Header() {
             {/* -------------------------------------------------------------------- */}
             <Flex alignItems={'center'} gap={{ base: 2, md: 8 }}>
                 <ChakraLink href="/" _focus={{ boxShadow: 'none' }}>
-                    <Image 
-                        src={headerData.logoSrc} 
-                        alt="Logo da Awer" 
-                        objectFit={'contain'} 
-                        maxW={{ base: 32, md: 32 }} 
+                    <Image
+                        src={headerData.logoSrc}
+                        alt="Logo da Awer"
+                        objectFit={'contain'}
+                        maxW={{ base: 32, md: 32 }}
                     />
                 </ChakraLink>
             </Flex>
@@ -77,28 +78,28 @@ export function Header() {
             <Flex alignItems={'center'} gap={{ base: 2, sm: 3, md: 4 }}>
 
                 {/* Navegação para Desktop: Visível apenas em telas maiores que 'md' */}
-                <Flex 
-                    gap={8} 
-                    fontSize={'sm'} 
+                <Flex
+                    gap={8}
+                    fontSize={'sm'}
                     display={{ base: 'none', md: 'flex' }}
                 >
                     {headerData.menu.map((item, index) => (
-                        <ChakraLink 
-                            key={index} 
-                            href={item.href} 
+                        <ChakraLink
+                            key={index}
+                            href={item.href}
                             _hover={{ cursor: 'pointer', color: 'brand.500', textDecoration: 'none' }}
                         >
-                            <CustomText 
-                                color={'headerColor'} 
-                                text={item.title} 
-                                letterSpacing={1.8} 
-                                textTransform={'uppercase'} 
+                            <CustomText
+                                color={'headerColor'}
+                                text={item.title}
+                                letterSpacing={1.8}
+                                textTransform={'uppercase'}
                             />
                         </ChakraLink>
                     ))}
                     <ChakraLink href={whatsappLink()} _hover={{ cursor: 'pointer', color: 'brand.500', textDecoration: 'none' }} target="_blank">
                         {/* Supondo que MotionButton seja o seu botão de "Contato" ou "Orçamento" */}
-                        <MotionButton /> 
+                        <MotionButton />
                     </ChakraLink>
                 </Flex>
 

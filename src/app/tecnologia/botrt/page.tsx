@@ -2,6 +2,7 @@
 'use client';
 
 import { ContactUs } from "@/components/layout/botrt/Contact";
+import { BotrtExamples } from "@/components/layout/botrt/Examples";
 import { BotrtGrid } from "@/components/layout/botrt/Grid";
 // ============================================================================
 //   IMPORTS
@@ -23,6 +24,7 @@ export default function BotrtLandingPage() {
         <CustomersCarousel/>
         <BotrtGrid/>
         <BotrtVisual/>
+        <BotrtExamples/>
         <BotrtPlans/>
         <ContactUs/>
         </>
