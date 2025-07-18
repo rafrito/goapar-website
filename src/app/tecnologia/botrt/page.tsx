@@ -33,6 +33,5 @@ export default function BotrtLandingPage() {
 
 
 
-// Adicionar feedbacks da Marina
 // Colocar mais call to actions
 

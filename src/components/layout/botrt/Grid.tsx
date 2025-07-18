@@ -25,7 +25,7 @@ export const gridData = {
         {
             iconSrc: "PiClockClockwise",
             title: "Eficiência Máxima",
-            description: "Transforme horas de pesquisa manual em segundos. Nossa automação extrai dados processuais de forma rápida e contínua, liberando sua equipe para focar em atividades estratégicas."
+            description: "Transforme horas de pesquisa manual em segundos. Nossa automação extrai dados processuais de forma rápida e contínua. Isso significa menos tempo perdido e mais foco no que realmente importa: o sucesso do seu negócio."
         },
         {
             iconSrc: "PiShieldCheck",
@@ -34,8 +34,9 @@ export const gridData = {
         },
         {
             iconSrc: "PiChartLineUp",
-            title: "Inteligência Estratégica",
-            description: "Não apenas colete dados, use-os a seu favor. A plataforma organiza as informações de forma inteligente, permitindo uma visão clara e analítica da sua carteira de casos."
+            title: "Produtividade que gera retorno",
+            description: "Transforme o tempo economizado em oportunidades de inovação, melhoria contínua e conquistas que fazem a diferença no desempenho da sua empresa."
+
         }
     ]
 };
@@ -160,7 +161,7 @@ interface FeatureCardProps {
 function FeatureCard({ icon, title, description }: FeatureCardProps) {
     return (
         <VStack
-            p={{base:4, md:8}}
+            p={{ base: 4, md: 8 }}
             bg="#0b0b0bff"
             borderRadius="xl"
             border="1px solid"
@@ -183,8 +184,8 @@ function FeatureCard({ icon, title, description }: FeatureCardProps) {
             >
                 <Icon as={icon} boxSize={12} color="white" />
             </Flex>
-            <Heading as="h3" size={{base:"lg", md:"2xl"}}>{title}</Heading>
-            <Text color="gray.400" fontSize={{base:"md", md:"lg"}}>{description}</Text>
+            <Heading as="h3" size={{ base: "lg", md: "2xl" }}>{title}</Heading>
+            <Text color="gray.400" fontSize={{ base: "md", md: "lg" }}>{description}</Text>
         </VStack>
     );
 }
