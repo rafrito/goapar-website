@@ -1,6 +1,7 @@
 // src/app/consultoria/page.tsx
 'use client';
 
+import { BoTRTCallToAction } from "@/components/layout/botrt/CallToAction";
 import { ContactUs } from "@/components/layout/botrt/Contact";
 import { BotrtExamples } from "@/components/layout/botrt/Examples";
 import { BotrtGrid } from "@/components/layout/botrt/Grid";
@@ -22,6 +23,7 @@ export default function BotrtLandingPage() {
     return (
         <>
         <BotrtExamples/>
+        <BoTRTCallToAction/>
         <BotrtVisual/>
         <BotrtGrid/>
         <FeedbacksCarousel/>
