@@ -120,7 +120,6 @@ export function ContactUs() {
             w="100%"
             py={{ base: 16, md: 24 }}
             px={{ base: 4, md: 8 }}
-            bg="gray.900"
             color="white"
             variants={containerVariants}
             initial="hidden"
@@ -131,7 +130,7 @@ export function ContactUs() {
                 w="100%"
                 maxW="container.xl"
                 mx="auto"
-                direction={{ base: 'column', lg: 'row' }}
+                direction={{ base: 'column-reverse', lg: 'row' }}
                 gap={{ base: 12, lg: 16 }}
                 alignItems="center"
             >

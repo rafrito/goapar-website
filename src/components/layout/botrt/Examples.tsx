@@ -54,6 +54,16 @@ const arrowVariants: Variants = {
 //   COMPONENTE PRINCIPAL: BotrtExamples
 // ============================================================================
 export function BotrtExamples() {
+
+    const COLORS = {
+        black: "#000000",       // Um azul noturno, quase preto, para o início
+        darkBlue: "#0A225C",    // Um azul escuro e profundo para a transição
+        blue: "#0052D4",        // Um azul royal vibrante
+        lightBlue: "    #2d0303ff",    // Um azul elétrico para o final
+        shadow: "rgba(44, 105, 238, 0.3)", // Sombra baseada no azul final
+        boxShadow: "rgba(105, 6, 6, 1)"  // Brilho baseado no azul final
+    };
+
     const MotionFlex = motion(Flex);
     const MotionVStack = motion(VStack);
     const MotionHeading = motion(Heading);
@@ -64,10 +74,10 @@ export function BotrtExamples() {
         // Container principal da seção
         <MotionFlex
             as="section"
+            position='relative'
             w="100%"
             py={{ base: 16, md: 24 }}
             px={{ base: 4, md: 8 }}
-            bg="black" // Fundo escuro para destacar as imagens
             color="white"
             direction="column"
             align="center"
@@ -80,12 +90,15 @@ export function BotrtExamples() {
             viewport={{ once: true, amount: 0.2 }}
         >
             {/* Título da Seção */}
-            <MotionVStack textAlign="center" gap={4} variants={itemVariants}>
-                <Heading as="h2" fontSize={{ base: '3xl', md: '5xl' }} fontWeight="bold">
-                    A máquina trabalhando para você
+            <MotionVStack textAlign="center" gap={8} variants={itemVariants} zIndex={1}>
+                <Flex lineHeight={{base:0.90, md:0.64}} as="h1" fontSize={{ base: '8xl', md: '9xl' }} fontWeight="bold" color="#FF5F5E">
+                    <Flex as='span' color='white'>bo</Flex>TRT
+                </Flex>
+                <Heading lineHeight={{base:1, md:0.64}} as="h2" fontSize={{ base: '3xl', md: '5xl' }} fontWeight="bold">
+                    O robô que faz em segundos o que você levaria horas.
                 </Heading>
-                <Text fontSize={{ base: 'md', md: 'lg' }} color="gray.400" maxW="2xl">
-                    Deixe o BoTRT automatizar tarefas repetitivas e transformar dados complexos em informações acessíveis, enquanto você foca no que realmente importa.
+                <Text fontSize={{ base: 'md', md: 'lg' }} color="gray.400">
+                    Atualize suas audiências automaticamente, ganhe tempo e foco no que realmente importa .
                 </Text>
             </MotionVStack>
 
@@ -97,6 +110,7 @@ export function BotrtExamples() {
                 alignItems='center'
                 justifyContent='center'
                 gap={{ base: 10, lg: 8 }}
+                zIndex={1}
             >
                 {/* -------------------------------------------------------------------- */}
                 {/* Coluna 1: Acesso ao Dashboard                                      */}
@@ -141,6 +155,7 @@ export function BotrtExamples() {
                 {/* Divisor com a Seta Animada                                         */}
                 {/* -------------------------------------------------------------------- */}
                 <MotionFlex
+                    zIndex={1}
                     align="center"
                     justify="center"
                     display={{ base: 'none', lg: 'flex' }}
@@ -159,6 +174,7 @@ export function BotrtExamples() {
                 {/* Coluna 2: Extração de Dados                                        */}
                 {/* -------------------------------------------------------------------- */}
                 <MotionVStack
+                    zIndex={1}
                     flex={1}
                     w='100%'
                     gap={6}
@@ -198,6 +214,31 @@ export function BotrtExamples() {
                 </MotionVStack>
 
             </Flex>
+
+            {/* Elipse Decorativa na Base */}
+            <Box
+                // --- Posicionamento e dimensionamento (sem alterações) ---
+                position="absolute"
+                bottom={{ base: "-10vh", md: "-60px", lg: "-400px" }}
+                left="50%"
+                transform="translateX(-50%)"
+                width={{ base: "150%", md: "150%" }}
+                height={{ base: "20vh", md: "120px", lg: "640px" }}
+                zIndex={0} // Fica atrás do conteúdo
+
+                // --- Estilo da Elipse (sem alterações) ---
+                borderTop="2px solid"
+                borderColor={'brand.400'}
+                borderRadius="100%"
+                bgColor={COLORS.black}
+                style={{
+                    background: `radial-gradient(${COLORS.black} 50%, ${COLORS.lightBlue} 70%)`
+                }}
+
+                // A MUDANÇA PRINCIPAL: Sombra apenas no topo
+                boxShadow={`0px -40px 150px 60px ${COLORS.boxShadow}`}
+            />
+
         </MotionFlex>
     );
 }

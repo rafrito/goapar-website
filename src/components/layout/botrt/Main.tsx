@@ -139,28 +139,6 @@ export function Main() {
                 </MotionButton>
 
             </MotionFlex>
-
-            {/* Elipse Decorativa na Base */}
-            <Box
-                // Posicionamento e dimensionamento
-                position="absolute"
-                bottom={{ base: "-10vh", md: "-60px", lg: "-400px" }}
-                left="50%"
-                transform="translateX(-50%)"
-                width={{ base: "150%", md: "150%" }}
-                height={{ base: "20vh", md: "120px", lg: "640px" }}
-                zIndex={0} // Fica atrás do conteúdo
-                
-                // Estilo da Elipse
-                borderTop="2px solid"
-                borderColor={'brand.400'}
-                borderRadius="100%"
-                bgColor={COLORS.black}
-                boxShadow={`0px 0px 80px 80px ${COLORS.boxShadow}`}
-                style={{
-                    background: `radial-gradient(${COLORS.black} 50%, ${COLORS.lightBlue} 70%)`
-                }}
-            />
         </MotionFlex>
     );
 }

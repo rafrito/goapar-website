@@ -102,7 +102,7 @@ function TestimonialCard({ testimonial }: TestimonialCardProps) {
                     </Text>
 
                     {/* Botão para expandir/recolher o texto (só aparece se o texto for longo) */}
-                    {testimonial.quote.length > testimonialLengthBox  && isTruncated && (
+                    {testimonial.quote.length > testimonialLengthBox && isTruncated && (
                         <Flex
                             as="button"
                             w='100%'
@@ -177,6 +177,7 @@ export function FeedbacksCarousel() {
     return (
         <Box
             width="100%"
+            px={8}
             minH={{ base: 'auto', md: '320px' }}
             borderRadius="sm"
             className="testimonial-carousel" // Classe para estilizações customizadas de CSS
@@ -208,11 +209,16 @@ export function FeedbacksCarousel() {
                 className="mySwiper"
             >
                 {/* Mapeia os dados dos depoimentos para criar um slide para cada um */}
-                {awerTestimonials.map((testimonial) => (
-                    <SwiperSlide key={testimonial.id}>
-                        <TestimonialCard testimonial={testimonial} />
-                    </SwiperSlide>
-                ))}
+                {awerTestimonials.map((testimonial) => {
+
+                    if (testimonial.id != '2') { return null; }
+                    return (
+                        <SwiperSlide key={testimonial.id}>
+                            <TestimonialCard testimonial={testimonial} />
+                        </SwiperSlide>
+                    )
+                }
+                )}
             </Swiper>
         </Box>
     );

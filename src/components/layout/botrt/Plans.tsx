@@ -1,6 +1,7 @@
 // src/components/layout/botrtPlans.tsx
 'use client';
 
+import { whatsappLink } from "@/utils";
 // --- Framework e UI Libs ---
 import {
     Box,
@@ -26,8 +27,8 @@ import { PiCheckCircleFill, PiSealCheckFill } from "react-icons/pi";
 // ============================================================================
 // Centraliza os dados para fácil manutenção e cálculo dos preços.
 
-const baseMonthlyPrice = 399.90;
-const annualPrice = baseMonthlyPrice * 12 * 0.80; // 20% de desconto
+const baseMonthlyPrice = 499.90;
+const annualPrice = baseMonthlyPrice * 12 * 0.85; // 20% de desconto
 const premiumPrice = baseMonthlyPrice * 12 * 1.20; // 20% a mais
 
 const plansData = [
@@ -38,9 +39,13 @@ const plansData = [
         description: "Ideal para experimentar todo o poder do BoTRT sem compromisso a longo prazo.",
         features: [
             "Extração ilimitada de dados",
+            "Pesquisas de audiências Minha Pauta",
+            "Extração de Processos Arquivados",
+            "Pesquisa e filtragem automática de processos do Acervo Geral",
             "Suporte técnico integral via e-mail e chat",
             "Manutenção e atualizações contínuas",
-            "Infraestrutura de servidores inclusa"
+            "Infraestrutura de servidores inclusa",
+            "Suporte e treinamento personalizado",
         ],
         buttonText: "Assinar Agora",
     },
@@ -50,24 +55,35 @@ const plansData = [
         billingCycle: "/mês",
         description: `Cobrado anualmente por ${annualPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}.`,
         features: [
-            "Todos os benefícios do plano mensal",
-            "20% de desconto sobre o valor total",
+            "15% de desconto sobre o valor total",
+            "Extração ilimitada de dados",
+            "Pesquisas de audiências Minha Pauta",
+            "Extração de Processos Arquivados",
+            "Pesquisa e filtragem automática de processos do Acervo Geral",
+            "Suporte técnico integral via e-mail e chat",
+            "Manutenção e atualizações contínuas",
+            "Infraestrutura de servidores inclusa",
             "Prioridade no atendimento de suporte",
-            "Acesso a webinars exclusivos"
+            "Suporte e treinamento personalizado",
         ],
         buttonText: "Quero Economizar",
         isRecommended: true, // Para destacar este plano
     },
     {
         name: "Plano Premium",
-        price: (premiumPrice / 12).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
-        billingCycle: "/mês",
+        price: 'Em breve',
+        // price:(premiumPrice / 12).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
+        billingCycle: "",
         description: "A solução definitiva para escritórios que buscam a vanguarda da inovação tecnológica.",
         features: [
             "Todos os benefícios do plano anual",
-            "Acesso antecipado a novas funcionalidades (Beta)",
-            "Consultor de sucesso dedicado",
-            "Relatórios de jurimetria avançada"
+            "Busca agendada de audiências",
+            "Rastreio de audiências (em breve)",
+            "Extração de processos do CEAT (em breve)",
+            "Pesquisa de audiências de sustentação oral (em breve)",
+            "Emissão de guias via Caixa (em breve)",
+            "Emissão de guias via Banco do Brasil (em breve)",
+            "Emissão de guias via PJE (em breve)",
         ],
         buttonText: "Seja Premium",
     }
@@ -134,7 +150,7 @@ export function BotrtPlans() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
-                alignItems={"start"}
+                alignItems={"stretch"}
                 justifyContent={"center"}
                 h='100%'
             >
@@ -168,7 +184,7 @@ function PricingCard({ name, price, billingCycle, description, features, buttonT
             p={8}
             flexDir={'column'}
             justifyContent={'space-between'}
-            alignItems={'center'}
+            alignItems={'stretch'}
             maxW={'sm'}
             bg={isRecommended ? "brand.600" : "#1C1C1C"} // Cor de destaque para o plano recomendado
             color={isRecommended ? "white" : "inherit"}
@@ -178,7 +194,7 @@ function PricingCard({ name, price, billingCycle, description, features, buttonT
             gap={6}
             textAlign="left"
             h="100%"
-            minH={"520px"}
+            minH={720}
             position="relative"
             transform={isRecommended ? { base: 'none', lg: 'scale(1.05)' } : 'none'} // Efeito de zoom no plano recomendado
             transition="transform 0.3s ease, box-shadow 0.3s ease"
@@ -217,7 +233,7 @@ function PricingCard({ name, price, billingCycle, description, features, buttonT
                 {features.map((feature, index) => (
                     <Flex as="li" key={index} alignItems={'center'} gap={2}>
                         <Icon as={PiCheckCircleFill} size={'md'} color={isRecommended ? "white" : "brand.500"} />
-                        <Text fontSize={{ base: 'md', md: 'lg' }}>{feature}</Text>
+                        <Text fontSize={{ base: 'md', md: 'md' }}>{feature}</Text>
                     </Flex>
                 ))}
             </Flex>
@@ -228,13 +244,13 @@ function PricingCard({ name, price, billingCycle, description, features, buttonT
                 border={'1px solid'}
                 borderRadius={'lg'}
                 borderColor={'brand.500'}
+                color={isRecommended ? "black" : "white"}
                 bgColor={isRecommended ? "white" : "brand.500"}
-                colorScheme={isRecommended ? "whiteAlpha" : "brand"}
-                variant={isRecommended ? "solid" : "outline"}
                 _hover={{
-                    bgColor: 'boTrtLandingPage.blue',
+                    bgColor: 'brand.800',
                     color: "white"
                 }}
+                onClick={() => window.open(whatsappLink(`Acessei o site do boTRT e gostaria de assinar o plano ${name}`), '_blank')}
             >
                 {buttonText}
             </Button>

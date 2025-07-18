@@ -65,6 +65,7 @@ export function BotrtVisual() {
             px={{ base: 4, md: 8 }}
             bg="black"
             color="white"
+            zIndex={10}
         >
             <VStack gap={4} textAlign="center" mb={{ base: 12, md: 16 }}>
                 <Heading
