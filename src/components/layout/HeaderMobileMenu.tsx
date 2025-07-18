@@ -7,24 +7,38 @@
 
 // --- Componentes Chakra UI ---
 // Usando o Menu do Ark UI, que é a base para o Chakra v3
-import { Box, Menu, Button, Portal, Link as ChakraLink } from "@chakra-ui/react";
+import { Box, Menu, Button, Portal, Link as ChakraLink, Avatar, Flex, Icon, Text } from "@chakra-ui/react";
 
 // --- Ícones ---
-import { PiList } from "react-icons/pi";
+import { PiList, PiSignOut } from "react-icons/pi";
 
 // --- Dados Locais ---
 import { headerData } from "@/data/header";
+import { whatsappLink } from "@/utils";
+import { MotionButton } from "../ui/MotionButton";
+import { useAuth0 } from "@auth0/auth0-react";
+import { UserAvatar } from "./UserAvatar";
 
 // ============================================================================
 //   COMPONENTE PRINCIPAL: HeaderMobileMenu
 // ============================================================================
 // Este componente cria o menu "hamburger" que é exibido apenas em telas pequenas.
 
-export function HeaderMobileMenu() {
+interface HeaderMobileMenuProps {
+    isAuthenticated: boolean;
+}
+
+export function HeaderMobileMenu({ isAuthenticated }: HeaderMobileMenuProps) {
+
+    const { user, logout } = useAuth0();
+
     return (
         // Container que só exibe este componente em telas pequenas ('base')
         // e o esconde em telas a partir de 'md' (medium).
-        <Box display={{ base: 'block', md: 'none' }}>
+        <Box display={{ base: 'block', md: 'none' }} gap={8}>
+
+
+            <UserAvatar/>
 
             {/* Menu Principal (Raiz) */}
             <Menu.Root>

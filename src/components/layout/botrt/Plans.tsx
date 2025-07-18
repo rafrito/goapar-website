@@ -1,8 +1,8 @@
 // src/components/layout/botrtPlans.tsx
 'use client';
 
-import { whatsappLink } from "@/utils";
-// --- Framework e UI Libs ---
+// --- React e Frameworks ---
+import { useState } from 'react';
 import {
     Box,
     Heading,
@@ -15,25 +15,26 @@ import {
     Button,
     Icon,
     Flex,
-    Badge, // Para o destaque "Mais Popular"
+    Badge,
+    Spinner, // Para indicar o carregamento
 } from "@chakra-ui/react";
 import { motion, Variants } from 'framer-motion';
+import { useAuth0 } from '@auth0/auth0-react'; // Hook do Auth0 para autenticação
 
 // --- Ícones ---
-import { PiCheckCircleFill, PiSealCheckFill } from "react-icons/pi";
+import { PiCheckCircleFill } from "react-icons/pi";
 
 // ============================================================================
-//   DADOS DOS PLANOS
+//   DADOS DOS PLANOS (ATUALIZADO COM priceId)
 // ============================================================================
-// Centraliza os dados para fácil manutenção e cálculo dos preços.
-
+// ATENÇÃO: Crie as variáveis de ambiente no seu arquivo .env.local
 const baseMonthlyPrice = 499.90;
-const annualPrice = baseMonthlyPrice * 12 * 0.85; // 20% de desconto
-const premiumPrice = baseMonthlyPrice * 12 * 1.20; // 20% a mais
+const annualPrice = baseMonthlyPrice * 12 * 0.85; // 15% de desconto
 
 const plansData = [
     {
-        name: "Plano Mensal",
+        name: `Plano Mensal ${process.env.NEXT_PUBLIC_STRIPE_BOTRT_MENSAL}`,
+        priceId: process.env.NEXT_PUBLIC_STRIPE_BOTRT_MENSAL || null,
         price: baseMonthlyPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
         billingCycle: "/mês",
         description: "Ideal para experimentar todo o poder do BoTRT sem compromisso a longo prazo.",
@@ -51,6 +52,7 @@ const plansData = [
     },
     {
         name: "Plano Anual",
+        priceId: process.env.NEXT_PUBLIC_STRIPE_BOTRT_ANUAL || null, // CORRIGIDO: Usando variável própria
         price: (annualPrice / 12).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
         billingCycle: "/mês",
         description: `Cobrado anualmente por ${annualPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}.`,
@@ -67,12 +69,12 @@ const plansData = [
             "Suporte e treinamento personalizado",
         ],
         buttonText: "Quero Economizar",
-        isRecommended: true, // Para destacar este plano
+        isRecommended: true,
     },
     {
         name: "Plano Premium",
+        priceId: null, // Plano indisponível para compra
         price: 'Em breve',
-        // price:(premiumPrice / 12).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
         billingCycle: "",
         description: "A solução definitiva para escritórios que buscam a vanguarda da inovação tecnológica.",
         features: [
@@ -96,9 +98,7 @@ const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,
-        transition: {
-            staggerChildren: 0.15,
-        }
+        transition: { staggerChildren: 0.15 }
     }
 };
 
@@ -107,18 +107,53 @@ const itemVariants: Variants = {
     visible: {
         opacity: 1,
         y: 0,
-        transition: {
-            duration: 0.5,
-            ease: "easeOut"
-        }
+        transition: { duration: 0.5, ease: "easeOut" }
     }
 };
 
 // ============================================================================
-//   COMPONENTE PRINCIPAL: botrtPlans
+//   COMPONENTE PRINCIPAL: BotrtPlans
 // ============================================================================
 export function BotrtPlans() {
     const MotionFlex = motion(Flex);
+    const { user, isAuthenticated, loginWithRedirect } = useAuth0();
+    const [isLoading, setIsLoading] = useState(false);
+    const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+
+    // Função que lida com o clique no botão de assinatura
+    const handleSubscription = async (priceId: string) => {
+        setSelectedPlan(priceId);
+        setIsLoading(true);
+
+        if (!isAuthenticated) {
+            await loginWithRedirect({ appState: { returnTo: '/tecnologia/botrt' } });
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    priceId: priceId,
+                    auth0UserId: user?.sub, // 'sub' é o ID único do usuário no Auth0
+                }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                window.location.href = data.url;
+            } else {
+                throw new Error(data.error || 'Falha ao criar a sessão de checkout.');
+            }
+        } catch (error) {
+            console.error("Erro no checkout:", error);
+        } finally {
+            setIsLoading(false);
+            setSelectedPlan(null);
+        }
+    };
 
     return (
         <Flex
@@ -126,7 +161,7 @@ export function BotrtPlans() {
             w="100%"
             py={{ base: 16, md: 24 }}
             px={{ base: 4, md: 8 }}
-            bg="gray.900" // Um fundo escuro que contrasta com a seção anterior
+            bg="gray.900"
             color="white"
             flexDir={'column'}
             alignItems={"center"}
@@ -154,10 +189,13 @@ export function BotrtPlans() {
                 justifyContent={"center"}
                 h='100%'
             >
-                {/* Mapeia os dados para criar um card para cada plano */}
                 {plansData.map((plan, index) => (
                     <MotionFlex h='100%' key={index} variants={itemVariants}>
-                        <PricingCard {...plan} />
+                        <PricingCard
+                            {...plan}
+                            isLoading={isLoading && selectedPlan === plan.priceId}
+                            onSubscribe={() => plan.priceId && handleSubscription(plan.priceId)}
+                        />
                     </MotionFlex>
                 ))}
             </MotionFlex>
@@ -171,14 +209,17 @@ export function BotrtPlans() {
 interface PricingCardProps {
     name: string;
     price: string;
+    priceId: string | null;
     billingCycle: string;
     description: string;
     features: string[];
     buttonText: string;
     isRecommended?: boolean;
+    isLoading: boolean;
+    onSubscribe: () => void;
 }
 
-function PricingCard({ name, price, billingCycle, description, features, buttonText, isRecommended = false }: PricingCardProps) {
+function PricingCard({ name, price, priceId, billingCycle, description, features, buttonText, isRecommended = false, isLoading, onSubscribe }: PricingCardProps) {
     return (
         <Flex
             p={8}
@@ -186,7 +227,7 @@ function PricingCard({ name, price, billingCycle, description, features, buttonT
             justifyContent={'space-between'}
             alignItems={'stretch'}
             maxW={'sm'}
-            bg={isRecommended ? "brand.600" : "#1C1C1C"} // Cor de destaque para o plano recomendado
+            bg={isRecommended ? "brand.600" : "#1C1C1C"}
             color={isRecommended ? "white" : "inherit"}
             borderRadius="xl"
             border="1px solid"
@@ -196,7 +237,7 @@ function PricingCard({ name, price, billingCycle, description, features, buttonT
             h="100%"
             minH={720}
             position="relative"
-            transform={isRecommended ? { base: 'none', lg: 'scale(1.05)' } : 'none'} // Efeito de zoom no plano recomendado
+            transform={isRecommended ? { base: 'none', lg: 'scale(1.05)' } : 'none'}
             transition="transform 0.3s ease, box-shadow 0.3s ease"
             _hover={{
                 transform: "translateY(-8px)",
@@ -207,6 +248,8 @@ function PricingCard({ name, price, billingCycle, description, features, buttonT
                 <Badge
                     position="absolute"
                     top="-14px"
+                    left="50%"
+                    transform="translateX(-50%)"
                     colorScheme="blue"
                     px={4}
                     py={1}
@@ -220,7 +263,7 @@ function PricingCard({ name, price, billingCycle, description, features, buttonT
                 </Badge>
             )}
 
-            <VStack align="start" w="100%" h='100%'>
+            <VStack align="start" w="100%">
                 <Heading as="h3" size="lg">{name}</Heading>
                 <HStack align="baseline">
                     <Text fontSize={{ base: '4xl', lg: "5xl" }} fontWeight="bold">{price}</Text>
@@ -229,11 +272,11 @@ function PricingCard({ name, price, billingCycle, description, features, buttonT
                 <Text fontSize={{ base: "sm", md: "md" }} color={isRecommended ? "gray.200" : "gray.500"}>{description}</Text>
             </VStack>
 
-            <Flex flexDir={'column'} as='ul' gap={3} w="100%" flex={1} h='100%' justifyContent={'space-between'}>
+            <Flex flexDir={'column'} as='ul' gap={3} w="100%" flex={1}>
                 {features.map((feature, index) => (
                     <Flex as="li" key={index} alignItems={'center'} gap={2}>
-                        <Icon as={PiCheckCircleFill} size={'md'} color={isRecommended ? "white" : "brand.500"} />
-                        <Text fontSize={{ base: 'md', md: 'md' }}>{feature}</Text>
+                        <Icon as={PiCheckCircleFill} color={isRecommended ? "white" : "brand.500"} />
+                        <Text fontSize={{ base: 'sm', md: 'md' }}>{feature}</Text>
                     </Flex>
                 ))}
             </Flex>
@@ -241,18 +284,18 @@ function PricingCard({ name, price, billingCycle, description, features, buttonT
             <Button
                 w="100%"
                 size="lg"
-                border={'1px solid'}
                 borderRadius={'lg'}
-                borderColor={'brand.500'}
                 color={isRecommended ? "black" : "white"}
                 bgColor={isRecommended ? "white" : "brand.500"}
                 _hover={{
                     bgColor: 'brand.800',
                     color: "white"
                 }}
-                onClick={() => window.open(whatsappLink(`Acessei o site do boTRT e gostaria de assinar o plano ${name}`), '_blank')}
+                onClick={onSubscribe}
+                loading={isLoading}
+                disabled={!priceId} // Desabilita o botão se não houver priceId
             >
-                {buttonText}
+                {isLoading ? 'Aguarde...' : buttonText}
             </Button>
         </Flex>
     );

@@ -25,14 +25,14 @@ export default function BotrtLandingPage() {
         <BotrtExamples/>
         {/* <BoTRTCallToAction/> */}
         <BotrtVisual/>
-        <BotrtGrid/>
         {/* <BoTRTCallToAction/> */}
+        <BotrtGrid/>
         <FeedbacksCarousel/>
         <BotrtPlans/>
         {/* <BoTRTCallToAction/> */}
         <ContactUs/>
         </>
-    );
+    )
 }
 
 
