@@ -23,19 +23,16 @@ export default function BotrtLandingPage() {
     return (
         <>
         <BotrtExamples/>
-        <BoTRTCallToAction/>
+        {/* <BoTRTCallToAction/> */}
         <BotrtVisual/>
         <BotrtGrid/>
-        <BoTRTCallToAction/>
+        {/* <BoTRTCallToAction/> */}
         <FeedbacksCarousel/>
         <BotrtPlans/>
-        <BoTRTCallToAction/>
+        {/* <BoTRTCallToAction/> */}
         <ContactUs/>
         </>
     );
 }
 
-
-
-// Colocar mais call to actions
 
