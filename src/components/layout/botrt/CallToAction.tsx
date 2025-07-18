@@ -1,10 +1,12 @@
-import { Button, Text } from "@chakra-ui/react";
+import { whatsappLink } from "@/utils";
+import { Button, Flex, Text } from "@chakra-ui/react";
 import { motion, Variants } from "framer-motion";
 
 
 
 export function BoTRTCallToAction() {
 
+    const MotionFlex = motion(Flex);
     const MotionButton = motion(Button);
     const MotionText = motion(Text);
 
@@ -22,23 +24,26 @@ export function BoTRTCallToAction() {
     };
 
     return (
-        <MotionButton
-            w={{ base: 'min', md: 'auto' }
-            }
+        <MotionFlex
+            w={{ base: 'min', md: 'xl' }}
+            zIndex={10}
             px={18}
-            py={10}
-            bgColor={'white'}
-            color={'black'}
+            py={4}
+            bgColor={'brand.700'}
+            color={'white'}
             fontWeight={'bold'}
-            fontSize={{ base: 'lg', md: 'xl' }}
-            borderRadius={'lg'}
+            borderRadius={'sm'}
             textTransform={'uppercase'}
             letterSpacing={'wider'}
-            _hover={{ bgColor: "brand.600", color: 'white', transition: 'background-color 0.6s ease' }}
+            _hover={{ bgColor: "white", color: 'brand.600', transition: 'background-color 0.6s ease' }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => window.open(whatsappLink(`Acessei o site do boTRT e gostaria de testar o produto`), '_blank')}
+            cursor={'pointer'}
+            alignItems={'center'}
+            justifyContent={'center'}
         >
-            <MotionText fontSize={'md'} variants={itemVariants}>Teste grátis</MotionText>
-        </MotionButton >
+            <MotionText fontSize={{ base: 'xl', md: '2xl' }} variants={itemVariants}>Teste grátis</MotionText>
+        </MotionFlex >
     )
 }

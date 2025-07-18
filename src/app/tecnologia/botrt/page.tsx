@@ -26,8 +26,10 @@ export default function BotrtLandingPage() {
         <BoTRTCallToAction/>
         <BotrtVisual/>
         <BotrtGrid/>
+        <BoTRTCallToAction/>
         <FeedbacksCarousel/>
         <BotrtPlans/>
+        <BoTRTCallToAction/>
         <ContactUs/>
         </>
     );
