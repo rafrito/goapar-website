@@ -40,7 +40,7 @@ const plansData = [
         description: "Ideal para experimentar todo o poder do BoTRT sem compromisso a longo prazo.",
         features: [
             "Extração ilimitada de dados",
-            "Pesquisas de audiências Minha Pauta",
+            "Pesquisas de audiências de Minha Pauta",
             "Extração de Processos Arquivados",
             "Pesquisa e filtragem automática de processos do Acervo Geral",
             "Suporte técnico integral via e-mail e chat",
