@@ -2,7 +2,8 @@
 'use client';
 
 // --- React e Frameworks ---
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation'; // Hooks para URL
 import {
     Box,
     Heading,
@@ -16,31 +17,30 @@ import {
     Icon,
     Flex,
     Badge,
-    Spinner, // Para indicar o carregamento
+    Spinner,
 } from "@chakra-ui/react";
 import { motion, Variants } from 'framer-motion';
-import { useAuth0 } from '@auth0/auth0-react'; // Hook do Auth0 para autenticação
+import { useAuth0 } from '@auth0/auth0-react';
 
 // --- Ícones ---
 import { PiCheckCircleFill } from "react-icons/pi";
 
 // ============================================================================
-//   DADOS DOS PLANOS (ATUALIZADO COM priceId)
+//   DADOS DOS PLANOS
 // ============================================================================
-// ATENÇÃO: Crie as variáveis de ambiente no seu arquivo .env.local
 const baseMonthlyPrice = 499.90;
-const annualPrice = baseMonthlyPrice * 12 * 0.85; // 15% de desconto
+const annualPrice = baseMonthlyPrice * 12 * 0.85;
 
 const plansData = [
     {
-        name: `Plano Mensal ${process.env.NEXT_PUBLIC_STRIPE_BOTRT_MENSAL}`,
+        name: "Plano Mensal",
         priceId: process.env.NEXT_PUBLIC_STRIPE_BOTRT_MENSAL || null,
         price: baseMonthlyPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
         billingCycle: "/mês",
         description: "Ideal para experimentar todo o poder do BoTRT sem compromisso a longo prazo.",
         features: [
             "Extração ilimitada de dados",
-            "Pesquisas de audiências de Minha Pauta",
+            "Pesquisas de audiências Minha Pauta",
             "Extração de Processos Arquivados",
             "Pesquisa e filtragem automática de processos do Acervo Geral",
             "Suporte técnico integral via e-mail e chat",
@@ -52,7 +52,7 @@ const plansData = [
     },
     {
         name: "Plano Anual",
-        priceId: process.env.NEXT_PUBLIC_STRIPE_BOTRT_ANUAL || null, // CORRIGIDO: Usando variável própria
+        priceId: process.env.NEXT_PUBLIC_STRIPE_BOTRT_ANUAL || null,
         price: (annualPrice / 12).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
         billingCycle: "/mês",
         description: `Cobrado anualmente por ${annualPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}.`,
@@ -73,7 +73,7 @@ const plansData = [
     },
     {
         name: "Plano Premium",
-        priceId: null, // Plano indisponível para compra
+        priceId: null,
         price: 'Em breve',
         billingCycle: "",
         description: "A solução definitiva para escritórios que buscam a vanguarda da inovação tecnológica.",
@@ -92,7 +92,7 @@ const plansData = [
 ];
 
 // ============================================================================
-//   VARIANTES DE ANIMAÇÃO (Framer Motion)
+//   VARIANTES DE ANIMAÇÃO
 // ============================================================================
 const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -120,13 +120,24 @@ export function BotrtPlans() {
     const [isLoading, setIsLoading] = useState(false);
     const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
 
+    // Hooks para ler os parâmetros da URL
+    const router = useRouter();
+    const searchParams = useSearchParams();
+
     // Função que lida com o clique no botão de assinatura
     const handleSubscription = async (priceId: string) => {
         setSelectedPlan(priceId);
         setIsLoading(true);
 
         if (!isAuthenticated) {
-            await loginWithRedirect({ appState: { returnTo: '/tecnologia/botrt' } });
+            // A MUDANÇA: Passamos o 'appState' com a intenção do usuário.
+            await loginWithRedirect({
+                appState: {
+                    returnTo: '/tecnologia/botrt',
+                    action: 'subscribe',
+                    priceId: priceId,
+                }
+            });
             return;
         }
 
@@ -136,12 +147,10 @@ export function BotrtPlans() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     priceId: priceId,
-                    auth0UserId: user?.sub, // 'sub' é o ID único do usuário no Auth0
+                    auth0UserId: user?.sub,
                 }),
             });
-
             const data = await response.json();
-
             if (response.ok) {
                 window.location.href = data.url;
             } else {
@@ -154,6 +163,21 @@ export function BotrtPlans() {
             setSelectedPlan(null);
         }
     };
+    
+    // A MUDANÇA: Efeito que roda na primeira carga da página para verificar a intenção do usuário
+    useEffect(() => {
+        const action = searchParams.get('action');
+        const priceId = searchParams.get('priceId');
+
+        // Se o usuário está logado e a URL contém a instrução para assinar...
+        if (isAuthenticated && action === 'subscribe' && priceId) {
+            console.log("Usuário autenticado, iniciando assinatura para o plano:", priceId);
+            // Limpa a URL para evitar que o fluxo seja reativado
+            router.replace('/tecnologia/botrt');
+            // Inicia o processo de checkout automaticamente
+            handleSubscription(priceId);
+        }
+    }, [isAuthenticated, searchParams, router]);
 
     return (
         <Flex
@@ -293,7 +317,7 @@ function PricingCard({ name, price, priceId, billingCycle, description, features
                 }}
                 onClick={onSubscribe}
                 loading={isLoading}
-                disabled={!priceId} // Desabilita o botão se não houver priceId
+                disabled={!priceId}
             >
                 {isLoading ? 'Aguarde...' : buttonText}
             </Button>

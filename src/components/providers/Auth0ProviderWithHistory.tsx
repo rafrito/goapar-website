@@ -1,7 +1,7 @@
 // src/components/providers/Auth0ProviderWithHistory.tsx
 'use client';
 
-import { Auth0Provider } from '@auth0/auth0-react';
+import { AppState, Auth0Provider } from '@auth0/auth0-react';
 import { useRouter } from 'next/navigation';
 
 export const Auth0ProviderWithHistory = ({ children }: { children: React.ReactNode }) => {
@@ -14,8 +14,19 @@ export const Auth0ProviderWithHistory = ({ children }: { children: React.ReactNo
     return null; // Ou uma mensagem de erro
   }
 
-  const onRedirectCallback = (appState: any) => {
-    router.push(appState?.returnTo || window.location.pathname);
+  // A MUDANÇA: O nosso "recepcionista" agora está mais inteligente.
+  const onRedirectCallback = (appState?: AppState) => {
+    // Verifica se existe uma "anotação" na passagem (o appState)
+    if (appState?.action === 'subscribe' && appState?.priceId) {
+      // Se sim, constrói uma URL especial com a instrução para a página de planos
+      const targetUrl = `${appState.returnTo || '/'}?action=subscribe&priceId=${appState.priceId}`;
+      console.log(`[Auth0 Callback] Ação de assinatura detectada. Redirecionando para: ${targetUrl}`);
+      router.push(targetUrl);
+    } else {
+      // Se não, faz o de sempre: volta para a página de onde saiu ou para a home
+      console.log(`[Auth0 Callback] Nenhuma ação específica. Redirecionando para: ${appState?.returnTo || window.location.pathname}`);
+      router.push(appState?.returnTo || window.location.pathname);
+    }
   };
 
   return (
