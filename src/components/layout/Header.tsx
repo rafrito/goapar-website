@@ -52,7 +52,7 @@ export function Header() {
     // --- Hooks e Estado ---
     const MotionFlex = motion(Flex);
     // Hook do Auth0 para obter o status de autenticação, dados do usuário e funções de logout
-    const { isAuthenticated, user, logout } = useAuth0();
+    const { isAuthenticated, user, logout, loginWithRedirect } = useAuth0();
 
     console.log('User Authenticated:', isAuthenticated);
     console.log('User Data:', user);
@@ -114,7 +114,20 @@ export function Header() {
                     ))}
 
                     {/* LÓGICA CONDICIONAL: Mostra o botão de contato ou o avatar do usuário */}
-                    <UserAvatar/>
+                    {isAuthenticated ? (
+                        <UserAvatar />
+                    ) : (
+                        <Button
+                            color={'ghostWhite'}
+                            bgColor='transparent'
+                            border='1px solid'
+                            borderColor='whiteAlpha.300'
+                            onClick={() => loginWithRedirect()}
+                            _hover={{ bgColor: 'brand.600' }}
+                        >
+                            Entrar
+                        </Button>
+                    )}
                 </Flex>
 
                 {/* Menu Mobile (Hamburger): Agora precisa saber se o usuário está logado */}

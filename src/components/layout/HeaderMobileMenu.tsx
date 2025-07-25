@@ -30,7 +30,7 @@ interface HeaderMobileMenuProps {
 
 export function HeaderMobileMenu({ isAuthenticated }: HeaderMobileMenuProps) {
 
-    const { user, logout } = useAuth0();
+    const { loginWithRedirect } = useAuth0();
 
     return (
         // Container que só exibe este componente em telas pequenas ('base')
@@ -38,7 +38,20 @@ export function HeaderMobileMenu({ isAuthenticated }: HeaderMobileMenuProps) {
         <Box display={{ base: 'block', md: 'none' }} gap={8}>
 
 
-            <UserAvatar/>
+            {isAuthenticated ? (
+                <UserAvatar />
+            ) : (
+                <Button
+                    color={'ghostWhite'}
+                    bgColor='transparent'
+                    border='1px solid'
+                    borderColor='whiteAlpha.300'
+                    onClick={() => loginWithRedirect()}
+                    _hover={{ bgColor: 'brand.600' }}
+                >
+                    Entrar
+                </Button>
+            )}
 
             {/* Menu Principal (Raiz) */}
             <Menu.Root>
