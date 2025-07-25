@@ -42,6 +42,7 @@ export function HeaderMobileMenu({ isAuthenticated }: HeaderMobileMenuProps) {
                 <UserAvatar />
             ) : (
                 <Button
+                    mr={4}
                     color={'ghostWhite'}
                     bgColor='transparent'
                     border='1px solid'
