@@ -64,7 +64,7 @@ export default function PaginaSucesso() {
     const MotionButton = motion(Button);
 
     // TODO: Adicione o link real para o download do seu aplicativo
-    const downloadLink = "https://drive.usercontent.google.com/download?id=1c0SrVPOCOoXvY9SavZxQHexEpwO5jf6i&export=download&authuser=0&confirm=t&uuid=b28a986d-7231-4ee9-90c5-5ad3dcb0e36b&at=AN8xHopSl39tLCNRWBX5Ef8A6edI:1753397455028";
+    const downloadLink = process.env.NEXT_PUBLIC_DOWNLOAD_LINK || 'https://drive.usercontent.google.com/download?id=1c0SrVPOCOoXvY9SavZxQHexEpwO5jf6i&export=download&authuser=0&confirm=t&uuid=b860a84b-aa9e-41a9-b38e-df7b00961de1&at=AN8xHooi2yST4swMovazUh7gl_rd:1754081202052';
 
     return (
         <MotionFlex
