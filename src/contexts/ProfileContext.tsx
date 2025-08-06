@@ -3,6 +3,7 @@
 
 import { createContext, useState, useEffect, useContext, ReactNode } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
+import axios from 'axios';
 
 // --- Tipagem para os dados do perfil ---
 interface UserProfile {
@@ -39,15 +40,15 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
                     const token = await getAccessTokenSilently();
                     const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-                    const response = await fetch(`${apiBaseUrl}/api/profile`, {
+                    const response = await axios.get(`${apiBaseUrl}/api/users`, {
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },
                     });
+                    console.log("Response from profile API:", response);
 
-                    if (response.ok) {
-                        const data = await response.json();
-                        setProfile(data);
+                    if (response.status === 200) {
+                        setProfile(response.data);
                     } else {
                         setProfile(null);
                     }
