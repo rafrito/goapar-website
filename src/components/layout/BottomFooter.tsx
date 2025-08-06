@@ -34,7 +34,7 @@ export function BottomFooter() {
     // --- Renderização do Componente ---
     return (
         // Container externo que ocupa 100% da largura e define as cores de fundo e texto
-        <Flex bg={bgColor} color={textColor} w='100%'>
+        <Flex bg={bgColor} color={textColor} w='100%' px={{ base: 4, md: 8 }}>
             <Flex
                 as="footer" // Tag semântica para rodapé
 
