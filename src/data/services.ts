@@ -75,7 +75,7 @@ export const awerServices: Service[] = [
     description: 'Conectamos nossos clientes a novas oportunidades, implementando boas práticas de gestão, tecnologia e planejamento estratégico para otimização de processos e geração de melhores resultados.',
     category: 'Consultoria',
     image: 'Strategy.jpg', // ou 'Lightbulb'
-    link: '/consultoria/gestao-estrategia', // Link mais específico
+    link: '/gestao/gestao-estrategia', // Link mais específico
   },
   {
     id: 'consultoria-comercial-vendas', // ID ajustado
@@ -84,7 +84,7 @@ export const awerServices: Service[] = [
     description: 'Levamos uma perspectiva externa e experiência especializada para estruturar seu planejamento de vendas, definir metas realistas e implementar estratégias que impulsionam o sucesso comercial.',
     category: 'Consultoria',
     image: 'TrendUp.jpg', // ou 'Target', 'ChartBar'
-    link: '/consultoria/comercial-vendas',
+    link: '/gestao/comercial-vendas',
   },
   {
     id: 'consultoria-prospeccao',
@@ -93,7 +93,7 @@ export const awerServices: Service[] = [
     description: 'Ajudamos sua empresa a identificar e alcançar novos clientes através de estratégias de prospecção eficazes, otimizando seus canais e abordagens para expandir sua base de clientes.',
     category: 'Consultoria',
     image: 'Prospecção.jpg', // ou 'Binoculars'
-    link: '/consultoria/prospeccao',
+    link: '/gestao/prospeccao',
   },
   {
     id: 'consultoria-acompanhamento-desempenho',
@@ -102,7 +102,7 @@ export const awerServices: Service[] = [
     description: 'Realizamos análises periódicas do desempenho comercial da sua empresa, utilizando métricas bem definidas para fornecer feedback contínuo e insights para a tomada de decisões estratégicas.',
     category: 'Consultoria',
     image: 'Acompanhamento.jpg', // ou 'PresentationChart'
-    link: '/consultoria/acompanhamento-desempenho',
+    link: '/gestao/acompanhamento-desempenho',
   },
   {
     id: 'consultoria-gestao-financeira',
@@ -111,7 +111,7 @@ export const awerServices: Service[] = [
     description: 'Avaliamos o cenário financeiro da sua empresa para oferecer suporte na tomada de decisões, desenvolvendo um planejamento financeiro completo para a organização e otimização dos seus recursos.',
     category: 'Consultoria',
     image: 'Finances.jpg', // ou 'Bank', 'Calculator'
-    link: '/consultoria/gestao-financeira',
+    link: '/gestao/gestao-financeira',
   },
   {
     id: 'consultoria-apoio-operacional',
@@ -120,6 +120,6 @@ export const awerServices: Service[] = [
     description: 'Oferecemos o suporte necessário para identificar oportunidades de automação e facilitar processos dentro das suas atividades operacionais, aumentando a eficiência e reduzindo custos.',
     category: 'Consultoria',
     image: 'Apoio.jpg', // ou 'Wrench', 'FlowArrow'
-    link: '/consultoria/apoio-operacional',
+    link: '/gestao/apoio-operacional',
   }
 ];

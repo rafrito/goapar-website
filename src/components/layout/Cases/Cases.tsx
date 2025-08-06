@@ -77,7 +77,7 @@ interface CasesDataProps {
 export function Cases({ c }: CasesDataProps) {
 
     // --- Desestruturação das Props ---
-    const { description, image, orientation, product, tagLabel, link } = c;
+    const { description, image, orientation, product, tagLabel, tagLabelColor } = c;
 
     // --- Componentes com Animação ---
     const MotionText = motion(CustomText);
@@ -159,7 +159,7 @@ export function Cases({ c }: CasesDataProps) {
                             {/* Tag (Consultoria/Tecnologia) */}
                             <Flex>
                                 <MotionTag
-                                    bgColor={tagLabel === 'Consultoria' ? 'brand.500' : 'cadetBlue'}
+                                    bgColor={tagLabelColor? tagLabelColor : tagLabel === 'Consultoria' ? 'brand.500' : 'cadetBlue'}
                                     variants={tagVariants}
                                 >
                                     <Tag.Label
@@ -198,12 +198,13 @@ export function Cases({ c }: CasesDataProps) {
                                 variants={buttonVariants}
                                 borderRadius={'md'}
                                 bgColor={'transparent'}
-                                border={tagLabel === 'Consultoria' ? '1px solid #FF5F5E' : '1px solid cadetBlue'}
+                                border={'1px solid'}
+                                borderColor={tagLabelColor? tagLabelColor : tagLabel === 'Consultoria' ? '#FF5F5E' : 'cadetBlue'}
                                 color={'textPrimary'}
                                 justifyContent={'space-between'}
                                 // Sobrescreve a cor do hover dinamicamente
                                 _hover={{
-                                    backgroundColor: tagLabel === 'Consultoria' ? '#FF5F5E' : 'cadetBlue'
+                                    backgroundColor: tagLabelColor ? tagLabelColor : tagLabel === 'Consultoria' ? '#FF5F5E' : 'cadetBlue'
                                 }}
                             >
                                 {callToAction.title}

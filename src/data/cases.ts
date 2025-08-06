@@ -5,6 +5,7 @@ export interface CasesProps {
     image: string;
     product: string;
     tagLabel: string;
+    tagLabelColor?: string;
     description: string;
     link?: string
 }
