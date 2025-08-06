@@ -7,7 +7,7 @@
 
 // --- Componentes Chakra UI ---
 // Usando o Menu do Ark UI, que é a base para o Chakra v3
-import { Box, Menu, Button, Portal, Link as ChakraLink, Avatar, Flex, Icon, Text } from "@chakra-ui/react";
+import { Box, Menu, Button, Portal, Link as ChakraLink, Avatar, Flex, Icon, Text, Spinner } from "@chakra-ui/react";
 
 // --- Ícones ---
 import { PiList, PiSignOut } from "react-icons/pi";
@@ -18,6 +18,8 @@ import { whatsappLink } from "@/utils";
 import { MotionButton } from "../ui/MotionButton";
 import { useAuth0 } from "@auth0/auth0-react";
 import { UserAvatar } from "./UserAvatar";
+import { CustomText } from "../ui/CustomText";
+import { useProfile } from "@/contexts/ProfileContext";
 
 // ============================================================================
 //   COMPONENTE PRINCIPAL: HeaderMobileMenu
@@ -26,17 +28,40 @@ import { UserAvatar } from "./UserAvatar";
 
 interface HeaderMobileMenuProps {
     isAuthenticated: boolean;
+    isAwerClient: boolean;
 }
 
-export function HeaderMobileMenu({ isAuthenticated }: HeaderMobileMenuProps) {
+export function HeaderMobileMenu({ isAuthenticated, isAwerClient }: HeaderMobileMenuProps) {
 
     const { loginWithRedirect } = useAuth0();
+    const { isLoading: isProfileLoading } = useProfile();
 
     return (
         // Container que só exibe este componente em telas pequenas ('base')
         // e o esconde em telas a partir de 'md' (medium).
         <Box display={{ base: 'block', md: 'none' }} gap={8}>
-
+            {isAuthenticated && (
+                isProfileLoading ? (
+                    // Mostra um spinner enquanto o perfil está a ser carregado
+                    <Spinner size="sm" />
+                ) : (
+                    // Se o perfil foi carregado e o utilizador é um cliente, mostra o link
+                    isAwerClient && (
+                        <ChakraLink
+                            href="/dashboard" // A nova página do dashboard
+                            _hover={{ cursor: 'pointer', color: 'brand.500', textDecoration: 'none' }}
+                        >
+                            <CustomText
+                                color={'brand.500'} // Cor de destaque
+                                text="Dashboard"
+                                letterSpacing={1.8}
+                                textTransform={'uppercase'}
+                                fontWeight="bold"
+                            />
+                        </ChakraLink>
+                    )
+                )
+            )}
 
             {isAuthenticated ? (
                 <UserAvatar />
