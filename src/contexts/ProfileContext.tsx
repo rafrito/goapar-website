@@ -37,15 +37,21 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
         const getUserProfile = async () => {
             if (isAuthenticated) {
                 try {
-                    const token = await getAccessTokenSilently();
+                    // A MUDANÇA: Adicionamos o authorizationParams para especificar a audience
+                    const token = await getAccessTokenSilently({
+                        authorizationParams: {
+                            audience: process.env.NEXT_PUBLIC_API_AUDIENCE,
+                        },
+                    });
+
                     const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
+                    // A MUDANÇA: Corrigimos a URL para a rota de perfil
                     const response = await axios.get(`${apiBaseUrl}/api/users`, {
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },
                     });
-                    console.log("Response from profile API:", response);
 
                     if (response.status === 200) {
                         setProfile(response.data);
@@ -63,12 +69,10 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
             }
         };
 
-        // Só busca o perfil quando a autenticação do Auth0 terminar de carregar
         if (!isAuthLoading) {
             getUserProfile();
         }
     }, [isAuthenticated, isAuthLoading, getAccessTokenSilently]);
-
     return (
         <ProfileContext.Provider value={{ profile, isLoading }}>
             {children}
