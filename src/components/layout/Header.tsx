@@ -115,11 +115,10 @@ export function Header() {
                                     _hover={{ cursor: 'pointer', color: 'brand.500', textDecoration: 'none' }}
                                 >
                                     <CustomText
-                                        color={'brand.500'} // Cor de destaque
+                                        color={'cadetBlue'} // Cor de destaque
                                         text="Área do Cliente"
                                         letterSpacing={1.8}
                                         textTransform={'uppercase'}
-                                        fontWeight="bold"
                                     />
                                 </ChakraLink>
                             )
