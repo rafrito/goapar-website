@@ -87,9 +87,9 @@ function ContasChart({ data }: { data: ContasDataItem[] }) {
     return (
         <VStack w="100%" gap={6} align="stretch">
             <SimpleGrid columns={{ base: 1, md: 3 }} gap={6}>
-                <StatCard label="Total a Receber" value={(totalReceber/1000).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} isPositive />
-                <StatCard label="Total a Pagar" value={(totalPagar/1000).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} />
-                <StatCard label="Saldo do Período" value={(saldoTotal/1000).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} isPositive={saldoTotal >= 0} />
+                <StatCard label="Total a Receber" value={(totalReceber).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} isPositive />
+                <StatCard label="Endividamento" value={(totalPagar).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} />
+                <StatCard label="Saldo do Período" value={(saldoTotal).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} isPositive={saldoTotal >= 0} />
             </SimpleGrid>
             <Card.Root variant="outline" h={{ base: "300px", md: "400px" }}>
                 <Card.Body><canvas ref={chartRef}></canvas></Card.Body>
