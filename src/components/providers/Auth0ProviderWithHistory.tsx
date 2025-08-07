@@ -9,6 +9,7 @@ export const Auth0ProviderWithHistory = ({ children }: { children: React.ReactNo
 
   const domain = process.env.NEXT_PUBLIC_AUTH0_DOMAIN;
   const clientId = process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID;
+  const audience = process.env.NEXT_PUBLIC_AUTH0_AUDIENCE;
 
   if (!domain || !clientId) {
     return null; // Ou uma mensagem de erro

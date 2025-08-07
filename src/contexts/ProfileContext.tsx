@@ -37,24 +37,22 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
         const getUserProfile = async () => {
             if (isAuthenticated) {
                 try {
-                    // A MUDANÇA: Adicionamos o authorizationParams para especificar a audience
-                    const token = await getAccessTokenSilently({
-                        authorizationParams: {
-                            audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
-                        },
-                    });
-
                     const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
                     // A MUDANÇA: Corrigimos a URL para a rota de perfil
-                    const response = await axios.get(`${apiBaseUrl}/api/users`, {
+                    const token = await getAccessTokenSilently();
+                    // TODO: Criar este endpoint no backend
+                    const response = await fetch(`${apiBaseUrl}/api/users`, {
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },
                     });
 
-                    if (response.status === 200) {
-                        setProfile(response.data);
+                    const data = await response.json();
+
+
+                    if (response.ok) {
+                        setProfile(data);
                     } else {
                         setProfile(null);
                     }
