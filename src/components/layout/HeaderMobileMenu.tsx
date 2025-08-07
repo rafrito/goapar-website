@@ -53,7 +53,7 @@ export function HeaderMobileMenu({ isAuthenticated, isAwerClient }: HeaderMobile
                         >
                             <CustomText
                                 color={'cadetBlue'} // Cor de destaque
-                                text="Área do Cliente"
+                                text="Painel"
                                 letterSpacing={1.8}
                                 textTransform={'uppercase'}
                             />

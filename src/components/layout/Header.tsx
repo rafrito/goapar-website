@@ -111,12 +111,12 @@ export function Header() {
                             // Se o perfil foi carregado e o utilizador é um cliente, mostra o link
                             profile?.isAwerClient && (
                                  <ChakraLink
-                                    href="/dashboard" // A nova página do dashboard
+                                    href="/dashboard"
                                     _hover={{ cursor: 'pointer', color: 'brand.500', textDecoration: 'none' }}
                                 >
                                     <CustomText
-                                        color={'cadetBlue'} // Cor de destaque
-                                        text="Área do Cliente"
+                                        color={'cadetBlue'}
+                                        text="Painel"
                                         letterSpacing={1.8}
                                         textTransform={'uppercase'}
                                     />
