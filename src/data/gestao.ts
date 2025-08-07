@@ -19,16 +19,16 @@ const pageData: GestaoPageData = {
             orientation: "image-right" // texto na direita, imagem na esquerda
         },
         {
-            tagLabel: 'Estoque', // Categoria
+            tagLabel: 'Estoque e Compras', // Categoria
             tagLabelColor: 'yellow.600', // Categoria
             link:whatsappLink(),
             product: "Gestão Inteligente de Estoque",
-            description: "Controle seu estoque de forma eficiente, evitando perdas e otimizando o armazenamento. Tenha o produto certo, na quantidade ideal, no momento adequado.",
+            description: "Controle seu estoque de forma eficiente, evitando perdas e otimizando o armazenamento. Gerencie suas compras de forma estratégica para não deixar o seu dinheiro parado",
             image: "/gestao/estoque-2.png",
             orientation: "image-left" // texto na esquerda, imagem na direita
         },
         {
-            tagLabel: 'Dashboard', // Categoria
+            tagLabel: 'Gestão à Vista', // Categoria
             tagLabelColor: 'cadetBlue', // Categoria
             link:whatsappLink(),
             product: "Painel de Resultados",
@@ -37,11 +37,11 @@ const pageData: GestaoPageData = {
             orientation: "image-right"
         },
         {
-            tagLabel: 'Compras', // Categoria
+            tagLabel: 'Preço e Margens', // Categoria
             tagLabelColor: 'blue.600', // Categoria
             link:whatsappLink(),
-            product: "Compras e Definição de Margens de Produtos",
-            description: "Gerencie suas compras de forma estratégica, negocie melhores condições com fornecedores e defina margens de lucro adequadas para seus produtos.",
+            product: "Definição de Preços e Margens de Produtos",
+            description: "Defina preços e margens de lucro de forma estratégica, garantindo que seu negócio seja rentável. Valorize seus  seus produtos e otimize seus ganhos.",
             image: "/gestao/compras.jpg",
             orientation: "image-left"
         }
