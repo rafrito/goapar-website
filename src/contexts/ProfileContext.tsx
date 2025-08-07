@@ -40,7 +40,7 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
                     // A MUDANÇA: Adicionamos o authorizationParams para especificar a audience
                     const token = await getAccessTokenSilently({
                         authorizationParams: {
-                            audience: process.env.NEXT_PUBLIC_API_AUDIENCE,
+                            audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
                         },
                     });
 
