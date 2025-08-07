@@ -101,7 +101,7 @@ export function Header() {
                             />
                         </ChakraLink>
                     ))}
-                    
+
                     {/* 3. LÓGICA CONDICIONAL PARA O DASHBOARD */}
                     {isAuthenticated && (
                         isProfileLoading ? (
@@ -110,11 +110,15 @@ export function Header() {
                         ) : (
                             // Se o perfil foi carregado e o utilizador é um cliente, mostra o link
                             profile?.isAwerClient && (
-                                 <ChakraLink
+                                <ChakraLink
                                     href="/dashboard"
                                     _hover={{ cursor: 'pointer', color: 'brand.500', textDecoration: 'none' }}
                                 >
                                     <CustomText
+                                        border='1px solid'
+                                        borderColor='ghostwhite'
+                                        borderRadius={'md'}
+                                        p={2}
                                         color={'cadetBlue'}
                                         text="Painel"
                                         letterSpacing={1.8}
@@ -143,9 +147,9 @@ export function Header() {
                 </Flex>
 
                 {/* Menu Mobile (Hamburger) */}
-                <HeaderMobileMenu 
-                    isAuthenticated={isAuthenticated} 
-                    isAwerClient={profile?.isAwerClient || false} 
+                <HeaderMobileMenu
+                    isAuthenticated={isAuthenticated}
+                    isAwerClient={profile?.isAwerClient || false}
                 />
 
             </Flex>

@@ -52,6 +52,10 @@ export function HeaderMobileMenu({ isAuthenticated, isAwerClient }: HeaderMobile
                             _hover={{ cursor: 'pointer', color: 'brand.500', textDecoration: 'none' }}
                         >
                             <CustomText
+                                border='1px solid'
+                                borderColor='ghostwhite'
+                                borderRadius={'md'}
+                                p={2}
                                 mr={4}
                                 color={'cadetBlue'} // Cor de destaque
                                 text="Painel"
