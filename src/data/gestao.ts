@@ -13,7 +13,7 @@ const pageData: GestaoPageData = {
             tagLabel: 'Fluxo de Caixa', // Categoria
             tagLabelColor: 'brand.500', // Categoria
             link:whatsappLink(),
-            product: "Gestão Inteligente de Fluxo de Caixa",
+            product: "Gestão de Fluxo de Caixa",
             description: "Monitore entradas e saídas, otimize o capital de giro e garanta a saúde financeira da sua empresa com nosso sistema de gestão de fluxo de caixa.",
             image: "/gestao/fluxo-de-caixa.jpg",
             orientation: "image-right" // texto na direita, imagem na esquerda
@@ -22,7 +22,7 @@ const pageData: GestaoPageData = {
             tagLabel: 'Estoque e Compras', // Categoria
             tagLabelColor: 'yellow.600', // Categoria
             link:whatsappLink(),
-            product: "Gestão Inteligente de Estoque",
+            product: "Gestão Inteligente de Estoque e Compras",
             description: "Controle seu estoque de forma eficiente, evitando perdas e otimizando o armazenamento. Gerencie suas compras de forma estratégica para não deixar o seu dinheiro parado",
             image: "/gestao/estoque-2.png",
             orientation: "image-left" // texto na esquerda, imagem na direita
