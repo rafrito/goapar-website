@@ -85,16 +85,16 @@ function ContasChart({ data }: { data: ContasDataItem[] }) {
     const saldoTotal = totalReceber - totalPagar;
 
     return (
-        <VStack w="100%" gap={6} align="stretch">
+        <Flex w="100%" flexDir={'column'} gap={6} align="stretch" >
             <SimpleGrid columns={{ base: 1, md: 3 }} gap={6}>
-                <StatCard label="Total a Receber" value={(totalReceber).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} isPositive />
-                <StatCard label="Endividamento" value={(totalPagar).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} />
-                <StatCard label="Saldo do Período" value={(saldoTotal).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} isPositive={saldoTotal >= 0} />
+                <StatCard label="Total a Receber" value={(chartData.receber[chartData.receber.length - 1]).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} isPositive />
+                <StatCard label="Endividamento" value={(chartData.pagar[chartData.pagar.length - 1]).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} />
+                <StatCard label="Saldo do Período" value={(chartData.saldo[chartData.saldo.length - 1]).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} isPositive={saldoTotal >= 0} />
             </SimpleGrid>
-            <Card.Root variant="outline" h={{ base: "300px", md: "400px" }}>
-                <Card.Body><canvas ref={chartRef}></canvas></Card.Body>
+            <Card.Root variant="outline" maxH={{ base: "300px", md: "680px" }}>
+                <Card.Body maxH={{ base: "300px", md: "680px" }}><canvas ref={chartRef}></canvas></Card.Body>
             </Card.Root>
-        </VStack>
+        </Flex>
     );
 }
 
