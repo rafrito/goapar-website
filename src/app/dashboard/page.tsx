@@ -2,7 +2,7 @@
 'use client';
 
 // --- React e Frameworks ---
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
     Flex,
     Heading,
@@ -16,71 +16,46 @@ import {
     SimpleGrid,
     Badge,
     Box,
+    Spinner,
+    Alert,
 } from "@chakra-ui/react";
-import { motion, Variants } from 'framer-motion';
-import { Chart, ChartOptions } from 'chart.js/auto';
+import { motion } from 'framer-motion';
+import { Chart } from 'chart.js/auto';
+import { useAuth0 } from '@auth0/auth0-react';
 
 // --- Ícones ---
-import { PiChartBar, PiChartLineUp, PiCalendarCheck, PiCoins, PiTarget } from "react-icons/pi";
+import { PiChartBar, PiCalendarCheck, PiCoins, PiTarget } from "react-icons/pi";
+
+// --- Tipagem para os dados do Dashboard ---
+interface ContasDataItem { date: string; aPagar: number; aReceber: number; }
+interface EstoqueDataItem { date: string; dias: number; }
+interface VendasDataItem { mes: string; faturamento: number; }
+interface MetasDataItem { dataAtual: string; metaAteHoje: number; vendasAteHoje: number; metaDoDia: number; }
+
+interface DashboardData {
+    contasData: ContasDataItem[];
+    estoqueData: EstoqueDataItem[];
+    vendasData: VendasDataItem[];
+    metasData: MetasDataItem;
+}
 
 // ============================================================================
-//   DADOS MOCKADOS
+//   SUB-COMPONENTE: Gráfico de Contas (AGORA RECEBE DADOS VIA PROPS)
 // ============================================================================
-const contasData = [
-    { date: "31-Mar", aPagar: 261426, aReceber: 289335 },
-    { date: "15-Abr", aPagar: 297383, aReceber: 306962 },
-    { date: "02-Mai", aPagar: 238420, aReceber: 362456 },
-    { date: "15-Mai", aPagar: 238975, aReceber: 420880 },
-    { date: "06-Jun", aPagar: 238949, aReceber: 334376 },
-    { date: "17-Jun", aPagar: 235272, aReceber: 382077 },
-    { date: "04-Jul", aPagar: 222828, aReceber: 296060 }
-];
-
-const estoqueData = [
-    { date: "31-Mar", dias: 153.8 },
-    { date: "15-Abr", dias: 156.6 },
-    { date: "02-Mai", dias: 144.9 },
-    { date: "15-Mai", dias: 149.7 },
-    { date: "06-Jun", dias: 136.6 },
-    { date: "17-Jun", dias: 140.9 },
-    { date: "04-Jul", dias: 134.3 }
-];
-
-const vendasData = [
-    { mes: "Janeiro", faturamento: 281160 },
-    { mes: "Fevereiro", faturamento: 408675 },
-    { mes: "Março", faturamento: 383081 },
-    { mes: "Abril", faturamento: 474950 },
-    { mes: "Maio", faturamento: 502671 },
-    { mes: "Junho", faturamento: 425346 },
-    { mes: "Julho", faturamento: 457395 }
-];
-
-const metasData = {
-    dataAtual: "06/Ago",
-    metaAteHoje: 99842,
-    vendasAteHoje: 101379,
-    metaDoDia: 16756,
-};
-
-
-// ============================================================================
-//   SUB-COMPONENTE: Gráfico de Contas
-// ============================================================================
-function ContasChart() {
+function ContasChart({ data }: { data: ContasDataItem[] }) {
     const chartRef = useRef<HTMLCanvasElement>(null);
     
     const processData = () => {
-        const labels = contasData.map(item => item.date);
-        const pagarValues = contasData.map(item => item.aPagar);
-        const receberValues = contasData.map(item => item.aReceber);
-        const saldoValues = contasData.map(item => item.aReceber - item.aPagar);
+        const labels = data.map(item => item.date);
+        const pagarValues = data.map(item => item.aPagar);
+        const receberValues = data.map(item => item.aReceber);
+        const saldoValues = data.map(item => item.aReceber - item.aPagar);
         return { labels, pagar: pagarValues, receber: receberValues, saldo: saldoValues };
     };
     const chartData = processData();
 
     useEffect(() => {
-        if (chartRef.current) {
+        if (chartRef.current && chartData) {
             const chartInstance = new Chart(chartRef.current, {
                 type: 'bar',
                 data: {
@@ -124,17 +99,14 @@ function ContasChart() {
 }
 
 // ============================================================================
-//   SUB-COMPONENTE: Gráfico de Estoque
+//   SUB-COMPONENTE: Gráfico de Estoque (AGORA RECEBE DADOS VIA PROPS)
 // ============================================================================
-function EstoqueChart() {
+function EstoqueChart({ data }: { data: EstoqueDataItem[] }) {
     const chartRef = useRef<HTMLCanvasElement>(null);
-
-    const processData = () => {
-        const labels = estoqueData.map(item => item.date);
-        const diasValues = estoqueData.map(item => item.dias);
-        return { labels, dias: diasValues };
+    const chartData = {
+        labels: data.map(item => item.date),
+        dias: data.map(item => item.dias),
     };
-    const chartData = processData();
 
     useEffect(() => {
         if (chartRef.current) {
@@ -145,7 +117,7 @@ function EstoqueChart() {
                     datasets: [{
                         label: 'Dias de Estoque',
                         data: chartData.dias,
-                        borderColor: '#60A5FA', // Azul
+                        borderColor: '#60A5FA',
                         backgroundColor: 'rgba(96, 165, 250, 0.2)',
                         fill: true,
                         tension: 0.4,
@@ -183,32 +155,28 @@ function EstoqueChart() {
 }
 
 // ============================================================================
-//   SUB-COMPONENTE: Gráfico de Vendas (ATUALIZADO PARA GRÁFICO DE LINHA)
+//   SUB-COMPONENTE: Gráfico de Vendas (AGORA RECEBE DADOS VIA PROPS)
 // ============================================================================
-function VendasChart() {
+function VendasChart({ data }: { data: VendasDataItem[] }) {
     const chartRef = useRef<HTMLCanvasElement>(null);
-
-    const processData = () => {
-        const labels = vendasData.map(item => item.mes);
-        const faturamentoValues = vendasData.map(item => item.faturamento);
-        return { labels, faturamento: faturamentoValues };
+    const chartData = {
+        labels: data.map(item => item.mes),
+        faturamento: data.map(item => item.faturamento),
     };
-    const chartData = processData();
 
     useEffect(() => {
         if (chartRef.current) {
             const chartInstance = new Chart(chartRef.current, {
-                // A MUDANÇA: Alterado de 'bar' para 'line'
                 type: 'line',
                 data: {
                     labels: chartData.labels,
                     datasets: [{
                         label: 'Faturamento Mensal (R$)',
                         data: chartData.faturamento,
-                        borderColor: '#4FD1C5', // Ciano para a linha
-                        backgroundColor: 'rgba(79, 209, 197, 0.2)', // Ciano transparente para o preenchimento
-                        fill: true, // Habilita o preenchimento da área
-                        tension: 0.4, // Deixa a linha com curvas suaves
+                        borderColor: '#4FD1C5',
+                        backgroundColor: 'rgba(79, 209, 197, 0.2)',
+                        fill: true,
+                        tension: 0.4,
                     }]
                 },
                 options: {
@@ -218,7 +186,7 @@ function VendasChart() {
                         x: { ticks: { color: '#A0AEC0' }, grid: { color: '#4A5568' } }
                     },
                     plugins: { 
-                        legend: { display: true, labels: { color: '#CBD5E0' } }, // Reativando a legenda
+                        legend: { display: true, labels: { color: '#CBD5E0' } },
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
@@ -240,7 +208,7 @@ function VendasChart() {
 
     const totalFaturamento = chartData.faturamento.reduce((a, b) => a + b, 0);
     const mediaMensal = totalFaturamento / chartData.faturamento.length;
-    const melhorMes = vendasData.reduce((prev, current) => (prev.faturamento > current.faturamento) ? prev : current);
+    const melhorMes = data.reduce((prev, current) => (prev.faturamento > current.faturamento) ? prev : current);
 
     return (
         <VStack w="100%" gap={6} align="stretch">
@@ -256,14 +224,13 @@ function VendasChart() {
     );
 }
 
-
 // ============================================================================
-//   SUB-COMPONENTE: Visão de Metas
+//   SUB-COMPONENTE: Visão de Metas (AGORA RECEBE DADOS VIA PROPS)
 // ============================================================================
-function MetasView() {
+function MetasView({ data }: { data: MetasDataItem }) {
     const chartRef = useRef<HTMLCanvasElement>(null);
     
-    const { metaAteHoje, vendasAteHoje, metaDoDia, dataAtual } = metasData;
+    const { metaAteHoje, vendasAteHoje, metaDoDia, dataAtual } = data;
     const diferenca = vendasAteHoje - metaAteHoje;
     const atingidoPercent = (vendasAteHoje / metaAteHoje) * 100;
     
@@ -278,8 +245,8 @@ function MetasView() {
                         backgroundColor: ['#34D399', '#4A5568'],
                         borderColor: '#1A202C',
                         borderWidth: 4,
-                        circumference: 180, // Meio círculo
-                        rotation: -90, // Começa na base
+                        circumference: 180,
+                        rotation: -90,
                     }]
                 },
                 options: {
@@ -368,6 +335,54 @@ function StatCard({ label, value, isPositive }: StatCardProps) {
 // ============================================================================
 export default function DashboardPage() {
     const MotionFlex = motion(Flex);
+    const { getAccessTokenSilently } = useAuth0();
+    const [data, setData] = useState<DashboardData | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const token = await getAccessTokenSilently({
+                    authorizationParams: { audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE }
+                });
+                const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+                const response = await fetch(`${apiBaseUrl}/api/dashboard`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+
+                if (!response.ok) {
+                    throw new Error('Falha ao buscar dados do dashboard.');
+                }
+                const fetchedData = await response.json();
+                setData(fetchedData);
+            } catch (err) {
+                setError("Não foi possível carregar os dados do dashboard.");
+                console.error(err);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        fetchData();
+    }, [getAccessTokenSilently]);
+
+    if (isLoading) {
+        return <Flex w="100%" minH="100vh" justify="center" align="center" bg="gray.900"><Spinner size="xl" /></Flex>;
+    }
+
+    if (error || !data) {
+        return (
+            <Flex w="100%" minH="100vh" justify="center" align="center" bg="gray.900" p={4}>
+                <Alert.Root status="error" variant="subtle" flexDirection="column" alignItems="center" justifyContent="center" textAlign="center" borderRadius="lg" maxW="md">
+                    <Alert.Indicator boxSize="40px" mr={0} />
+                    <Alert.Content>
+                        <Alert.Title mt={4} mb={1} fontSize="lg">Ocorreu um Erro</Alert.Title>
+                        <Alert.Description>{error || "Dados não disponíveis."}</Alert.Description>
+                    </Alert.Content>
+                </Alert.Root>
+            </Flex>
+        );
+    }
 
     return (
         <MotionFlex
@@ -379,31 +394,30 @@ export default function DashboardPage() {
             p={{ base: 4, md: 8 }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
         >
             <VStack w="100%" maxW="container.xl" mx="auto" gap={8} align="stretch">
                 <Heading as="h1" size="xl">Dashboard de Gestão</Heading>
 
                 <Tabs.Root variant="outline" colorScheme="blue" defaultValue="contas">
                     <Tabs.List mb={6}>
-                        <Tabs.Trigger value="contas">
-                            <HStack><Icon as={PiCoins} /><Text>Contas a Pagar/Receber</Text></HStack>
-                        </Tabs.Trigger>
-                        <Tabs.Trigger value="estoque">
-                            <HStack><Icon as={PiCalendarCheck} /><Text>Dias de Estoque</Text></HStack>
-                        </Tabs.Trigger>
-                        <Tabs.Trigger value="vendas">
-                            <HStack><Icon as={PiChartBar} /><Text>Vendas</Text></HStack>
-                        </Tabs.Trigger>
-                        <Tabs.Trigger value="metas">
-                            <HStack><Icon as={PiTarget} /><Text>Metas</Text></HStack>
-                        </Tabs.Trigger>
+                        <Tabs.Trigger value="contas"><HStack><Icon as={PiCoins} /><Text>Contas</Text></HStack></Tabs.Trigger>
+                        <Tabs.Trigger value="estoque"><HStack><Icon as={PiCalendarCheck} /><Text>Estoque</Text></HStack></Tabs.Trigger>
+                        <Tabs.Trigger value="vendas"><HStack><Icon as={PiChartBar} /><Text>Vendas</Text></HStack></Tabs.Trigger>
+                        <Tabs.Trigger value="metas"><HStack><Icon as={PiTarget} /><Text>Metas</Text></HStack></Tabs.Trigger>
                     </Tabs.List>
 
-                    <Tabs.Content value="contas"><ContasChart /></Tabs.Content>
-                    <Tabs.Content value="metas"><MetasView /></Tabs.Content>
-                    <Tabs.Content value="vendas"><VendasChart /></Tabs.Content>
-                    <Tabs.Content value="estoque"><EstoqueChart /></Tabs.Content>
+                    <Tabs.Content value="contas">
+                        {data.contasData ? <ContasChart data={data.contasData} /> : <Text>Dados de Contas não disponíveis.</Text>}
+                    </Tabs.Content>
+                    <Tabs.Content value="estoque">
+                        {data.estoqueData ? <EstoqueChart data={data.estoqueData} /> : <Text>Dados de Estoque não disponíveis.</Text>}
+                    </Tabs.Content>
+                    <Tabs.Content value="vendas">
+                        {data.vendasData ? <VendasChart data={data.vendasData} /> : <Text>Dados de Vendas não disponíveis.</Text>}
+                    </Tabs.Content>
+                    <Tabs.Content value="metas">
+                        {data.metasData ? <MetasView data={data.metasData} /> : <Text>Dados de Metas não disponíveis.</Text>}
+                    </Tabs.Content>
                 </Tabs.Root>
             </VStack>
         </MotionFlex>
