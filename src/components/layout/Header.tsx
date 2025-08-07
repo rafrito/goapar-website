@@ -116,7 +116,7 @@ export function Header() {
                                 >
                                     <CustomText
                                         color={'brand.500'} // Cor de destaque
-                                        text="Dashboard"
+                                        text="Área do Cliente"
                                         letterSpacing={1.8}
                                         textTransform={'uppercase'}
                                         fontWeight="bold"

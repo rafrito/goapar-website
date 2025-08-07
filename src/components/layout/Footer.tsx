@@ -113,7 +113,7 @@ export function Footer() {
                     </Flex>
 
                     {/* Links para Mobile: Renderiza um componente separado para a versão mobile (ex: Accordion) */}
-                    <MobileFooterSection />
+                    {/* <MobileFooterSection /> */}
                     
                 </Flex>
             </Flex>
