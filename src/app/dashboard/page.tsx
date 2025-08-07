@@ -396,7 +396,7 @@ export default function DashboardPage() {
             animate={{ opacity: 1 }}
         >
             <VStack w="100%" maxW="container.xl" mx="auto" gap={8} align="stretch">
-                <Heading as="h1" size="xl">Dashboard de Gestão</Heading>
+                <Heading as="h1" size="2xl">Painel <Text as="span" color="brand.500">awer</Text></Heading>
 
                 <Tabs.Root variant="outline" colorScheme="blue" defaultValue="contas">
                     <Tabs.List mb={6}>
