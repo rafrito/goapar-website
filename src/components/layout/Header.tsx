@@ -102,50 +102,6 @@ export function Header() {
                         </ChakraLink>
                     ))}
 
-                    {/* 3. LÓGICA CONDICIONAL PARA O DASHBOARD */}
-                    {isAuthenticated && (
-                        isProfileLoading ? (
-                            // Mostra um spinner enquanto o perfil está a ser carregado
-                            <Spinner size="sm" />
-                        ) : (
-                            // Se o perfil foi carregado e o utilizador é um cliente, mostra o link
-                            profile?.isAwerClient && (
-                                <ChakraLink
-                                    href="/dashboard"
-                                    _hover={{ cursor: 'pointer', color: 'brand.500', textDecoration: 'none' }}
-                                >
-                                    <CustomText
-                                        borderRadius={'md'}
-                                        bgColor={'ghostWhite'}
-                                        py={1}
-                                        px={2}
-                                        mr={4}
-                                        color={'brand.500'} // Cor de destaque
-                                        _hover={{ bgColor: 'brand.600', color: 'white', transition: 'all 0.3s ease' }}
-                                        text="Painel"
-                                        letterSpacing={1.8}
-                                        textTransform={'uppercase'}
-                                    />
-                                </ChakraLink>
-                            )
-                        )
-                    )}
-
-                    {/* Lógica para mostrar o Avatar ou o botão de "Entrar" */}
-                    {isAuthenticated ? (
-                        <UserAvatar />
-                    ) : (
-                        <Button
-                            color={'ghostWhite'}
-                            bgColor='transparent'
-                            border='1px solid'
-                            borderColor='whiteAlpha.300'
-                            onClick={() => loginWithRedirect()}
-                            _hover={{ bgColor: 'brand.600' }}
-                        >
-                            Entrar
-                        </Button>
-                    )}
                 </Flex>
 
                 {/* Menu Mobile (Hamburger) */}

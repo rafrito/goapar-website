@@ -33,7 +33,6 @@ interface HeaderMobileMenuProps {
 
 export function HeaderMobileMenu({ isAuthenticated, isAwerClient }: HeaderMobileMenuProps) {
 
-    const { loginWithRedirect } = useAuth0();
     const { isLoading: isProfileLoading } = useProfile();
 
     return (
@@ -68,21 +67,6 @@ export function HeaderMobileMenu({ isAuthenticated, isAwerClient }: HeaderMobile
                 )
             )}
 
-            {isAuthenticated ? (
-                <UserAvatar />
-            ) : (
-                <Button
-                    mr={4}
-                    color={'ghostWhite'}
-                    bgColor='transparent'
-                    border='1px solid'
-                    borderColor='whiteAlpha.300'
-                    onClick={() => loginWithRedirect()}
-                    _hover={{ bgColor: 'brand.600' }}
-                >
-                    Entrar
-                </Button>
-            )}
 
             {/* Menu Principal (Raiz) */}
             <Menu.Root>
