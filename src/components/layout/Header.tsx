@@ -62,16 +62,17 @@ export function Header() {
             py={6}
             px={{ base: 4, md: 12 }}
             w='100%'
-            color={'headerColor'}
+            backgroundColor={'brand.900'}
         >
             {/* Seção Esquerda: Logo */}
             <Flex alignItems={'center'} gap={{ base: 2, md: 8 }}>
                 <ChakraLink href="/" _focus={{ boxShadow: 'none' }}>
                     <Image
                         src={headerData.logoSrc}
-                        alt="Logo da Awer"
+                        alt="Logo da GoaPar Imóveis"
                         objectFit={'contain'}
                         maxW={{ base: 32, md: 32 }}
+                        width={{ base: "64px", md: "64px" }}
                     />
                 </ChakraLink>
             </Flex>

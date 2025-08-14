@@ -20,7 +20,7 @@ import { ProfileProvider } from '@/contexts/ProfileContext';
 // });
 
 export const metadata: Metadata = {
-  title: "Awer Consultoria",
+  title: "GoaPar Imóveis",
   description: "",
 };
 
