@@ -1,6 +1,6 @@
 
 export const headerData = {
-    logoSrc: '/logos/logo.png',
+    logoSrc: '/logos/goapar-logo.png',
     homeText: 'Home',
     menu: [
         {
@@ -8,24 +8,16 @@ export const headerData = {
             href: '/'
         },
         {
-            title: 'Consultoria',
-            href: '/consultoria'
+            title: 'Sobre Nós',
+            href: '/sobre-nos'
         },
         {
-            title: 'Tecnologia',
-            href: '/tecnologia'
+            title: 'Como Funciona',
+            href: '/como-funciona'
         },
         {
-            title: 'BoTRT',
-            href: '/tecnologia/botrt'
-        },
-        {
-            title: 'Awer Shop',
-            href: 'https://awer-shop.vercel.app/'
-        },
-        {
-            title: 'Nossa História',
-            href: '/nossa-historia'
+            title: 'Contato',
+            href: '/contato'
         }
     ]
 };
