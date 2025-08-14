@@ -59,7 +59,7 @@ export function Header() {
             variants={headerVariants}
             justifyContent={'space-between'}
             alignItems="center"
-            py={4}
+            py={6}
             px={{ base: 4, md: 12 }}
             w='100%'
             color={'headerColor'}
