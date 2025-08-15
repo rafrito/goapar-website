@@ -5,6 +5,7 @@ interface GestaoPageData {
         title: string;
         subtitle: string;
         ctaButton: string;
+        imgSrc: string;
     };
     services: CasesProps[]
 }

@@ -33,6 +33,45 @@ const config = defineConfig({
                     800: { value: "#075985" }, // Azul bem escuro
                     900: { value: "#0C4A6E" }, // Azul profundo
                 },
+                dark : {
+                    300: { value: "#A6A6A6" }, // Cinza mais escuro
+                    400: { value: "#8C8C8C" }, // Cinza ainda mais escuro
+                    500: { value: "#737373" }, // Cinza quase preto
+                    600: { value: "#595959" }, // Cinza muito escuro
+                    700: { value: "#404040" }, // Cinza ultra escuro
+                    800: { value: "#262626" }, // Cinza quase preto
+                    900: { value: "#0D0D0D" }, // Preto
+                },
+                light: {
+                    50: { value: "#FFFFFF" }, // Branco
+                    100: { value: "#F0F0F0" }, // Cinza claro
+                    200: { value: "#D9D9D9" }, // Cinza médio
+                    300: { value: "#BFBFBF" }, // Cinza escuro
+                },
+                orange: {
+                    50: { value: "#FFF3E0" }, // Laranja claro
+                    100: { value: "#FFE0B2" }, // Laranja médio
+                    200: { value: "#FFCC80" }, // Laranja escuro
+                    300: { value: "#FFB74D" }, // Laranja mais escuro
+                    400: { value: "#FFA726" }, // Laranja vibrante
+                    500: { value: "#FF9800" }, // Laranja forte
+                    600: { value: "#FB8C00" }, // Laranja intenso
+                    700: { value: "#F57C00" }, // Laranja profundo
+                    800: { value: "#EF6C00" }, // Laranja muito profundo
+                    900: { value: "#E65100" }, // Laranja quase preto
+                },
+                grayBlue: {
+                    50: { value: "#E0F2FE" }, // Azul claro
+                    100: { value: "#B2EBF2" }, // Azul médio
+                    200: { value: "#80DEEA" }, // Azul escuro
+                    300: { value: "#4DD0E1" }, // Azul mais escuro
+                    400: { value: "#26C6DA" }, // Azul vibrante
+                    500: { value: "#00BCD4" }, // Azul forte
+                    600: { value: "#00ACC1" }, // Azul intenso
+                    700: { value: "#0097A7" }, // Azul profundo
+                    800: { value: "#00838F" }, // Azul muito profundo
+                    900: { value: "#006064" }, // Azul quase preto
+                }
             },
             // fonts: { heading: { value: ... }, body: { value: ... } },
         },
