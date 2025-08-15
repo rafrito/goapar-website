@@ -25,7 +25,7 @@ const imageVariantsLeft: Variants = {
 	},
 	visible: {
 		opacity: 1,
-		x: 100,
+		x: 110,
 		transition: {
 			duration: 0.8,
 			ease: "easeOut"
@@ -40,9 +40,9 @@ const flexVariantsRight: Variants = {
 	},
 	visible: {
 		opacity: 1,
-		x: -50,
+		x: -60,
 		transition: {
-			duration: 0.8,
+			duration: 1.5,
 			ease: "easeOut"
 		}
 	}
@@ -50,7 +50,7 @@ const flexVariantsRight: Variants = {
 
 export function About() {
 	// Configurações responsivas
-	const headingSize = useBreakpointValue({ base: '2xl', md: '4xl', lg: '5xl' });
+	const headingSize = useBreakpointValue({ base: 'xl', md: '2xl', lg: '4xl' });
 	const textSize = useBreakpointValue({ base: 'md', md: 'lg' });
 	const paddingX = useBreakpointValue({ base: 4, md: 8, lg: 16 });
 	const paddingY = useBreakpointValue({ base: 16, md: 24, lg: 32 });
@@ -76,50 +76,50 @@ export function About() {
 				w="100%"
 				h="100%"
 				direction={{ base: 'column', md: 'row' }}
+				m={{ base: 4, md: 8 }}
 				align="center"
 				justify="center"
 			>
 				<MotionImage
 					flex={{ base: 'none', md: '0 0 40%' }}
 					w={{ base: '100%', md: '40%' }}
-					h={{ base: '300px', md: '500px' }}  // Fixed height
-					bgImage={`linear-gradient(rgba(255, 255, 255, 0.9), rgba(252, 252, 252, 0)), url('/about/about-bg.jpg')`}
+					h={{ base: '400px', md: '600px' }}
+					bgImage={`linear-gradient(rgba(255, 255, 255, 0.2), rgba(252, 252, 252, 0.2)), url('/about/about-bg.jpg')`}
 					bgSize="cover"
-					bgPos="center"  // Changed from bgPos
+					bgPos="center"
 					borderRadius="md"
 					initial="hidden"
-					animate="visible"    // Changed from whileInView
+					animate="visible"
 					mr={{ base: 0, md: 8 }}
 					mb={{ base: 8, md: 0 }}
-					overflow="hidden"    // Added to ensure image stays within bounds
+					overflow="hidden"
 					variants={imageVariantsLeft}
 				/>
 				{/* Right: Content */}
 				<MotionFlex
 					w={{ base: '100%', md: '60%' }}
-					h={{ base: '300px', md: '500px' }}
-					flex="1"
+					h={{ base: '250px', md: '300px' }}
+					flex={{ base: 'none', md: '0 0 50%' }}					
 					direction="column"
 					align="center"
 					justify="center"
-					textAlign="center"
+					textAlign="left"
 					color="white"
 					variants={flexVariantsRight}
 					zIndex={2}
 					px={paddingX}
 					py={paddingY}
-					my={{ base: 8, md: 8 }}
-					minH={{ base: '60vh', md: '70vh' }}
-					border="6px solid"
-					borderColor="brand.300"
-					borderRadius="md"
+					m={{ base: 10, md: 20 }}
+					minH={{ base: '50vh', md: '60vh' }}
+					border="8px solid"
+					borderColor="grayBlue.700"
 					boxShadow="lg"
 				>
 					<Heading
-						as="h1"
+						as="h2"
 						fontSize={headingSize}
 						fontWeight="bold"
-						mb={6}
+						m={{ base: 6, md: 4 }}
 						maxW="4xl"
 						lineHeight={1.2}
 						color="dark.700"
@@ -129,7 +129,7 @@ export function About() {
 
 					<Text
 						fontSize={textSize}
-						mb={8}
+						m={{ base: 6, md: 4 }}
 						maxW="2xl"
 						lineHeight={1.6}
 						fontWeight="medium"
@@ -141,20 +141,6 @@ export function About() {
 						a ideia de iniciar o seu negócio e o que o torna diferente de seus competidores.
 						Faça com que sua empresa se destaque e mostre quem você é.
 					</Text>
-
-					<Button
-						size="lg"
-						colorScheme="blue"
-						px={8}
-						py={6}
-						fontSize="lg"
-						fontWeight="bold"
-						borderRadius="md"
-						_hover={{ transform: 'translateY(-2px)', boxShadow: 'lg' }}
-						transition="all 0.2s"
-					>
-						Saiba Mais
-					</Button>
 				</MotionFlex>
 			</Flex>
 		</MotionFlex>
