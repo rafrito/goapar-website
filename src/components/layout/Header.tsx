@@ -22,7 +22,6 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { CustomText } from "../ui/CustomText";
 import { HeaderMobileMenu } from "./HeaderMobileMenu";
 import { headerData } from "@/data/header";
-import { UserAvatar } from "./UserAvatar";
 import { useProfile } from "@/contexts/ProfileContext"; // 1. Importa o nosso hook de perfil
 
 // ============================================================================
@@ -60,9 +59,9 @@ export function Header() {
             justifyContent={'space-between'}
             alignItems="center"
             py={6}
-            px={{ base: 4, md: 12 }}
+            px={{ base: 4, md: 64 }}
             w='100%'
-            backgroundColor={'brand.900'}
+            backgroundColor={'grayBlue.900'}
         >
             {/* Seção Esquerda: Logo */}
             <Flex alignItems={'center'} gap={{ base: 2, md: 8 }}>
@@ -86,19 +85,21 @@ export function Header() {
                     fontSize={'sm'}
                     display={{ base: 'none', md: 'flex' }}
                     alignItems="center"
+                    justifyContent={"center"}
+                    flex={1}
                 >
                     {/* Links de Navegação Padrão */}
                     {headerData.menu.map((item, index) => (
                         <ChakraLink
                             key={index}
                             href={item.href}
-                            _hover={{ cursor: 'pointer', color: 'brand.500', textDecoration: 'none' }}
                         >
                             <CustomText
-                                color={'headerColor'}
+                                color={'light.200'}
                                 text={item.title}
                                 letterSpacing={1.8}
                                 textTransform={'uppercase'}
+                                _hover={{ cursor: "pointer", color: 'brand.500', textDecoration: 'underline' }}
                             />
                         </ChakraLink>
                     ))}

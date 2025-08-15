@@ -1,6 +1,7 @@
-import { Main } from "@/components/layout/Main/Main";
-import GestaoPage from "@/app/consultoria/page";
 import { Flex } from "@chakra-ui/react";
+import Main from "@/app/main/page";
+
+import { pageData } from "@/data/gestao";
 
 export default function Home() {
   // Componente principal da página inicial
@@ -9,13 +10,14 @@ export default function Home() {
     <Flex
       flexDir={'column'} // Direção flexível definida como coluna
       gap={{ base: 24, md: 32 }} // Espaçamento entre os elementos filhos, adaptável para base e md breakpoints
-      px={{ base: 4, md: 8 }} // Padding horizontal adaptável
       w='100%' // Largura de 100%
       minH={'100vh'} // Altura mínima de 100vh (viewport height)
+      bgColor={'light.200'}
     >
       {/* Seção principal */}
-      <Main />
-      <GestaoPage />
+      <Flex direction="column" w="100%">
+        <Main/>
+      </Flex>
     </Flex>
   );
 }

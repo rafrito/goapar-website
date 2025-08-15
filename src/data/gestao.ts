@@ -3,9 +3,10 @@ import { whatsappLink } from "@/utils";
 
 const pageData: GestaoPageData = {
     hero: {
-        title: "Inteligência Financeira para Decisões Estratégicas",
-        subtitle: "Alinhamos seus dados financeiros aos seus objetivos de negócio, transformando números em um roteiro claro para o crescimento sustentável.",
-        ctaButton: "Fale com um Especialista",
+        title: "Oportunidades únicas no mercado imobiliário",
+        subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum euismod, nisi vel consectetur interdum, nisl nisi cursus nunc, vitae bibendum nisl nisi vel nisl.",
+        ctaButton: "Fale Conosco",
+        imgSrc: "/logos/goapar-logo-sm.png"
     },
     // A MUDANÇA: Novos dados para as seções de serviço
     services: [
