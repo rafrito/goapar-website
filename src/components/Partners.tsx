@@ -49,7 +49,7 @@ export function Partners() {
         >
           CLIENTES
         </Heading>
-        <Box w={{ base: 50, md: 80 }} h={1} bg="orange.400" mx="auto" mb={12} />
+        <Box w={{ base: 50, md: 80 }} h={1} bg="accent.400" mx="auto" mb={12} />
 
         {/* Logos */}
         <SimpleGrid

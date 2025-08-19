@@ -26,10 +26,10 @@ export function Services() {
 
       <Container maxW="6xl" mx="auto" position="relative" zIndex={1}>
         <Box textAlign="center" mb={12} pt={8}>
-          <Heading as="h2" fontSize="4xl" fontWeight="bold" color="black" mb={2}>
+          <Heading as="h2" fontSize="4xl" fontWeight="bold" color="black" mb={4}>
             COMO FUNCIONA
           </Heading>
-          <Box w={{ base: 50, md: 80 }} h={1.5} bg="dark.700" mx="auto" />
+          <Box w={{ base: 50, md: 80 }} h={1.5} bg="accent.400" mx="auto" />
         </Box>
 
         <Grid
