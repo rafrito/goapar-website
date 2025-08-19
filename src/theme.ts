@@ -21,58 +21,40 @@ const config = defineConfig({
                 gunMetal: { value: '#292f36' },
                 shotGunMetal: { value: '#141414' },
                 roseWood: { value: "#570A0A" }, // Madeira de rosa (vermelho escuro)
-                brand: { // Sua cor de destaque em tons de azul
-                    50: { value: "#F0F9FF" }, // Azul quase branco
-                    100: { value: "#E0F2FE" }, // Azul bem claro
-                    200: { value: "#BAE6FD" }, // Azul claro
-                    300: { value: "#7DD3FC" }, // Azul pastel
-                    400: { value: "#38BDF8" }, // Azul intermediário
-                    500: { value: "#0EA5E9" }, // Azul vibrante (cor principal)
-                    600: { value: "#0284C7" }, // Azul forte
-                    700: { value: "#0369A1" }, // Azul escuro
-                    800: { value: "#075985" }, // Azul bem escuro
-                    900: { value: "#0C4A6E" }, // Azul profundo
+                brand: {
+                    50: { value: "#F0F9FF" },
+                    100: { value: "#E0F2FE" },
+                    200: { value: "#BAE6FD" },
+                    300: { value: "#7DD3FC" },
+                    400: { value: "#38BDF8" },
+                    500: { value: "#0EA5E9" },
+                    600: { value: "#0284C7" },
+                    700: { value: "#0369A1" },
+                    800: { value: "#075985" },
+                    900: { value: "#0C4A6E" },
                 },
-                dark : {
-                    300: { value: "#A6A6A6" }, // Cinza mais escuro
-                    400: { value: "#8C8C8C" }, // Cinza ainda mais escuro
-                    500: { value: "#737373" }, // Cinza quase preto
-                    600: { value: "#595959" }, // Cinza muito escuro
-                    700: { value: "#404040" }, // Cinza ultra escuro
-                    800: { value: "#262626" }, // Cinza quase preto
-                    900: { value: "#0D0D0D" }, // Preto
+                accent: {
+                    100: { value: "#FFEDD5" },
+                    200: { value: "#FED7AA" },
+                    300: { value: "#FDBA74" },
+                    400: { value: "#FB923C" },
+                    500: { value: "#F97316" },
+                    600: { value: "#EA580C" },
+                    700: { value: "#C2410C" },
                 },
-                light: {
-                    50: { value: "#FFFFFF" }, // Branco
-                    100: { value: "#F0F0F0" }, // Cinza claro
-                    200: { value: "#D9D9D9" }, // Cinza médio
-                    300: { value: "#BFBFBF" }, // Cinza escuro
-                },
-                orange: {
-                    50: { value: "#FFF3E0" }, // Laranja claro
-                    100: { value: "#FFE0B2" }, // Laranja médio
-                    200: { value: "#FFCC80" }, // Laranja escuro
-                    300: { value: "#FFB74D" }, // Laranja mais escuro
-                    400: { value: "#FFA726" }, // Laranja vibrante
-                    500: { value: "#FF9800" }, // Laranja forte
-                    600: { value: "#FB8C00" }, // Laranja intenso
-                    700: { value: "#F57C00" }, // Laranja profundo
-                    800: { value: "#EF6C00" }, // Laranja muito profundo
-                    900: { value: "#E65100" }, // Laranja quase preto
-                },
-                grayBlue: {
-                    50: { value: "#E0F2FE" }, // Azul claro
-                    100: { value: "#B2EBF2" }, // Azul médio
-                    200: { value: "#80DEEA" }, // Azul escuro
-                    300: { value: "#4DD0E1" }, // Azul mais escuro
-                    400: { value: "#26C6DA" }, // Azul vibrante
-                    500: { value: "#00BCD4" }, // Azul forte
-                    600: { value: "#00ACC1" }, // Azul intenso
-                    700: { value: "#0097A7" }, // Azul profundo
-                    800: { value: "#00838F" }, // Azul muito profundo
-                    900: { value: "#006064" }, // Azul quase preto
+                neutral: {
+                    50: { value: "#FAFAFA" },
+                    100: { value: "#F4F4F5" },
+                    200: { value: "#E4E4E7" },
+                    300: { value: "#D4D4D8" },
+                    400: { value: "#A1A1AA" },
+                    500: { value: "#71717A" },
+                    600: { value: "#52525B" },
+                    700: { value: "#3F3F46" },
+                    800: { value: "#27272A" },
+                    900: { value: "#18181B" },
                 }
-            },
+            }
             // fonts: { heading: { value: ... }, body: { value: ... } },
         },
         // --- Tokens Semânticos (para Light/Dark Mode) ---
@@ -163,10 +145,10 @@ const config = defineConfig({
                 mainSubColor: {
                     value: { base: "#9E9E9E", _dark: "#9E9E9E" }
                 },
-                showCaseBg:{
+                showCaseBg: {
                     value: { base: "{colors.gray.900}", _dark: "{colors.gray.900}" }
                 },
-                showCaseBorder:{
+                showCaseBorder: {
                     value: { base: "#13141588", _dark: "#13141588" }
                 },
                 footerBg: {
