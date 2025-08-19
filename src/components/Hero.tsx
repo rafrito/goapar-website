@@ -45,7 +45,7 @@ export function Hero({pageData}: { pageData: GestaoPageData}) {
             px={{ base: 4, md: 8 }}
             bg="black"
             // bgImage={`url('/gestao/bg.png')`}
-            bgImage={`linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2)), url('/gestao/bg.jpg')`}
+            bgImage={`linear-gradient(rgba(255, 255, 255, 0.0), rgba(255, 255, 255, 0.8)), url('/gestao/bg.jpg')`}
             bgPos="center"
             bgRepeat="no-repeat"
             bgSize={"cover"}
@@ -68,13 +68,13 @@ export function Hero({pageData}: { pageData: GestaoPageData}) {
                     fontWeight="bold"
                     lineHeight={1.2}
                     variants={itemVariants}
-                    color="white"
+                    color="dark.900"
                 >
                     {pageData.hero.title}
                 </MotionHeading>
                 <MotionText
                     fontSize={{ base: 'md', md: 'lg' }}
-                    color="light.200"
+                    color="dark.900"
                     variants={itemVariants}
                 >
                     {pageData.hero.subtitle}
