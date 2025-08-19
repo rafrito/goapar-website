@@ -1,7 +1,7 @@
 import { Flex, useBreakpointValue } from "@chakra-ui/react";
 
 
-export function Mapa() {
+export default function Page() {
     const height = useBreakpointValue({ base: 254, sm: 254, md: 254, lg: 492, xl: 492 })
 
     return (
