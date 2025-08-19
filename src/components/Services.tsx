@@ -1,47 +1,80 @@
-import { GestaoPageData } from "@/types";
-import { Flex, VStack, Heading, Button, SimpleGrid, Icon, Text, Image } from "@chakra-ui/react";
-import { motion, Variants } from "framer-motion";
-import { Cases } from "./layout/Cases/Cases";
+import React from 'react';
+import {
+  Box,
+  Grid,
+  Heading,
+  Text,
+  Icon,
+  Container,
+  VStack,
+} from '@chakra-ui/react';
+import { services } from '@/data/how-it-works';
 
+export function Services() {
+  return (
+    <Box as="section" py={16} px={4} position="relative">
+      <Box
+        position="absolute"
+        top={0}
+        left={0}
+        w="100%"
+        h="60%"
+        bg="brand.900"
+		opacity={0.3}
+        zIndex={0}
+      />
 
-const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: { staggerChildren: 0.15 }
-    }
-};
+      <Container maxW="6xl" mx="auto" position="relative" zIndex={1}>
+        <Box textAlign="center" mb={12} pt={8}>
+          <Heading as="h2" fontSize="4xl" fontWeight="bold" color="black" mb={2}>
+            COMO FUNCIONA
+          </Heading>
+          <Box w={{ base: 50, md: 80 }} h={1} bg="blue.700" mx="auto" />
+        </Box>
 
-const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.6, ease: "easeOut" }
-    }
-};
-
-const imageVariants: Variants = {
-    hidden: { opacity: 0, scale: 0.95 },
-    visible: {
-        opacity: 1,
-        scale: 1,
-        transition: { duration: 0.8, ease: "easeOut" }
-    }
-};
-
-
-export function Services({ pageData }: { pageData: GestaoPageData }) {
-
-
-    const MotionFlex = motion(Flex);
-    const MotionVStack = motion(VStack);
-
-    return (
-        <Flex w='100%' flexDir={'column'} gap={{ base: 16, lg:40 }} p={{base: 4, md: 16}}>
-            {pageData.services.map((c, index) => {
-                return (<Cases key={c.product + index} c={c} />)
-            })}
-        </Flex>
-    )
+        <Grid
+          templateColumns={{
+            base: "repeat(1, 1fr)",
+            md: "repeat(2, 1fr)",
+            lg: "repeat(4, 1fr)"
+          }}
+          gap={0}
+          boxShadow="xl"
+          borderRadius="md"
+          overflow="hidden"
+        >
+          {services.map((service, index) => {
+            const IconComponent = service.icon;
+            return (
+              <Box
+                key={index}
+                bg={service.bgColor}
+                color={service.textColor}
+                p={8}
+                display="flex"
+                flexDirection="column"
+                justifyContent="space-between"
+                minH={{ base: "400px", md: "300px", lg: "500px" }}
+                transition="all 0.3s"
+                _hover={{
+                  transform: "translateY(-5px)",
+                  boxShadow: "2xl",
+                }}
+              >
+                <VStack align="center" textAlign="center" my={{ base: 4, md: 6 }}>
+                  <Icon as={IconComponent} boxSize={12} />
+                  <Heading as="h3" fontSize="2xl" fontWeight="semibold" py={4}>
+                    {service.title}
+                  </Heading>
+                  <Text fontSize="sm" lineHeight="relaxed" opacity={0.9}>
+                    {service.description}
+                  </Text>
+                </VStack>
+              </Box>
+            );
+          })}
+        </Grid>
+      </Container>
+    </Box>
+  );
 }
