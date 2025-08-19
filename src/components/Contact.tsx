@@ -122,10 +122,10 @@ export function ContactUs() {
             px={{ base: 4, md: 8 }}
             variants={containerVariants}
             initial="hidden"
-            color="white"
+            color="neutral.800"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            bg="neutral.800"
+            bg="brand.100"
         >
             <Flex
                 w="100%"
@@ -151,13 +151,16 @@ export function ContactUs() {
                     flex={1}
                     direction="column"
                     gap={4}
+                    p={10}
+                    borderRadius="md"
                     w="100%"
+                    bg="accent.100"
                     variants={itemVariants}
                 >
-                    <MotionHeading as="h2" size="2xl" fontWeight="bold" variants={itemVariants}>
+                    <MotionHeading color="neutral.800" as="h2" size="2xl" fontWeight="bold" variants={itemVariants}>
                         Fale Conosco
                     </MotionHeading>
-                    <MotionText color="neutral.400" fontSize="lg" maxW="lg" variants={itemVariants}>
+                    <MotionText color="neutral.700" fontSize="lg" maxW="lg" variants={itemVariants}>
                         Tem alguma dúvida ou quer discutir um projeto? Preencha o formulário abaixo e nossa equipe entrará em contato o mais breve possível.
                     </MotionText>
 
@@ -188,7 +191,7 @@ export function ContactUs() {
 
                             <Button
                                 type="submit"
-                                colorScheme="brand"
+                                bg="whatsappColor"
                                 size="lg"
                                 w={{ base: '100%', md: 'auto' }}
                                 alignSelf={{ base: 'stretch', md: 'flex-start' }}

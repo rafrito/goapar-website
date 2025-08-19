@@ -13,16 +13,14 @@ import {
     Button,
     Text,
     Icon,
-    Spinner, // Adicionado para feedback de carregamento
+    Spinner, // Adicionado para feedbak de carregamento
 } from "@chakra-ui/react";
 import { motion, Variants } from "framer-motion";
-import { useAuth0 } from '@auth0/auth0-react';
 
 // --- Componentes e Dados Locais ---
 import { CustomText } from "../ui/CustomText";
 import { HeaderMobileMenu } from "./HeaderMobileMenu";
 import { headerData } from "@/data/header";
-import { useProfile } from "@/contexts/ProfileContext"; // 1. Importa o nosso hook de perfil
 
 // ============================================================================
 //   VARIANTES DE ANIMAÇÃO (Framer Motion)
@@ -45,9 +43,6 @@ export function Header() {
 
     // --- Hooks e Estado ---
     const MotionFlex = motion(Flex);
-    const { isAuthenticated, loginWithRedirect } = useAuth0();
-    // 2. Obtém os dados do perfil do nosso contexto
-    const { profile, isLoading: isProfileLoading } = useProfile();
 
     // --- Renderização do Componente ---
     return (
@@ -72,6 +67,7 @@ export function Header() {
                         objectFit={'contain'}
                         maxW={{ base: 32, md: 32 }}
                         width={{ base: "64px", md: "64px" }}
+                        filter="brightness(0) invert(1)"
                     />
                 </ChakraLink>
             </Flex>
@@ -82,7 +78,6 @@ export function Header() {
                 {/* Navegação para Desktop */}
                 <Flex
                     gap={8}
-                    fontSize={'sm'}
                     display={{ base: 'none', md: 'flex' }}
                     alignItems="center"
                     justifyContent={"center"}
@@ -95,6 +90,7 @@ export function Header() {
                             href={item.href}
                         >
                             <CustomText
+                                fontSize={'md'}
                                 color={'neutral.200'}
                                 text={item.title}
                                 letterSpacing={1.8}
@@ -105,12 +101,6 @@ export function Header() {
                     ))}
 
                 </Flex>
-
-                {/* Menu Mobile (Hamburger) */}
-                <HeaderMobileMenu
-                    isAuthenticated={isAuthenticated}
-                    isAwerClient={profile?.isAwerClient || false}
-                />
 
             </Flex>
         </MotionFlex>

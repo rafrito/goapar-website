@@ -9,12 +9,12 @@ import {
 } from "@chakra-ui/react";
 
 const partners = [
-  { name: "Easy House", logo: "/logos/easy-house.png" },
-  { name: "Desygn", logo: "/logos/desygn.png" },
-  { name: "Docs Fácil", logo: "/logos/docs-facil.png" },
-  { name: "Helena S.A.", logo: "/logos/helena.png" },
-  { name: "Abstract", logo: "/logos/abstract.png" },
-  { name: "Symbia", logo: "/logos/symbia.png" },
+  { name: "Easy House", logo: "/logos/partner1.png" },
+  { name: "Desygn", logo: "/logos/partner2.png" },
+  { name: "Docs Fácil", logo: "/logos/partner3.png" },
+  { name: "Helena S.A.", logo: "/logos/partner4.png" },
+  { name: "Abstract", logo: "/logos/partner5.png" },
+  { name: "Symbia", logo: "/logos/partner6.png" },
 ];
 
 export function Partners() {
@@ -47,7 +47,7 @@ export function Partners() {
           color="white"
           mb={6}
         >
-          CLIENTES
+          Nossos Parceiros
         </Heading>
         <Box w={{ base: 50, md: 80 }} h={1} bg="accent.400" mx="auto" mb={12} />
 
@@ -58,7 +58,7 @@ export function Partners() {
           alignItems="center"
         >
           {partners.map((partner, index) => (
-            <Box key={index} textAlign="center">
+            <Box key={index} textAlign="center" p={4} maxW="200px">
               <Image
                 src={partner.logo}
                 alt={partner.name}
@@ -66,9 +66,10 @@ export function Partners() {
                 mx="auto"
                 mb={4}
                 objectFit="contain"
-                filter="brightness(0) invert(1)" // deixa branco como no exemplo
+                filter="brightness(0) invert(1)"
+                opacity={0.8}
               />
-              <Text color="white" fontSize="sm" fontWeight="medium">
+              <Text color="white" fontSize="md" fontWeight="medium">
                 {partner.name}
               </Text>
             </Box>
