@@ -1,8 +1,6 @@
 import { Flex } from "@chakra-ui/react";
 import Main from "@/app/main/page";
 
-import { pageData } from "@/data/gestao";
-
 export default function Home() {
   // Componente principal da página inicial
   return (
@@ -12,7 +10,7 @@ export default function Home() {
       gap={{ base: 24, md: 32 }} // Espaçamento entre os elementos filhos, adaptável para base e md breakpoints
       w='100%' // Largura de 100%
       minH={'100vh'} // Altura mínima de 100vh (viewport height)
-      bgColor={'light.200'}
+      bgColor={'light.100'}
     >
       {/* Seção principal */}
       <Flex direction="column" w="100%">

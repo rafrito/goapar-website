@@ -4,10 +4,10 @@
 import { About } from "@/components/About";
 import { ContactUs } from "@/components/layout/botrt/Contact";
 import { Hero } from "@/components/Hero";
-import { Business } from "@/components/Business";
-import { Services } from "@/components/Services";
+import { BusinessProcess } from "@/components/Business";
 import { Contact } from "@/components/Contact";
 import { pageData } from "@/data/gestao";
+import { Services } from "@/components//Services";
 // --- Framework e UI Libs ---
 import {
     Flex,
@@ -23,9 +23,9 @@ export default function Main() {
             {/* --- Seção Hero --- */}
             <Hero pageData={pageData} />
             <About />
-            <Business />
+            {/* <BusinessProcess /> */}
+            <Services />
             <Contact />
-            <Services pageData={pageData} />
             <ContactUs />
         </Flex>
     );

@@ -88,11 +88,8 @@ export function About() {
 					bgSize="cover"
 					bgPos="center"
 					borderRadius="md"
-					initial="hidden"
-					animate="visible"
 					mr={{ base: 0, md: 8 }}
 					mb={{ base: 8, md: 0 }}
-					overflow="hidden"
 					variants={imageVariantsLeft}
 				/>
 				{/* Right: Content */}
