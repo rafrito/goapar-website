@@ -68,13 +68,13 @@ export function Hero({pageData}: { pageData: GestaoPageData}) {
                     fontWeight="bold"
                     lineHeight={1.2}
                     variants={itemVariants}
-                    color="dark.900"
+                    color="black"
                 >
                     {pageData.hero.title}
                 </MotionHeading>
                 <MotionText
                     fontSize={{ base: 'md', md: 'lg' }}
-                    color="dark.900"
+                    color="black"
                     variants={itemVariants}
                 >
                     {pageData.hero.subtitle}
@@ -84,9 +84,9 @@ export function Hero({pageData}: { pageData: GestaoPageData}) {
                     size="lg"
                     py={7}
                     px={8}
-                    bgColor={'dark.900'}
+                    bgColor={'black'}
                     _hover={{ bgColor: 'ghostWhite', color:'brand.900', transition: '0.3s' }}
-                    color={'light.200'}
+                    color={'neutral.200'}
                     fontWeight={"bold"}
                     variants={itemVariants}
                 >

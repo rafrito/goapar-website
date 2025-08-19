@@ -2,12 +2,12 @@
 'use client';
 
 import { About } from "@/components/About";
-import { ContactUs } from "@/components/layout/botrt/Contact";
 import { Hero } from "@/components/Hero";
 import { BusinessProcess } from "@/components/Business";
-import { Contact } from "@/components/Contact";
+import { ContactUs} from "@/components/Contact";
 import { pageData } from "@/data/gestao";
 import { Services } from "@/components//Services";
+import { Partners } from "@/components/Partners";
 // --- Framework e UI Libs ---
 import {
     Flex,
@@ -25,7 +25,7 @@ export default function Main() {
             <About />
             {/* <BusinessProcess /> */}
             <Services />
-            <Contact />
+            <Partners />
             <ContactUs />
         </Flex>
     );

@@ -66,7 +66,7 @@ export function About() {
 			justifyContent="center"
 			alignItems="center"
 			px={{ base: 4, md: 8 }}
-			bg="light.100"
+			bg="neutral.100"
 			textAlign="center"
 			initial="hidden"
 			animate="visible"
@@ -109,7 +109,7 @@ export function About() {
 					m={{ base: 10, md: 20 }}
 					minH={{ base: '50vh', md: '60vh' }}
 					border="8px solid"
-					borderColor="grayBlue.700"
+					borderColor="brand.700"
 					boxShadow="lg"
 				>
 					<Heading
@@ -119,7 +119,7 @@ export function About() {
 						m={{ base: 6, md: 4 }}
 						maxW="4xl"
 						lineHeight={1.2}
-						color="dark.700"
+						color="neutral.700"
 					>
 						Uma empresa especializada em renovar o seu negócio
 					</Heading>
@@ -130,7 +130,7 @@ export function About() {
 						maxW="2xl"
 						lineHeight={1.6}
 						fontWeight="medium"
-						color={"dark.400"}
+						color={"neutral.400"}
 					>
 						Este é um ótimo espaço para escrever um texto longo sobre a sua empresa e seus serviços.
 						Você pode usar esse espaço para entrar em detalhes sobre a sua empresa. Fale sobre a sua

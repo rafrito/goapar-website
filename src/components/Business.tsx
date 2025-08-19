@@ -58,7 +58,7 @@ const BusinessProcess = () => {
   ];
 
   return (
-    <Box bg="gray.50" py={16}>
+    <Box bg="neutral.50" py={16}>
       <Container maxW="container.xl">
         <Heading 
           as="h2" 
@@ -76,7 +76,7 @@ const BusinessProcess = () => {
           mx="auto" 
           mb={16}
           fontSize={{ base: 'lg', md: 'xl' }}
-          color="gray.600"
+          color="neutral.600"
         >
           Conheça os pilares que sustentam nossa operação e nos permitem entregar excelência em todos os aspectos.
         </Text>
@@ -117,11 +117,11 @@ const BusinessProcess = () => {
                 </Box>
               </Flex>
               
-              <Heading as="h3" fontSize="xl" mb={4} color="gray.800">
+              <Heading as="h3" fontSize="xl" mb={4} color="neutral.800">
                 {process.title}
               </Heading>
               
-              <Text color="gray.600" lineHeight="tall">
+              <Text color="neutral.600" lineHeight="tall">
                 {process.description}
               </Text>
             </Box>

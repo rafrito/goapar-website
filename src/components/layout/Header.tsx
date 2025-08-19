@@ -61,7 +61,7 @@ export function Header() {
             py={6}
             px={{ base: 4, md: 64 }}
             w='100%'
-            backgroundColor={'grayBlue.900'}
+            backgroundColor={'brand.900'}
         >
             {/* Seção Esquerda: Logo */}
             <Flex alignItems={'center'} gap={{ base: 2, md: 8 }}>
@@ -95,7 +95,7 @@ export function Header() {
                             href={item.href}
                         >
                             <CustomText
-                                color={'light.200'}
+                                color={'neutral.200'}
                                 text={item.title}
                                 letterSpacing={1.8}
                                 textTransform={'uppercase'}

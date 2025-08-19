@@ -5,7 +5,7 @@ const services = [
     title: "Mapeamento de Oportunidades",
     icon: ChartPolarIcon,
     description: "Descrição do serviço de mapeamento de oportunidades. Lorem ipsum dolor sit amet.",
-    bgColor: "dark.800",
+    bgColor: "neutral.700",
     textColor: "white",
   },
   {

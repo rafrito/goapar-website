@@ -19,8 +19,8 @@ export function Services() {
         left={0}
         w="100%"
         h="60%"
-        bg="brand.900"
-		opacity={0.3}
+        bg="brand.200"
+		opacity={0.2}
         zIndex={0}
       />
 
@@ -29,7 +29,7 @@ export function Services() {
           <Heading as="h2" fontSize="4xl" fontWeight="bold" color="black" mb={2}>
             COMO FUNCIONA
           </Heading>
-          <Box w={{ base: 50, md: 80 }} h={1} bg="blue.700" mx="auto" />
+          <Box w={{ base: 50, md: 80 }} h={1.5} bg="dark.700" mx="auto" />
         </Box>
 
         <Grid
