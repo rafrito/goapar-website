@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import {
   Box,
   Container,
@@ -7,6 +7,11 @@ import {
   Image,
   Text,
 } from "@chakra-ui/react";
+
+type SectionProps = {
+  title: string;
+};
+
 
 const partners = [
   { name: "Easy House", logo: "/logos/partner1.png" },
@@ -17,8 +22,9 @@ const partners = [
   { name: "Symbia", logo: "/logos/partner6.png" },
 ];
 
-export function Partners() {
+export const Partners = forwardRef<HTMLDivElement, SectionProps>(({ title }, ref) => {
   return (
+    <div ref={ref}>
     <Box
       as="section"
       position="relative"
@@ -77,5 +83,7 @@ export function Partners() {
         </SimpleGrid>
       </Container>
     </Box>
+    </div>
   );
 }
+);

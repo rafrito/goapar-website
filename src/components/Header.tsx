@@ -1,30 +1,17 @@
-// src/components/layout/Header.tsx
 'use client';
 
-// ============================================================================
-//   IMPORTS
-// ============================================================================
-
-// --- React e Frameworks ---
+import React, { useRef } from 'react';
+import { RefObject } from 'react';
 import {
     Flex,
     Image,
     Link as ChakraLink,
-    Button,
-    Text,
-    Icon,
-    Spinner, // Adicionado para feedbak de carregamento
 } from "@chakra-ui/react";
 import { motion, Variants } from "framer-motion";
 
-// --- Componentes e Dados Locais ---
-import { CustomText } from "../ui/CustomText";
-import { HeaderMobileMenu } from "./HeaderMobileMenu";
+import { CustomText } from "@/components/ui/CustomText";
 import { headerData } from "@/data/header";
 
-// ============================================================================
-//   VARIANTES DE ANIMAÇÃO (Framer Motion)
-// ============================================================================
 const headerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -36,15 +23,24 @@ const headerVariants: Variants = {
     }
 };
 
-// ============================================================================
-//   COMPONENTE PRINCIPAL: Header
-// ============================================================================
 export function Header() {
 
-    // --- Hooks e Estado ---
     const MotionFlex = motion(Flex);
 
-    // --- Renderização do Componente ---
+    const scrollToComponent = (ref: RefObject<HTMLDivElement | null>) => {
+        if (ref.current) {
+            ref.current.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    };
+
+    const sections = headerData.menu.map((item) => ({
+        title: item.title,
+        ref: useRef<HTMLDivElement | null>(null)
+    }));
+
     return (
         <MotionFlex
             as="header"
@@ -84,10 +80,10 @@ export function Header() {
                     flex={1}
                 >
                     {/* Links de Navegação Padrão */}
-                    {headerData.menu.map((item, index) => (
+                    {sections.map((item, index) => (
                         <ChakraLink
                             key={index}
-                            href={item.href}
+                            onClick={() => scrollToComponent(item.ref)}
                         >
                             <CustomText
                                 fontSize={'md'}

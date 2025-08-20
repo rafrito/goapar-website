@@ -154,7 +154,6 @@ export function ContactUs() {
                     p={10}
                     borderRadius="md"
                     w="100%"
-                    bg="accent.100"
                     variants={itemVariants}
                 >
                     <MotionHeading color="neutral.800" as="h2" size="2xl" fontWeight="bold" variants={itemVariants}>

@@ -1,13 +1,122 @@
-import { Flex, useBreakpointValue } from "@chakra-ui/react";
+// src/components/layout/Footer.tsx
+'use client';
 
+// ============================================================================
+//   IMPORTS
+// ============================================================================
 
-export default function Page() {
-    const height = useBreakpointValue({ base: 254, sm: 254, md: 254, lg: 492, xl: 492 })
+// --- Componentes Chakra UI ---
+import { Flex, Text, Heading, Link, Image } from '@chakra-ui/react';
 
+// --- Componentes e Dados Locais ---
+import { MobileFooterSection } from './layout/MobileFooterSection'; // Componente para a versão mobile
+import { footerData, footerSections } from '@/data/footer'; // Dados de texto para o rodapé
+
+// ============================================================================
+//   COMPONENTE PRINCIPAL: Footer
+// ============================================================================
+export function Footer() {
+
+    // --- Constantes de Estilo ---
+    // Define as cores a serem usadas, buscando do seu tema do Chakra UI
+    const bgColor = 'brand.900';
+    const textColor = 'footerColor';
+    const headingColor = 'footerHeaderColor';
+
+    // --- Renderização do Componente ---
     return (
-        <Flex w='100%'>
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4295.838013828789!2d-48.55214110000001!3d-27.589685!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95273818ef44cf45%3A0x820c90460fe96ac6!2sAv.%20Prof.%20Othon%20Gama%20D&#39;E%C3%A7a%2C%20677%20-%20Centro%2C%20Florian%C3%B3polis%20-%20SC%2C%2088015-240!5e1!3m2!1spt-BR!2sbr!4v1742245910170!5m2!1spt-BR!2sbr" width="100%" height={height} style={{ opacity: 0.5, filter: 'grayscale(100%)' }} />
+        // Container externo que ocupa 100% da largura e define o padding e as cores
+        <Flex
+            as="footer" // Tag semântica para rodapé
+            bg={bgColor}
+            color={textColor}
+            py={{ base: 10, md: 16 }}
+            px={{ base: 4, md: 12, lg: 12 }}
+            w='100%'
+        >
+
+            <Flex
+                // Container interno para alinhar o conteúdo
+                w='100%'
+                direction={{ base: 'column', md: 'row' }}
+                justifyContent="space-between"
+                alignItems={{ base: 'center', md: 'flex-start' }}
+                gap={10}
+            >
+                {/* -------------------------------------------------------------------- */}
+                {/* Coluna da Esquerda: Logo e Descrição                               */}
+                {/* -------------------------------------------------------------------- */}
+                <Flex
+                    gap={4}
+                    flexDir={'column'}
+                    alignItems={{ base: 'center', md: 'flex-start' }}
+                    textAlign={{ base: 'center', md: 'left' }}
+                    flex={{ base: 'none', md: 1 }} // Define a proporção de espaço que a coluna ocupa
+                    maxW={{ base: '100%', md: '350px' }}
+                >
+                    <Image src={footerData.logoSrc} alt={footerData.logoAlt} objectFit={'contain'} maxW={{ base: 24, md: 32 }} />
+                    <Text fontSize="md">
+                        {footerData.footerDescription}
+                    </Text>
+                </Flex>
+
+                {/* -------------------------------------------------------------------- */}
+                {/* Coluna da Direita: Seções de Links                                 */}
+                {/* -------------------------------------------------------------------- */}
+                <Flex
+                    direction={{ base: 'column', md: 'row' }}
+                    justifyContent={{ base: 'center', md: 'flex-end' }}
+                    alignItems={{ base: 'center', md: 'flex-start' }}
+                    flex={{ base: 'none', md: 2 }} // Ocupa o dobro do espaço da coluna esquerda
+                    gap={{ base: 8, md: 16 }}
+                    w={{ base: '100%', md: 'auto' }}
+                >
+                    {/* Links para Desktop: Visível apenas em telas maiores que 'sm' */}
+                    <Flex
+                        flexDir={'column'}
+                        textAlign={{ base: 'center', md: 'left' }}
+                        display={{ base: 'none', sm: 'flex' }}
+                    >
+                        <Heading as="h4" size="lg" mb={6} color={headingColor}>
+                            {footerData.guideHeading}
+                        </Heading>
+                        <Flex flexDir={{ base: 'column', md: 'row' }} gapX={{ base: 8, md: 16 }} gapY={{ base: 4, sm: 0 }}>
+
+                            {/* Coluna de Links: Consultoria */}
+                            <Flex flexDir={'column'} gap={3} align={{ base: 'center', md: 'flex-start' }}>
+                                {footerSections.consultoria.map((item, idx) => (
+                                    <Link key={item.label + idx} href={item.href} _hover={{ textDecoration: 'underline' }} color={textColor}>
+                                        {item.label}
+                                    </Link>
+                                ))}
+                            </Flex>
+
+                            {/* Coluna de Links: Tecnologia */}
+                            <Flex flexDir={'column'} gap={3} align={{ base: 'center', md: 'flex-start' }}>
+                                {footerSections.tecnologia.map((item, idx) => (
+                                    <Link key={item.label + idx} href={item.href} _hover={{ textDecoration: 'underline' }} color={textColor}>
+                                        {item.label}
+                                    </Link>
+                                ))}
+                            </Flex>
+
+                            {/* Coluna de Links: Empresa */}
+                            <Flex flexDir={'column'} gap={3} align={{ base: 'center', md: 'flex-start' }}>
+                                {footerSections.empresa.map((item, idx) => (
+                                    <Link key={item.label + idx} href={item.href} _hover={{ textDecoration: 'underline' }} color={textColor}>
+                                        {item.label}
+                                    </Link>
+                                ))}
+                            </Flex>
+
+                        </Flex>
+                    </Flex>
+
+                    {/* Links para Mobile: Renderiza um componente separado para a versão mobile (ex: Accordion) */}
+                    {/* <MobileFooterSection /> */}
+
+                </Flex>
+            </Flex>
         </Flex>
-    )
+    );
 }
