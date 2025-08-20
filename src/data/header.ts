@@ -5,15 +5,19 @@ export const headerData = {
     menu: [
         {
             title: 'Home',
+            href: "/"
         },
         {
             title: 'Sobre Nós',
+            href: "/sobre"
         },
         {
             title: 'Como Funciona',
+            href: "/como-funciona"
         },
         {
             title: 'Contato',
+            href: "/contato"
         }
     ]
 };
